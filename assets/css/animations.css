@@ -267,6 +267,8 @@ html {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    /* Fallback color for accessibility when CSS is disabled or gradients unsupported */
+    color: #49c8ff;
     animation: gradientShift 5s ease infinite;
 }
 
@@ -540,6 +542,8 @@ section {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    /* Fallback color for accessibility when CSS is disabled or gradients unsupported */
+    color: #004aad;
 }
 
 /* ===== Background Particles Effect ===== */

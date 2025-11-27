@@ -152,7 +152,9 @@
     function initParallaxEffect() {
         var parallaxElements = document.querySelectorAll('[data-parallax]');
         
-        if (!parallaxElements.length || /Mobile|Android/i.test(navigator.userAgent)) return;
+        // Use matchMedia for reliable touch device detection instead of user agent sniffing
+        var isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        if (!parallaxElements.length || isTouchDevice) return;
 
         window.addEventListener('scroll', function() {
             var scrolled = window.pageYOffset;
