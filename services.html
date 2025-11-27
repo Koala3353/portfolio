@@ -34,36 +34,55 @@
     <section class="py-5">
         <!-- Start: Features Cards -->
         <div class="container py-5">
-            <div class="row mb-4 mb-lg-5">
+            <div class="row mb-4 mb-lg-5 reveal" data-animate="fade-in">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
-                    <p class="fw-bold text-success mb-2"><span style="color: rgb(25, 153, 245);">Our Services</span></p>
+                    <p class="fw-bold gradient-text mb-2">Our Services</p>
                     <h3 class="fw-bold">What we can do for you</h3>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 1000px;">
-                <div class="col mb-5"><img class="rounded img-fluid shadow" src="assets/img/services/personalized.jpg"></div>
-                <div class="col d-md-flex align-items-md-end align-items-lg-center mb-5">
-                    <div>
-                        <h5 class="fw-bold">Personalized Solutions</h5>
-                        <p class="text-muted mb-4">The products we provide will be tailored to your precise specifications.</p><a class="btn btn-primary shadow" role="button" href="testimonials.html">View Testimonies</a>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto" style="max-width: 1200px;" data-stagger="200">
+                <div class="col">
+                    <div class="card h-100 shadow-sm service-card tilt-card">
+                        <div class="card-body px-4 py-5 px-md-4 bg-dark glass-card text-center" style="border-radius: 20px;">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon lg animate-float mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-gear">
+                                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                                </svg>
+                            </div>
+                            <h5 class="fw-bold card-title">Personalized Solutions</h5>
+                            <p class="text-muted card-text mb-4">The products we provide will be tailored to your precise specifications.</p>
+                            <a class="btn btn-primary shadow" role="button" href="testimonials.html">View Testimonies</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 1000px;">
-                <div class="col order-md-last mb-5"><img class="rounded img-fluid shadow" src="assets/img/services/support.jpg"></div>
-                <div class="col d-md-flex align-items-md-end align-items-lg-center mb-5">
-                    <div>
-                        <h5 class="fw-bold">Ongoing Support</h5>
-                        <p class="text-muted mb-4">Got a problem? No worries! Complimentary bug fixes and minor adjustments are on us!</p><a class="btn btn-primary shadow" role="button" href="contacts.html">Contact Us</a>
+                <div class="col">
+                    <div class="card h-100 shadow-sm service-card tilt-card">
+                        <div class="card-body px-4 py-5 px-md-4 bg-dark glass-card text-center" style="border-radius: 20px;">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon lg animate-float mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-headset">
+                                    <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5"/>
+                                </svg>
+                            </div>
+                            <h5 class="fw-bold card-title">Ongoing Support</h5>
+                            <p class="text-muted card-text mb-4">Got a problem? No worries! Complimentary bug fixes and minor adjustments are on us!</p>
+                            <a class="btn btn-primary shadow" role="button" href="contacts.html">Contact Us</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 1000px;">
-                <div class="col mb-5"><img class="rounded img-fluid shadow" src="assets/img/services/tech.jpg"></div>
-                <div class="col d-md-flex align-items-md-end align-items-lg-center mb-5">
-                    <div>
-                        <h5 class="fw-bold">Cutting-Edge Features</h5>
-                        <p class="text-muted mb-4">We always stay up to date with the latest features out there! We implement the latest Discord features like slash commands, context menus, buttons, threads, modals, and auto-complete to our products!</p><a class="btn btn-primary shadow" role="button" href="projects.html">View Previous Projects</a>
+                <div class="col">
+                    <div class="card h-100 shadow-sm service-card tilt-card">
+                        <div class="card-body px-4 py-5 px-md-4 bg-dark glass-card text-center" style="border-radius: 20px;">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon lg animate-float mx-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-rocket-takeoff">
+                                    <path d="M9.752 6.193c.599.6 1.73.437 2.528-.362s.96-1.932.362-2.531c-.599-.6-1.73-.438-2.528.361-.798.8-.96 1.933-.362 2.532"/>
+                                    <path d="M15.811 3.312c-.363 1.534-1.334 3.626-3.64 6.218l-.24 2.408a2.56 2.56 0 0 1-.732 1.526L8.817 15.85a.51.51 0 0 1-.867-.434l.27-1.899c.04-.28-.013-.593-.131-.956a9 9 0 0 0-.249-.657l-.082-.202c-.815-.197-1.578-.662-2.191-1.277-.614-.615-1.079-1.379-1.275-2.195l-.203-.083a10 10 0 0 0-.655-.248c-.363-.119-.675-.172-.955-.132l-1.896.27A.51.51 0 0 1 .15 7.17l2.382-2.386c.41-.41.947-.67 1.524-.734h.006l2.4-.238C9.005 1.55 11.087.582 12.623.208c.89-.217 1.59-.232 2.08-.188.244.023.435.06.572.104l.024.007.017.004.012.003.001.001a.5.5 0 0 1 .296.294l.001.001.003.011.004.017.006.024c.048.139.085.331.108.576.045.489.029 1.19-.188 2.079zM8.12 9.882a5 5 0 0 0-.334-.29c-.28-.228-.638-.437-1.07-.583a5 5 0 0 0-.29-.334C5.806 8.05 5.5 7.312 5.5 6.5c0-.807.33-1.456.818-1.962a4 4 0 0 0 .36-.359 5 5 0 0 0 .834.358 6.5 6.5 0 0 0 1.053 2.21 6.5 6.5 0 0 0 2.21 1.053 5 5 0 0 0 .358.834 4 4 0 0 0-.36.36c-.505.487-1.154.817-1.961.817-.81 0-1.55-.307-2.177-.93z"/>
+                                    <path d="M3.317 8.95a1.84 1.84 0 0 1-.68-.653 1 1 0 0 0-.088-.128l-.018-.014a.6.6 0 0 0-.217-.06c-.194-.021-.51.059-.878.29l-1.9 1.9a.5.5 0 0 0 .353.854h1.5a1 1 0 0 0 .707-.293l.93-.93zM7.05 12.683a1.84 1.84 0 0 1-.653-.68 1 1 0 0 0-.128-.088l-.014-.018a.6.6 0 0 0-.06-.217c-.021-.194.059-.51.29-.878l1.9-1.9a.5.5 0 0 0 .854.353v1.5a1 1 0 0 0-.293.707l-.93.93z"/>
+                                </svg>
+                            </div>
+                            <h5 class="fw-bold card-title">Cutting-Edge Features</h5>
+                            <p class="text-muted card-text mb-4">We implement the latest Discord features like slash commands, buttons, threads, modals, and auto-complete!</p>
+                            <a class="btn btn-primary shadow" role="button" href="projects.html">View Previous Projects</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,12 +191,12 @@
     </section><!-- Start: Banner Color -->
     <section class="py-4 py-xl-5">
         <div class="container">
-            <div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5">
+            <div class="text-white bg-primary border rounded border-0 border-primary d-flex flex-column justify-content-between flex-lg-row p-4 p-md-5" style="border-radius: 20px !important;">
                 <div class="pb-2 pb-lg-1">
                     <h2 class="fw-bold mb-2">Want to see more details?</h2>
-                    <p class="mb-0">Check our dedicated website for the services I provide! You can also from the website there.</p>
+                    <p class="mb-0">Check our dedicated website for the services I provide! You can also order from the website there.</p>
                 </div>
-                <div class="my-2"><a class="btn btn-light fs-5 py-2 px-4" role="button" href="https://koala3353.github.io/website-shop/" target="_blank">Website</a></div>
+                <div class="my-2 d-flex align-items-center"><a class="btn btn-light fs-5 py-2 px-4" role="button" href="https://koala3353.github.io/klickncode/" target="_blank">Visit KlickNCode</a></div>
             </div>
         </div>
     </section><!-- End: Banner Color -->
