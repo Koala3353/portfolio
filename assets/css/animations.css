@@ -664,3 +664,108 @@ body.custom-cursor-active .btn {
         display: none !important;
     }
 }
+
+/* ===== Dark Theme Body Styles ===== */
+[data-bs-theme="dark"] body,
+body {
+    background: linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #0a0a1a 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+/* Ensure all sections have proper dark background */
+section {
+    background-color: transparent;
+}
+
+/* Section with light background override to dark */
+[data-bs-theme="dark"] section:not(.bg-dark):not(.particles-bg) {
+    background-color: #0d1b2a;
+}
+
+/* Cards with proper dark styling */
+[data-bs-theme="dark"] .card {
+    background-color: #1a2332;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+[data-bs-theme="dark"] .card-title,
+[data-bs-theme="dark"] .card-subtitle {
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .card-text {
+    color: #b0b0b0;
+}
+
+[data-bs-theme="dark"] .card-footer {
+    background-color: #1a2332;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Text color fixes for dark theme */
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] h3,
+[data-bs-theme="dark"] h4,
+[data-bs-theme="dark"] h5,
+[data-bs-theme="dark"] h6 {
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] p {
+    color: #c0c0c0;
+}
+
+[data-bs-theme="dark"] .text-muted {
+    color: #a0a0a0 !important;
+}
+
+/* Dark theme for non-dark sections */
+[data-bs-theme="dark"] .photo-gallery {
+    background-color: #0d1b2a;
+}
+
+/* Fix progress bars */
+[data-bs-theme="dark"] .progress {
+    background-color: #1a2332;
+}
+
+/* Fix for card body backgrounds */
+[data-bs-theme="dark"] .card-body.bg-dark {
+    background-color: #1a2332;
+}
+
+/* Ensure all bg-dark sections are consistent */
+[data-bs-theme="dark"] .bg-dark {
+    background-color: #0a0a1a !important;
+}
+
+/* Fix navbar background */
+[data-bs-theme="dark"] #mainNav {
+    background: linear-gradient(180deg, rgba(10, 10, 26, 0.98) 0%, rgba(13, 27, 42, 0.95) 100%) !important;
+}
+
+/* Fix footer */
+[data-bs-theme="dark"] footer.bg-dark {
+    background-color: #0a0a1a !important;
+}
+
+/* Fix links in dark theme */
+[data-bs-theme="dark"] footer a {
+    color: #b0b0b0;
+}
+
+[data-bs-theme="dark"] footer a:hover {
+    color: #49c8ff !important;
+}
+
+/* Fix list items */
+[data-bs-theme="dark"] .list-unstyled li a {
+    color: #b0b0b0;
+}
+
+[data-bs-theme="dark"] .list-unstyled li a:hover {
+    color: #49c8ff !important;
+}
