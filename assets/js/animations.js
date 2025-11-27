@@ -291,23 +291,24 @@
         var cursorX = 0;
         var cursorY = 0;
 
-        // Track mouse position
+        // Track mouse position - update both immediately for snappy feel
         document.addEventListener('mousemove', function(e) {
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            // Update dot position immediately
+            // Update dot position immediately (no lag)
             cursorDot.style.left = mouseX + 'px';
             cursorDot.style.top = mouseY + 'px';
         });
 
-        // Smooth cursor animation
+        // Faster cursor animation for less laggy feel
         function animateCursor() {
             var dx = mouseX - cursorX;
             var dy = mouseY - cursorY;
             
-            cursorX += dx * 0.15;
-            cursorY += dy * 0.15;
+            // Increased from 0.15 to 0.35 for faster response
+            cursorX += dx * 0.35;
+            cursorY += dy * 0.35;
             
             cursor.style.left = cursorX + 'px';
             cursor.style.top = cursorY + 'px';
