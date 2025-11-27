@@ -664,3 +664,102 @@ body.custom-cursor-active .btn {
         display: none !important;
     }
 }
+
+/* ===== Dark Theme Body Styles ===== */
+body {
+    background: linear-gradient(180deg, #0a0a1a 0%, #0d1b2a 50%, #0a0a1a 100%) !important;
+    background-attachment: fixed;
+    color: #e0e0e0 !important;
+    min-height: 100vh;
+}
+
+/* Ensure all sections have proper dark background */
+section {
+    background-color: transparent;
+}
+
+/* Section with light background override to dark */
+section:not(.bg-dark):not(.particles-bg) {
+    background-color: #0d1b2a !important;
+}
+
+/* Cards with proper dark styling */
+.card {
+    background-color: #1a2332 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #e0e0e0 !important;
+}
+
+.card-title, .card-subtitle {
+    color: #ffffff !important;
+}
+
+.card-text {
+    color: #b0b0b0 !important;
+}
+
+.card-footer {
+    background-color: #1a2332 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Text color fixes for dark theme */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+}
+
+p {
+    color: #c0c0c0;
+}
+
+.text-muted {
+    color: #a0a0a0 !important;
+}
+
+/* Dark theme for non-dark sections */
+.photo-gallery {
+    background-color: #0d1b2a !important;
+}
+
+/* Fix progress bars */
+.progress {
+    background-color: #1a2332 !important;
+}
+
+/* Fix for card body backgrounds */
+.card-body.bg-dark {
+    background-color: #1a2332 !important;
+}
+
+/* Ensure all bg-dark sections are consistent */
+.bg-dark {
+    background-color: #0a0a1a !important;
+}
+
+/* Fix navbar background */
+#mainNav {
+    background: linear-gradient(180deg, rgba(10, 10, 26, 0.98) 0%, rgba(13, 27, 42, 0.95) 100%) !important;
+}
+
+/* Fix footer */
+footer.bg-dark {
+    background-color: #0a0a1a !important;
+}
+
+/* Fix links in dark theme */
+footer a {
+    color: #b0b0b0;
+}
+
+footer a:hover {
+    color: #49c8ff !important;
+}
+
+/* Fix list items */
+.list-unstyled li a {
+    color: #b0b0b0;
+}
+
+.list-unstyled li a:hover {
+    color: #49c8ff !important;
+}
