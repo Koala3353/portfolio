@@ -577,6 +577,78 @@ section {
     }
 }
 
+/* ===== Custom Cursor ===== */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #49c8ff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease-out, background-color 0.2s ease, border-color 0.2s ease;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+
+.custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: #49c8ff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: transform 0.05s ease-out;
+}
+
+.custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background-color: rgba(73, 200, 255, 0.2);
+    border-color: #004aad;
+}
+
+.custom-cursor.clicking {
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: rgba(0, 74, 173, 0.4);
+}
+
+/* Hide default cursor when custom cursor is active */
+body.custom-cursor-active {
+    cursor: none;
+}
+
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active input,
+body.custom-cursor-active textarea,
+body.custom-cursor-active [role="button"],
+body.custom-cursor-active .btn {
+    cursor: none;
+}
+
+/* Disable custom cursor on touch devices */
+@media (pointer: coarse) {
+    .custom-cursor,
+    .custom-cursor-dot {
+        display: none !important;
+    }
+    
+    body.custom-cursor-active {
+        cursor: auto;
+    }
+    
+    body.custom-cursor-active a,
+    body.custom-cursor-active button,
+    body.custom-cursor-active input,
+    body.custom-cursor-active textarea,
+    body.custom-cursor-active [role="button"],
+    body.custom-cursor-active .btn {
+        cursor: auto;
+    }
+}
+
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -585,5 +657,10 @@ section {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+    
+    .custom-cursor,
+    .custom-cursor-dot {
+        display: none !important;
     }
 }

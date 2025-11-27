@@ -268,6 +268,85 @@
         });
     }
 
+    // ===== Custom Cursor =====
+    function initCustomCursor() {
+        // Check if it's a touch device
+        var isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        if (isTouchDevice) return;
+
+        // Create cursor elements
+        var cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
+
+        var cursorDot = document.createElement('div');
+        cursorDot.className = 'custom-cursor-dot';
+        document.body.appendChild(cursorDot);
+
+        // Add class to body
+        document.body.classList.add('custom-cursor-active');
+
+        var mouseX = 0;
+        var mouseY = 0;
+        var cursorX = 0;
+        var cursorY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Update dot position immediately
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        // Smooth cursor animation
+        function animateCursor() {
+            var dx = mouseX - cursorX;
+            var dy = mouseY - cursorY;
+            
+            cursorX += dx * 0.15;
+            cursorY += dy * 0.15;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Add hover effect for interactive elements
+        var interactiveElements = document.querySelectorAll('a, button, input, textarea, [role="button"], .btn, .nav-link, .card');
+        
+        interactiveElements.forEach(function(el) {
+            el.addEventListener('mouseenter', function() {
+                cursor.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', function() {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Add clicking effect
+        document.addEventListener('mousedown', function() {
+            cursor.classList.add('clicking');
+        });
+        document.addEventListener('mouseup', function() {
+            cursor.classList.remove('clicking');
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', function() {
+            cursor.style.opacity = '0';
+            cursorDot.style.opacity = '0';
+        });
+        document.addEventListener('mouseenter', function() {
+            cursor.style.opacity = '1';
+            cursorDot.style.opacity = '1';
+        });
+    }
+
     // ===== Initialize All Effects =====
     function init() {
         // Wait for DOM to be ready
@@ -288,6 +367,7 @@
         initMagneticButtons();
         initProgressBars();
         initCardTilt();
+        initCustomCursor();
         
         // Add loaded class to body for initial animations
         document.body.classList.add('page-loaded');
