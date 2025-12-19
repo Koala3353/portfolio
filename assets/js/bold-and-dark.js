@@ -1,8 +1,8 @@
-(function() {
+(function () {
   "use strict"; // Start of use strict
 
   function initParallax() {
-
+    return; // Disabled for performance
     if (!('requestAnimationFrame' in window)) return;
     if (/Mobile|Android/.test(navigator.userAgent)) return;
 

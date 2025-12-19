@@ -45,6 +45,7 @@ body.page-loading {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -56,6 +57,7 @@ body.page-loading {
         opacity: 0;
         transform: translateX(-50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -67,6 +69,7 @@ body.page-loading {
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -78,6 +81,7 @@ body.page-loading {
         opacity: 0;
         transform: translateY(50px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -89,6 +93,7 @@ body.page-loading {
         opacity: 0;
         transform: translateY(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -101,6 +106,7 @@ body.page-loading {
         opacity: 0;
         transform: scale(0.8);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -108,18 +114,24 @@ body.page-loading {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -130,9 +142,11 @@ body.page-loading {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -140,9 +154,12 @@ body.page-loading {
 
 /* ===== Glow Animation ===== */
 @keyframes glow {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 0 20px rgba(0, 74, 173, 0.4);
     }
+
     50% {
         box-shadow: 0 0 40px rgba(73, 200, 255, 0.6);
     }
@@ -153,15 +170,19 @@ body.page-loading {
     from {
         width: 0;
     }
+
     to {
         width: 100%;
     }
 }
 
 @keyframes blink {
-    0%, 100% {
+
+    0%,
+    100% {
         border-color: transparent;
     }
+
     50% {
         border-color: #fff;
     }
@@ -205,12 +226,29 @@ body.page-loading {
 }
 
 /* ===== Stagger Animations ===== */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
-.stagger-6 { animation-delay: 0.6s; }
+.stagger-1 {
+    animation-delay: 0.1s;
+}
+
+.stagger-2 {
+    animation-delay: 0.2s;
+}
+
+.stagger-3 {
+    animation-delay: 0.3s;
+}
+
+.stagger-4 {
+    animation-delay: 0.4s;
+}
+
+.stagger-5 {
+    animation-delay: 0.5s;
+}
+
+.stagger-6 {
+    animation-delay: 0.6s;
+}
 
 /* ===== Enhanced Navbar ===== */
 #mainNav {
@@ -219,6 +257,11 @@ body.page-loading {
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--glass-border);
     transition: all 0.3s var(--transition-smooth);
+}
+
+#mainNav .dropdown-menu {
+    background: linear-gradient(180deg, rgba(3, 7, 18, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+    border: 1px solid var(--glass-border);
 }
 
 #mainNav.scrolled {
@@ -296,8 +339,8 @@ body.page-loading {
 /* ===== Glass Morphism Cards ===== */
 .glass-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    /* backdrop-filter: blur(20px); Disabled for performance */
+    /* -webkit-backdrop-filter: blur(20px); Disabled for performance */
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     transition: all 0.3s var(--transition-smooth);
@@ -583,16 +626,17 @@ section {
     background-image: radial-gradient(circle, rgba(6, 182, 212, 0.08) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
-    animation: float 25s linear infinite;
+    /* animation: float 25s linear infinite; Disabled for performance */
 }
 
 /* ===== Responsive Adjustments ===== */
 @media (max-width: 768px) {
+
     .animate-fade-in-left,
     .animate-fade-in-right {
         animation: fadeInUp 0.8s var(--transition-smooth) forwards;
     }
-    
+
     .glass-card:hover,
     .card:hover {
         transform: translateY(-4px);
@@ -658,15 +702,16 @@ body.custom-cursor-active .btn {
 
 /* Disable custom cursor on touch devices */
 @media (pointer: coarse) {
+
     .custom-cursor,
     .custom-cursor-dot {
         display: none !important;
     }
-    
+
     body.custom-cursor-active {
         cursor: auto;
     }
-    
+
     body.custom-cursor-active a,
     body.custom-cursor-active button,
     body.custom-cursor-active input,
@@ -679,6 +724,7 @@ body.custom-cursor-active .btn {
 
 /* ===== Reduced Motion ===== */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -686,7 +732,7 @@ body.custom-cursor-active .btn {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    
+
     .custom-cursor,
     .custom-cursor-dot {
         display: none !important;
