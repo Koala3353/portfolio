@@ -1,68 +1,44 @@
-# Portfolio Website 
-Welcome! This repository houses the source code for my personal website portfolio. It showcases my work, skills, and professional achievements. Built with Bootstrap for a responsive and modern design.
+# Keene Xander Brigado — Portfolio
 
-## Home Page
+Personal portfolio of **Keene Xander Brigado**, a BS Management Engineering student at Ateneo de Manila University working at the intersection of **operations, analytics, and strategy**. Built as a static site with Bootstrap 5.3 and deployed on GitHub Pages.
 
-The landing page provides an overview of who I am and the services I provide.
+🔗 Live: https://koala3353.github.io/portfolio/
 
-## Services
+## Pages
 
-### Discord Bot
+- **Home** (`index.html`) — Snapshot of who I am, headline metrics, featured work, and honors.
+- **About** (`about.html`) — Professional profile, core competencies, and tools & platforms.
+- **Experience** (`experience.html`) — Full work history (Ritual Matcha, GoRocky, Amada, Primer Group, and more), leadership roles, and education.
+- **Projects** (`projects.html`) — A year-by-year archive of 30+ things I've built, from operations platforms to hackathon widgets.
+- **Achievements** (`achievements.html`) — Case competitions (L'Oréal Brandstorm, Nestlé ACTS), academic honors, certifications, and competition wins.
+- **More** — `services.html` (for recruiters), `testimonials.html`, `contacts.html`, `cv.html`.
 
-I specialize in creating custom Discord bots to automate community management and add functionalities to Discord servers.
+## Highlights
 
-### Web Development
+- 🥇 **Top 24 of 5,000+** — L'Oréal Brandstorm Philippines 2026 (National Semifinalist)
+- 🏅 **Top 25 Semi-Finalist** — Nestlé ACTS 2025
+- 🤖 **1st Place** FLL Philippines 2024 · **7th of 50** FLL Open European Championship (Norway)
+- 🎓 Academic Scholar — Director's List (Top 150 ACET) & Dean's List · QPI 3.67
+- 📜 McKinsey Forward Program · Power BI Data Analyst (PL-300) · Lean Six Sigma White Belt
 
-Offering comprehensive web development services including front-end, back-end, responsive design, and maintenance.
+## Tech
 
-## Projects
+- HTML5 + [Bootstrap 5.3](https://getbootstrap.com/) (dark theme)
+- Custom CSS (`assets/css/`) — navy/gold consulting theme, glass-card components, scroll-reveal animations
+- Vanilla JS (`assets/js/`) — scroll animations, counters, duration badges
+- Google Fonts (Inter)
 
-### GitHub Projects
+## Local Development
 
-A curated selection of my open-source contributions and personal projects. [Link to see more](https://github.com/Koala3353).
+No build step required — it's a static site. Clone and open `index.html`, or serve locally:
 
-## About Me
+```bash
+python3 -m http.server 8000
+# then visit http://localhost:8000
+```
 
-Learn more about my journey, interests, and what drives me to excel in the field of programming and web development.
+## Contact
 
-## Programming Stats
-
-A breakdown of my programming skills, including a detailed list of languages and tools I'm proficient in.
-
-## Languages
-
-- JavaScript
-- Python
-- Java
-- HTML/CSS
-- C++
-
-## Database Knowledge
-
-### MongoDB
-
-Experienced in leveraging MongoDB for scalable web and app development.
-
-### SQLite
-
-Utilized SQLite for lightweight data storage in various projects.
-
-### Airtable
-
-Familiar with employing Airtable for project management and light database tasks.
-
-## Achievements
-
-A list of my accolades and awards from various coding contests and hackathons.
-
-## Education & Work Experience
-
-I will be adding detailed insights about my educational background and my professional journey soon. Stay tuned!
-
-## Contact Me
-
-Feel free to reach out to me for collaboration, inquiries, or just a friendly chat.
-
-## Testimonials
-
-Hear what others have to say about my work ethic, project delivery, and overall professionalism.
+- ✉️ brigadokeene@gmail.com
+- 💼 [linkedin.com/in/keene-brigado](https://www.linkedin.com/in/keene-brigado/)
+- 💻 [github.com/Koala3353](https://github.com/Koala3353)
