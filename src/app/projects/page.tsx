@@ -29,10 +29,10 @@ const yearGroups: YearGroup[] = [
     label: "CURRENT YEAR",
     subtitle: "Building full-stack applications and expanding into financial modeling and growth analytics.",
     projects: [
-      { title: "Budge", description: "A personal budgeting web app built because existing finance apps had terrible UX. Clean interface for tracking expenses and income with real-time insights — no clutter, no subscriptions.", github: "https://github.com/Koala3353/budge", category: "Web" },
-      { title: "Poker Chips Tracker", description: "A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play — no scrolling, no distractions. Made because no existing app got the UX right.", github: "https://github.com/Koala3353/poker-chips-tracker", category: "Web" },
-      { title: "Proof of Purchase API", description: "Upload a receipt image → get back the transaction number, amount, time, and confidence score as structured JSON.", github: "https://github.com/Koala3353/pop-api", category: "AI" },
-      { title: "POP Portal", description: "Automated payment verification system for Ateneo student organizations, cross-checking GCash, Maya, and BDO receipt screenshots against official transaction history.", github: "https://github.com/Koala3353/pop-portal", category: "Web" },
+      { title: "Budge", description: "A personal budgeting web app built because existing finance apps had terrible UX. Clean interface for tracking expenses and income with real-time insights — no clutter, no subscriptions.", github: "https://github.com/Koala3353/budge", preview: "https://koala3353.github.io/budge/", category: "Web" },
+      { title: "Poker Chips Tracker", description: "A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play — no scrolling, no distractions. Made because no existing app got the UX right.", github: "https://github.com/Koala3353/poker-chips-tracker", preview: "https://koala3353.github.io/poker-chips-tracker/", category: "Web" },
+      { title: "Proof of Purchase API", description: "Upload a receipt image → get back the transaction number, amount, time, and confidence score as structured JSON.", github: "https://github.com/Koala3353/pop-api", preview: "https://pop-api-mocha.vercel.app/docs", category: "AI" },
+      { title: "POP Portal", description: "Automated payment verification system for Ateneo student organizations, cross-checking GCash, Maya, and BDO receipt screenshots against official transaction history.", github: "https://github.com/Koala3353/pop-portal", preview: "https://koala3353.github.io/pop-portal/", category: "Web" },
     ],
   },
   {
