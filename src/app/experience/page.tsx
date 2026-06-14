@@ -122,43 +122,65 @@ interface LeadershipEntry {
   org: string;
   role: string;
   period: string;
-  description: string;
+  bullets: string[];
+  skills: string[];
 }
 
 const leadershipEntries: LeadershipEntry[] = [
   {
     org: "Ateneo Celadon",
-    role: "Jr. Analyst, OSR Department",
-    period: "Sep 2025 – Present",
-    description:
-      "Strategy research, data analytics, authored sustainability reports.",
+    role: "Junior Analyst, Organization Strategies & Research Department",
+    period: "Sep 2025 – Jun 2026",
+    bullets: [
+      "Oversees Celadon’s overall welfare by spearheading various research and evaluations.",
+      "Served as the custodian of all files and forwards information and recommendations to the succeeding Executive Board.",
+      "Acted as an internal strategy consultant for two key organizational projects, conducting comprehensive audits of operational processes and social impact.",
+      "Authored data-driven sustainability reports, synthesizing quantitative and qualitative feedback to evaluate project success and recommend improvements for future iterations."
+    ],
+    skills: ["Team Collaboration", "Data Analytics", "Strategy Consulting"]
   },
   {
     org: "Ateneo Celadon",
-    role: "Recruitment Core + OSR Analyst, Celaball '26",
-    period: "Sep 2025 – Present",
-    description: "",
+    role: "Recruitment & Secretariat Core + OSR Analyst, Celaball '26",
+    period: "Sep 2025 – Jun 2026",
+    bullets: [
+      "Spearheaded event logistics by designing and deploying a centralized table reservation system in Google Workspace, successfully streamlining seat allocation for 70+ attendees.",
+      "Managed core documentation and compliance by developing and distributing essential event forms, including parental consent and registration, ensuring strict adherence to organizational guidelines."
+    ],
+    skills: ["Data Analytics", "Google Apps Script"]
   },
   {
     org: "Ateneo Celadon",
     role: "Operations Core + OSR Analyst, Rose Sale '26",
     period: "Sep 2025 – Mar 2026",
-    description:
-      "Engineered full-stack e-commerce website serving 850 users.",
+    bullets: [
+      "Engineered a full-stack e-commerce website with real-time Google Sheets integration (replacing legacy Google Forms), serving 850~ unique users.",
+      "Developed an automated Delivery Portal using Google Apps Script to manage end-to-end fulfillment, increasing delivery volume by 35% and eliminating manual data entry for runners.",
+      "Authored a comprehensive project audit report, providing data-driven recommendations to optimize resource allocation and operational efficiency for future project iterations."
+    ],
+    skills: ["Web Development", "Team Collaboration", "Process Automation", "Google Apps Script"]
   },
   {
     org: "Ateneo Gabay",
-    role: "Logistics Head, 16th Scholars' Week",
+    role: "Logistics Head, 16th Scholars’ Week",
     period: "Nov 2025 – Apr 2026",
-    description:
-      "Spearheaded logistics for 5 events, 304 attendees.",
+    bullets: [
+      "Spearheaded end-to-end logistics and technical execution for five campus-wide events serving 304 total attendees, including a 118-person flagship gathering night.",
+      "Lead the logistics core team in event execution and contingency planning to ensure seamless operations.",
+      "Managed venue procurement and independently operated a 5-hour light and sound system during peak sessions to ensure 100% operational continuity and zero technical downtime."
+    ],
+    skills: ["Logistics Management", "Team Collaboration", "Event Execution"]
   },
   {
     org: "SOBO (Student Venture)",
-    role: "Co-Founder",
+    role: "Co-Founder & Student Entrepreneur",
     period: "Apr 2024",
-    description: "Generated PHP 50,000 net profit in 72 hours.",
-  },
+    bullets: [
+      "Launched and managed a rapid-turnover retail venture, generating PHP 50,000 net profit in 72 hours.",
+      "Oversaw end-to-end supply chain logistics, forecasting demand to minimize food waste and optimize inventory turnover during peak sales period."
+    ],
+    skills: ["Entrepreneurship", "Supply Chain Logistics", "Financial Forecasting"]
+  }
 ];
 
 interface EducationEntry {
@@ -458,7 +480,7 @@ export default function ExperiencePage() {
             accent="Impact"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="flex flex-col gap-6">
             {leadershipEntries.map((entry, i) => (
               <motion.div
                 key={`${entry.role}-${entry.period}`}
@@ -467,25 +489,44 @@ export default function ExperiencePage() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                className="glass-card rounded-2xl p-6 hover:border-white/15 transition-colors"
+                className="glass-card rounded-2xl p-8 hover:border-white/15 transition-colors"
               >
-                <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-6">
                   <div>
-                    <h3 className="font-semibold text-sm text-foreground">
+                    <h3 className="font-bold text-xl text-foreground mb-1">
                       {entry.role}
                     </h3>
-                    <p className="text-accent text-xs font-medium mt-0.5">
+                    <p className="text-accent text-sm font-medium">
                       {entry.org}
                     </p>
                   </div>
-                  <span className="text-[11px] text-muted font-mono whitespace-nowrap mt-0.5">
+                  <span className="text-xs font-mono text-muted/60 whitespace-nowrap bg-white/5 px-3 py-1.5 rounded-md shrink-0 border border-white/5">
                     {entry.period}
                   </span>
                 </div>
-                {entry.description && (
-                  <p className="text-sm text-foreground/60 leading-relaxed">
-                    {entry.description}
-                  </p>
+                
+                {entry.bullets && entry.bullets.length > 0 && (
+                  <ul className="space-y-3 mb-8">
+                    {entry.bullets.map((bullet, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <span className="text-accent mt-1.5 text-xs">▹</span>
+                        <span className="text-muted text-sm md:text-base leading-relaxed">{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {entry.skills && entry.skills.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-6 border-t border-white/5 mt-auto">
+                    {entry.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-[10px] md:text-xs px-3 py-1 rounded-md bg-white/5 border border-white/10 text-muted/80"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 )}
               </motion.div>
             ))}
