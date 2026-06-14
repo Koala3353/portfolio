@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Electric Violet + Cyan Palette ── */
+  --background: #050507;
+  --foreground: #f0f0f3;
+  --muted: #8b8b9e;
+  --card: #12121a;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --accent-secondary: #06b6d4;
+  --accent-glow: rgba(139, 92, 246, 0.4);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-glow: var(--accent-glow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ── */
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: rgba(139, 92, 246, 0.25) transparent;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (pointer: fine) {
+  html, body, *, a, button {
+    cursor: none !important;
+  }
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-space), var(--font-inter), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(2.25rem, 1.2rem + 5.5vw, 5rem); line-height: 1.05; }
+h2 { font-size: clamp(1.5rem, 0.8rem + 3.5vw, 3rem); line-height: 1.15; }
+h3 { font-size: clamp(1.125rem, 0.6rem + 2vw, 1.75rem); line-height: 1.25; }
+
+/* ── Glassmorphism ── */
+@utility glass-card {
+  background: rgba(18, 18, 26, 0.65);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+@utility glass-panel {
+  background: rgba(5, 5, 7, 0.6);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@utility glass-nav {
+  background: rgba(5, 5, 7, 0.75);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* ── Text Effects ── */
+@utility text-glow {
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.1);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glow Effects ── */
+@utility glow-accent {
+  box-shadow:
+    0 0 20px rgba(139, 92, 246, 0.15),
+    0 0 60px rgba(139, 92, 246, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+@utility glow-border {
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: inset 0 0 20px rgba(139, 92, 246, 0.05);
+}
+
+/* ── Spacing ── */
+@utility section-padding {
+  padding-top: clamp(3rem, 6vw, 6rem);
+  padding-bottom: clamp(3rem, 6vw, 6rem);
+}
+
+@utility page-top {
+  padding-top: clamp(7rem, 12vw, 12rem);
+}
+
+/* ── Grain Overlay ── */
+@utility grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+}
+
+/* ── Animated Border Gradient ── */
+@keyframes border-spin {
+  0% { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+@utility animated-border {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
