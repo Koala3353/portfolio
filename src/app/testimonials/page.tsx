@@ -104,7 +104,7 @@ export default function TestimonialsPage() {
             What People Say
           </p>
           <h1 className="font-bold tracking-tight text-glow mb-4">
-            Testi<span className="text-muted">monials</span>
+            Testimonials
           </h1>
           <p className="text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
             Recommendations from clients and supervisors who&apos;ve seen the
