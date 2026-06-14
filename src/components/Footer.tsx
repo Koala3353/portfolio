@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const footerLinks = {
   explore: [
@@ -17,8 +20,8 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 mt-auto">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+    <footer className="border-t border-white/5 mt-auto overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 py-12 relative">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
@@ -84,8 +87,29 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/5 pt-6">
+        <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs text-muted">© 2026 Keene Xander Brigado</p>
+          
+          <motion.div
+            animate={{ 
+              x: [0, 15, 0, -15, 0],
+              rotate: [0, 10, 0, -10, 0]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 4, 
+              ease: "easeInOut" 
+            }}
+            className="flex"
+          >
+            <Link 
+              href="/snake" 
+              className="text-xl grayscale opacity-40 hover:grayscale-0 hover:opacity-100 hover:scale-125 transition-all duration-300"
+              title="Don't step on snek"
+            >
+              🐍
+            </Link>
+          </motion.div>
         </div>
       </div>
     </footer>
