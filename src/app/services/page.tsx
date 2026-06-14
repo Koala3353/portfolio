@@ -331,14 +331,13 @@ export default function ServicesPage() {
                 viewport={{ once: true, margin: "-80px" }}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
-                <a
-                  href="/BRIGADO-Resume.pdf"
-                  download
+                <Link
+                  href="/cv"
                   className="px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors flex items-center justify-center gap-2"
                 >
                   <Download className="w-4 h-4" />
-                  Download Résumé
-                </a>
+                  View Résumé
+                </Link>
                 <Link
                   href="/contact"
                   className="px-6 py-3 bg-white/5 border border-white/10 text-foreground font-medium rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center gap-2"

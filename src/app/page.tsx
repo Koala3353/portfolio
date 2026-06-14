@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 import FloatingOrbs from "@/components/FloatingOrbs";
 import TextReveal from "@/components/TextReveal";
 import TiltCard from "@/components/TiltCard";
@@ -125,17 +125,24 @@ export default function HomePage() {
           style={{ y: heroY, opacity: heroOpacity, willChange: "transform, opacity" }}
           className="relative z-10 text-center max-w-5xl"
         >
-          {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="mb-6"
+            className="mb-8 flex justify-center"
             style={{ willChange: "transform, opacity" }}
           >
-            <span className="inline-block px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-accent border border-accent/20 rounded-full bg-accent/5">
-              Portfolio 2026
-            </span>
+            <Link 
+              href="/services" 
+              className="group inline-flex items-center gap-2 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent border border-accent/20 rounded-full bg-accent/5 hover:bg-accent/15 transition-all shadow-lg shadow-accent/5"
+            >
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+              </span>
+              Hiring? View Recruiter Hub
+              <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </motion.div>
 
           {/* Main headline with character reveal */}

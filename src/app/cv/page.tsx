@@ -15,7 +15,7 @@ export default function CVPage() {
         {/* PDF Embed (Browser Built-in Preview) */}
         <div className="flex-grow w-full h-[75vh] md:h-[85vh] glass-card rounded-xl p-1 md:p-2 mb-8 shadow-2xl">
           <iframe
-            src="/BRIGADO-Resume.pdf"
+            src="/resume.pdf"
             className="w-full h-full rounded-lg border border-white/5"
             title="Keene Xander Brigado — Résumé"
           />
@@ -27,7 +27,7 @@ export default function CVPage() {
             Viewing via built-in browser preview.
           </p>
           <a
-            href="/BRIGADO-Resume.pdf"
+            href="/resume.pdf"
             download
             className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors shadow-lg glow-accent"
           >
