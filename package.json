@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "curl -o public/resume.pdf -L https://raw.githubusercontent.com/Koala3353/Koala3353/main/BRIGADO-Resume.pdf",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
