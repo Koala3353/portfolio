@@ -19,6 +19,11 @@ export default function SnakeGame() {
 
   const directionRef = useRef(direction);
   
+  // Joystick State
+  const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 });
+  const joystickBaseRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+
   // Track high score in local storage if possible
   const [highScore, setHighScore] = useState(0);
 
@@ -152,6 +157,46 @@ export default function SnakeGame() {
     });
   };
 
+  const handleJoystickMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging.current || !joystickBaseRef.current) return;
+    
+    const rect = joystickBaseRef.current.getBoundingClientRect();
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    let x = e.clientX - rect.left - centerX;
+    let y = e.clientY - rect.top - centerY;
+    
+    const radius = rect.width / 2;
+    const distance = Math.sqrt(x * x + y * y);
+    if (distance > radius) {
+      x = (x / distance) * radius;
+      y = (y / distance) * radius;
+    }
+    
+    setJoystickPos({ x, y });
+    
+    if (distance > 15) { // Deadzone threshold
+      const angle = Math.atan2(y, x);
+      const currentDir = directionRef.current;
+      
+      if (angle > -Math.PI/4 && angle <= Math.PI/4) {
+        if (currentDir.x !== -1) directionRef.current = { x: 1, y: 0 }; // Right
+      } else if (angle > Math.PI/4 && angle <= 3*Math.PI/4) {
+        if (currentDir.y !== -1) directionRef.current = { x: 0, y: 1 }; // Down
+      } else if (angle > -3*Math.PI/4 && angle <= -Math.PI/4) {
+        if (currentDir.y !== 1) directionRef.current = { x: 0, y: -1 }; // Up
+      } else {
+        if (currentDir.x !== 1) directionRef.current = { x: -1, y: 0 }; // Left
+      }
+    }
+  }, []);
+
+  const handleJoystickEnd = useCallback(() => {
+    isDragging.current = false;
+    setJoystickPos({ x: 0, y: 0 }); // Snap back to center
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center font-mono">
       {/* Score Board */}
@@ -226,9 +271,36 @@ export default function SnakeGame() {
         )}
       </div>
       
-      {/* Mobile Controls Hint */}
-      <p className="mt-6 text-xs text-muted/60 max-w-[300px] text-center">
-        Note: Best played on a desktop keyboard. If you are on mobile, an external keyboard is required to play.
+      {/* Mobile Joystick (Only visible on md:hidden) */}
+      <div className="md:hidden mt-8 flex flex-col items-center">
+        <p className="text-xs text-muted mb-4 uppercase tracking-widest">Virtual Joystick</p>
+        <div 
+          ref={joystickBaseRef}
+          onPointerDown={(e) => {
+            if (!isPlaying && !gameOver) resetGame();
+            isDragging.current = true;
+            handleJoystickMove(e);
+            (e.target as HTMLElement).setPointerCapture(e.pointerId);
+          }}
+          onPointerMove={handleJoystickMove}
+          onPointerUp={(e) => {
+            handleJoystickEnd();
+            (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+          }}
+          onPointerCancel={handleJoystickEnd}
+          className="w-32 h-32 rounded-full bg-white/5 border border-white/10 relative flex items-center justify-center touch-none shadow-inner"
+        >
+          <motion.div 
+            animate={{ x: joystickPos.x, y: joystickPos.y }}
+            transition={{ type: "spring", stiffness: 500, damping: 30, mass: 0.5 }}
+            className="w-12 h-12 rounded-full bg-accent shadow-[0_0_15px_rgba(255,255,255,0.2)] absolute pointer-events-none"
+          />
+        </div>
+      </div>
+
+      {/* Desktop Controls Hint */}
+      <p className="hidden md:block mt-6 text-xs text-muted/60 max-w-[300px] text-center">
+        Use Arrow Keys or WASD to move.
       </p>
     </div>
   );

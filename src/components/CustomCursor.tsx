@@ -31,7 +31,7 @@ export default function CustomCursor() {
     <>
       {/* Small dot (follows cursor exactly) */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 rounded-full bg-accent pointer-events-none z-[9999]"
+        className="hidden md:block fixed top-0 left-0 w-3 h-3 rounded-full bg-accent pointer-events-none z-[9999]"
         style={{
           x: cursorX,
           y: cursorY,
