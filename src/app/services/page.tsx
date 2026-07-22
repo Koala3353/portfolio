@@ -76,7 +76,7 @@ const services = [
       "AI-assisted code generation",
       "Prompt engineering & optimization",
     ],
-    accent: "from-purple-500/20 to-purple-500/5",
+    accent: "from-blue-500/20 to-blue-500/5",
   },
 ];
 

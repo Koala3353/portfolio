@@ -7,7 +7,7 @@ export default function FloatingOrbs({ opacity = 0.5 }: { opacity?: number }) {
       style={{ opacity }}
       aria-hidden="true"
     >
-      {/* Primary violet orb */}
+      {/* Primary blue orb */}
       <div
         className="absolute rounded-full"
         style={{
@@ -15,7 +15,7 @@ export default function FloatingOrbs({ opacity = 0.5 }: { opacity?: number }) {
           height: "40vw",
           maxWidth: "600px",
           maxHeight: "600px",
-          background: "radial-gradient(closest-side, rgba(139,92,246,0.3) 0%, rgba(139,92,246,0.1) 40%, transparent 100%)",
+          background: "radial-gradient(closest-side, rgba(59,130,246,0.3) 0%, rgba(59,130,246,0.1) 40%, transparent 100%)",
           top: "-10%",
           right: "-5%",
           animation: "float-1 20s ease-in-out infinite",
@@ -47,7 +47,7 @@ export default function FloatingOrbs({ opacity = 0.5 }: { opacity?: number }) {
           height: "20vw",
           maxWidth: "300px",
           maxHeight: "300px",
-          background: "radial-gradient(closest-side, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.05) 40%, transparent 100%)",
+          background: "radial-gradient(closest-side, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.05) 40%, transparent 100%)",
           top: "50%",
           left: "40%",
           animation: "float-3 30s ease-in-out infinite",

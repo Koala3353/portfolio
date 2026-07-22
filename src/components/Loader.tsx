@@ -28,7 +28,7 @@ export default function Loader() {
             <motion.div
               className="absolute w-32 h-32 rounded-full blur-[60px]"
               style={{
-                background: "radial-gradient(circle, rgba(139,92,246,0.5), transparent 70%)",
+                background: "radial-gradient(circle, rgba(59,130,246,0.5), transparent 70%)",
               }}
               animate={{
                 scale: [1, 1.3, 1],
@@ -76,7 +76,7 @@ export default function Loader() {
               />
               <defs>
                 <linearGradient id="kGradient" x1="0" y1="0" x2="80" y2="100" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#8b5cf6" />
+                  <stop offset="0%" stopColor="#3b82f6" />
                   <stop offset="100%" stopColor="#06b6d4" />
                 </linearGradient>
               </defs>

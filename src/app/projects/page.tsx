@@ -29,6 +29,10 @@ const yearGroups: YearGroup[] = [
     label: "CURRENT YEAR",
     subtitle: "Building full-stack applications and expanding into financial modeling and growth analytics.",
     projects: [
+      { title: "Scht", description: "Invite-only, local-first school and work planner. Current-term planning, IPS curriculum imports, and offline task persistence with owner-only operational metrics.", github: "https://github.com/Koala3353/scht", category: "Tools" },
+      { title: "Splurge", description: "Mobile-first bill-splitting PWA for tracking outings with friends. Scans receipts with OCR, splits costs proportionally, and logs payments over time.", github: "https://github.com/Koala3353/splurge", category: "Web" },
+      { title: "kbrigado.links", description: "A sleek, premium Linktree alternative built with Vite, React, and Tailwind CSS. Modern dark theme with glassmorphism and a centralized resume sync pipeline.", github: "https://github.com/Koala3353/kbrigado-links", category: "Web" },
+      { title: "Vaultie", description: "Weekly budgeting PWA — a differently themed sibling to Budge with the same no-clutter approach to tracking spend.", github: "https://github.com/Koala3353/vaultie", category: "Web" },
       { title: "Budge", description: "A personal budgeting web app built because existing finance apps had terrible UX. Clean interface for tracking expenses and income with real-time insights — no clutter, no subscriptions.", github: "https://github.com/Koala3353/budge", preview: "https://koala3353.github.io/budge/", category: "Web" },
       { title: "Poker Chips Tracker", description: "A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play — no scrolling, no distractions. Made because no existing app got the UX right.", github: "https://github.com/Koala3353/poker-chips-tracker", preview: "https://koala3353.github.io/poker-chips-tracker/", category: "Web" },
       { title: "Proof of Purchase API", description: "Upload a receipt image → get back the transaction number, amount, time, and confidence score as structured JSON.", github: "https://github.com/Koala3353/pop-api", preview: "https://pop-api-mocha.vercel.app/docs", category: "AI" },
@@ -51,6 +55,7 @@ const yearGroups: YearGroup[] = [
       { title: "TLB Kitchen API", description: "Python Flask API replacing MongoDB Data API with custom endpoints for pastries management.", github: "https://github.com/Koala3353/tlbk-api", category: "Web" },
       { title: "Multipurpose Discord Bot", description: "Feature-rich discord bot with multiple functionalities from utilities to games and more.", github: "https://github.com/Koala3353/multipurpose-discord-bot", category: "Bots" },
       { title: "RPG Discord Bot", description: "RPG Discord bot made for Hackclub's game jam with the theme of loopholes.", github: "https://github.com/Koala3353/rpg-discord-bot", category: "Bots" },
+      { title: "Bulok", description: "An algorithmic ASCII art piece exploring the commodification of our food systems.", github: "https://github.com/Koala3353/bulok", category: "Tools" },
     ],
   },
   {
@@ -194,7 +199,7 @@ export default function ProjectsPage() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
         >
           {[
-            { value: "30+", label: "Projects Shipped" },
+            { value: "40+", label: "Projects Shipped" },
             { value: "5+", label: "Years Building" },
             { value: "2x", label: "Hackathon Bounties" },
             { value: "10+", label: "Tools & Languages" },
