@@ -26,28 +26,37 @@ interface WorkEntry {
 
 const workEntries: WorkEntry[] = [
   {
+    title: "Business Systems Consultant",
+    company: "Ritual Matcha Co.",
+    type: "Consulting",
+    period: "Jul 2026 – Present",
+    bullets: [
+      "Built interactive Google Workspace dashboards in Apps Script that consolidate 8+ operational systems into a single real-time view",
+      "Enabled faster reporting and forecasting for sales reaching over ₱2M per month",
+    ],
+    skills: ["Google Apps Script", "Dashboards", "Operations", "Automation"],
+  },
+  {
     title: "Sales Operations Consultant",
     company: "Ritual Matcha Co.",
-    type: "Internship",
-    period: "Mar 2026 – Present",
+    type: "Consulting",
+    period: "Mar 2026 – Jul 2026",
     bullets: [
-      "Architected end-to-end automated inventory and procurement system using Google Apps Script",
-      "Built multi-module corporate web portal: Receiving Form, Transfer Portal, SKU management",
-      "Achieved 100% real-time stock visibility, eliminating manual purchase orders",
+      "Designed an end-to-end inventory and procurement system in Apps Script, achieving 100% visibility for real-time stock worth millions of pesos across multiple locations and eliminating manual purchase orders",
+      "Rebuilt 5+ legacy Apps Script codebases to improve processing speed and reliability as data volumes grew to over a hundred entries per day",
     ],
     skills: ["Google Apps Script", "JavaScript", "Operations", "Automation"],
   },
   {
-    title: "Growth Analyst",
+    title: "Growth Analyst Intern",
     company: "GoRocky",
     type: "Internship",
     period: "Jan 2026 – Apr 2026",
     bullets: [
-      "Engineered strategic financial model for joint venture projecting ₱1.7M monthly EBITDA",
-      "Orchestrated 50+ member digital migration with zero downtime",
-      "Built dashboards tracking funnel performance and KPIs",
+      "Modeled a joint venture end to end, projecting ₱1.7M in monthly EBITDA to guide the launch decision",
+      "Developed an n8n CRM pipeline that reduced manual Viber/SMS messaging to zero",
     ],
-    skills: ["Financial Modeling", "Data Analytics", "Growth Strategy"],
+    skills: ["Financial Modeling", "n8n", "Growth Strategy"],
   },
   {
     title: "Data Processing Consultant",
@@ -55,8 +64,7 @@ const workEntries: WorkEntry[] = [
     type: "Freelance",
     period: "Jun 2025 – Jul 2025",
     bullets: [
-      "Reduced reporting cycle time by 94% with automated validation workflow",
-      "Optimized data integrity for payroll audits with unified dashboard",
+      "Automated payroll reporting and audit validation, cutting turnaround from one business day to under 20 minutes with full compliance",
     ],
     skills: ["Python", "Business Process Automation"],
   },
@@ -111,8 +119,8 @@ const workEntries: WorkEntry[] = [
     type: "",
     period: "Mar 2021 – Apr 2026",
     bullets: [
-      "Built custom Discord bots for 15+ international clients including BETDEX",
-      "Generated $3,000+ revenue",
+      "Ran an independent development studio to ₱170K+ profit across 15+ international clients, including BETDEX",
+      "Used reusable frameworks to cut delivery time by 40%",
     ],
     skills: ["Java", "JavaScript", "Full-Stack Development"],
   },
@@ -128,16 +136,44 @@ interface LeadershipEntry {
 
 const leadershipEntries: LeadershipEntry[] = [
   {
-    org: "Ateneo Celadon",
-    role: "Junior Analyst, Organization Strategies & Research Department",
-    period: "Sep 2025 – Jun 2026",
+    org: "Ateneo Management Engineering Association",
+    role: "Recruitment & Secretariat Core Head, LEADS 2627",
+    period: "Sep 2026 – Present",
     bullets: [
-      "Oversees Celadon’s overall welfare by spearheading various research and evaluations.",
-      "Served as the custodian of all files and forwards information and recommendations to the succeeding Executive Board.",
+      "Coordinated registration and accommodation systems using Google Suite and other tools for 100+ participants at a 3-day offsite leadership retreat, managing a team of 5."
+    ],
+    skills: ["Event Logistics", "Google Apps Script", "Team Collaboration"]
+  },
+  {
+    org: "Ateneo Celadon",
+    role: "Recruitment & Strategy Head, Jade Business Summit",
+    period: "Jul 2026 – Present",
+    bullets: [
+      "Oversaw recruitment and strategy for a one-day business summit serving 80+ high-school and college students, overseeing a team of 6 across participant tracking, registration, and backend systems using Google Suite."
+    ],
+    skills: ["Recruitment Strategy", "Google Apps Script", "Team Collaboration"]
+  },
+  {
+    org: "Ateneo Celadon",
+    role: "Associate Vice President, Organization Strategies & Research Department",
+    period: "Jun 2026 – Present",
+    bullets: [
+      "Leads a 17-person research and evaluation department, delivering 3+ deputy training workshops.",
+      "Builds the internal websites and tools behind Celadon's data-driven decisions using Google Suite.",
       "Acted as an internal strategy consultant for two key organizational projects, conducting comprehensive audits of operational processes and social impact.",
       "Authored data-driven sustainability reports, synthesizing quantitative and qualitative feedback to evaluate project success and recommend improvements for future iterations."
     ],
     skills: ["Team Collaboration", "Data Analytics", "Strategy Consulting"]
+  },
+  {
+    org: "Ateneo Celadon",
+    role: "Project Manager, Recruitment Week and Welcome Week '26",
+    period: "Jun 2026 – Sep 2026",
+    bullets: [
+      "Directed a 44-person, 6-committee team that recruited 831 members (+24% returning YoY).",
+      "Launched the organization's first mobile-game tournament, generating ₱81,770 in revenue against ₱8K in costs."
+    ],
+    skills: ["Project Management", "Team Collaboration", "Recruitment Strategy"]
   },
   {
     org: "Ateneo Celadon",
@@ -195,7 +231,7 @@ const educationEntries: EducationEntry[] = [
     institution: "Ateneo de Manila University",
     degree: "BS Management Engineering",
     period: "Jul 2025 – Present",
-    note: "Director's List",
+    note: "Director's List · 2x Dean's Lister",
   },
   {
     institution: "Grace Christian College",
@@ -212,6 +248,11 @@ interface CertEntry {
 }
 
 const certEntries: CertEntry[] = [
+  {
+    name: "Forward Program Graduate",
+    issuer: "McKinsey & Company",
+    date: "Jun 2026",
+  },
   {
     name: "Microsoft Power BI Data Analyst Associate (PL-300) Cert Prep",
     issuer: "Microsoft",

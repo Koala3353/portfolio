@@ -38,6 +38,22 @@ interface Achievement {
 
 const caseCompetitions: Achievement[] = [
   {
+    placement: "Top 4%",
+    title: "International Semifinalist — Case Consilium 2026",
+    date: "Sep 2026",
+    role: "Team Leader",
+    description:
+      "Finished as an International Semifinalist in Case Consilium 2026: The Ultimate Strategy Case Competition (BITS Goa Consulting Club), ranking in the top 4% of 5,861+ global participants with a proposal spanning strategic market entry, financial feasibility, and implementation planning.",
+  },
+  {
+    placement: "1st Runner-Up",
+    title: "FUSION 2026 — Junior Entrepreneurs' Marketing Association (DLSU)",
+    date: "Aug 2026",
+    role: "Team Leader",
+    description:
+      "Led a team of first-time case competitors to 2nd place overall against higher-batch collegiate teams, spearheading strategy and research behind an integrated marketing plan presented in the final round.",
+  },
+  {
     placement: "Top 24",
     title: "National Semifinalist — L'Oréal Brandstorm 2026",
     date: "Mar 2026",
@@ -232,7 +248,7 @@ export default function AchievementsPage() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
         >
           {[
-            { value: "7+", label: "Competitions" },
+            { value: "9+", label: "Competitions" },
             { value: "3", label: "Countries" },
             { value: "Top 0.5%", label: "Brandstorm" },
             { value: "1st", label: "FLL PH 2024" },

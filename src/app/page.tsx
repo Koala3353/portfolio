@@ -227,9 +227,9 @@ export default function HomePage() {
           </SmoothReveal>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <MetricCard value="30+" label="Projects Shipped" delay={0} />
+            <MetricCard value="43+" label="Projects Shipped" delay={0} />
             <MetricCard value="5+" label="Years Building" delay={0.1} />
-            <MetricCard value="7+" label="Competition Wins" delay={0.2} />
+            <MetricCard value="9+" label="Competition Wins" delay={0.2} />
             <MetricCard value="10+" label="Tools & Languages" delay={0.3} />
           </div>
         </div>

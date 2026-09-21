@@ -12,6 +12,27 @@ type TimelineItem = {
 
 const timelineData: TimelineItem[] = [
   {
+    year: "Sep 2026",
+    title: "International Semifinalist (Top 4%)",
+    organization: "Case Consilium 2026",
+    description: "Led a team to an International Semifinalist finish out of 5,861+ global participants, proposing strategic market entry, financial feasibility, and implementation planning.",
+    category: "award",
+  },
+  {
+    year: "Jul 2026",
+    title: "Business Systems Consultant",
+    organization: "Ritual Matcha Co.",
+    description: "Built interactive Google Workspace dashboards in Apps Script consolidating 8+ operational systems into a single real-time view for sales reaching over ₱2M/month.",
+    category: "work",
+  },
+  {
+    year: "Aug 2026",
+    title: "1st Runner-Up",
+    organization: "FUSION 2026 (Junior Entrepreneurs' Marketing Association, DLSU)",
+    description: "Led a team of first-time case competitors to 2nd place overall, presenting an integrated marketing plan against higher-batch collegiate teams.",
+    category: "award",
+  },
+  {
     year: "Mar 2026",
     title: "Sales Operations Consultant",
     organization: "Ritual Matcha Co.",

@@ -29,6 +29,9 @@ const yearGroups: YearGroup[] = [
     label: "CURRENT YEAR",
     subtitle: "Building full-stack applications and expanding into financial modeling and growth analytics.",
     projects: [
+      { title: "Celadon Website", description: "The official website of Ateneo Celadon, the premier Filipino-Chinese student-led organization of Ateneo de Manila University.", github: "https://github.com/Koala3353/celadon-website", category: "Web" },
+      { title: "Celaville Wrapped", description: "RecWeek recap story page for Ateneo Celadon, served from GitHub Pages.", github: "https://github.com/Koala3353/celaville-wrapped", preview: "https://koala3353.github.io/celaville-wrapped/", category: "Web" },
+      { title: "Kandama Market Entry Model", description: "Interactive financial model for a proposed Melbourne market entry by Kandama Collective, with every figure computed live from tagged assumptions.", github: "https://github.com/Koala3353/kandama-model", category: "Tools" },
       { title: "Scht", description: "Invite-only, local-first school and work planner. Current-term planning, IPS curriculum imports, and offline task persistence with owner-only operational metrics.", github: "https://github.com/Koala3353/scht", category: "Tools" },
       { title: "Splurge", description: "Mobile-first bill-splitting PWA for tracking outings with friends. Scans receipts with OCR, splits costs proportionally, and logs payments over time.", github: "https://github.com/Koala3353/splurge", category: "Web" },
       { title: "kbrigado.links", description: "A sleek, premium Linktree alternative built with Vite, React, and Tailwind CSS. Modern dark theme with glassmorphism and a centralized resume sync pipeline.", github: "https://github.com/Koala3353/kbrigado-links", category: "Web" },
@@ -199,7 +202,7 @@ export default function ProjectsPage() {
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
         >
           {[
-            { value: "40+", label: "Projects Shipped" },
+            { value: "43+", label: "Projects Shipped" },
             { value: "5+", label: "Years Building" },
             { value: "2x", label: "Hackathon Bounties" },
             { value: "10+", label: "Tools & Languages" },
