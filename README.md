@@ -1,45 +1,69 @@
-# Keene Xander Brigado | Portfolio 2026
+# Keene Xander Brigado · Portfolio
 
-Welcome to the source code of my 2026 personal portfolio! This website serves as a central hub for my professional journey, bridging the gap between full-stack development, operations, and AI. 
+Source for my personal portfolio: projects, experience, and achievements across code, operations, and AI.
 
-🌐 **Live Demo:** [koala3353.github.io/portfolio](https://koala3353.github.io/portfolio/)
+**Live:** [koala3353.github.io/portfolio](https://koala3353.github.io/portfolio/)
 
-## 🚀 Tech Stack
+## Stack
 
-- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Deployment:** GitHub Pages
+| Area | Choice |
+| --- | --- |
+| Framework | [Next.js 16](https://nextjs.org/) App Router, static export |
+| Language | TypeScript, React 19 |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com/) with CSS-variable design tokens |
+| Motion | [Motion](https://motion.dev/) (`motion/react`) |
+| Icons | [Phosphor](https://phosphoricons.com/) |
+| Fonts | Geist and Geist Mono via `next/font` |
+| Hosting | GitHub Pages via GitHub Actions |
 
-## ✨ Key Features
+## Features
 
-- **Modern UI/UX:** Sleek dark-mode aesthetic with custom gradients, glassmorphism, and responsive Tailwind grids.
-- **Dynamic Animations:** Extensive use of Framer Motion for scroll-linked parallax, page transitions, and staggered card reveals.
-- **Automated Resume Pipeline:** A custom `prebuild` script securely fetches the absolute latest PDF resume from a centralized repository (`Koala3353/Koala3353`) via a GitHub Actions `repository_dispatch` webhook right before building.
-- **Easter Eggs:** Try to find the fully-playable, touch-responsive virtual Snake Game hidden inside the 404 page! 🐍
+- **Light, dark, and system themes.** Resolved before first paint, so there is no flash on load.
+- **Command menu.** Press `⌘K` / `Ctrl+K` to jump to any page, copy my email, download the résumé, or switch theme.
+- **Custom SVG artwork.** A layered hero illustration, per-category project marks, generated contour lines behind page headers, and scroll-driven parallax. All of it respects `prefers-reduced-motion`.
+- **Filterable projects.** Filter by category, with deep links to each project (`/projects#slug`).
+- **Contact form.** Inline validation, a spam honeypot, and a prefilled email fallback if sending fails. Submissions go to a Google Apps Script endpoint.
+- **Automated résumé.** The `prebuild` step downloads the latest PDF from [`Koala3353/Koala3353`](https://github.com/Koala3353/Koala3353). Updating the résumé there triggers a `repository_dispatch` that redeploys this site.
+- **SEO.** Per-page metadata, `sitemap.xml`, `robots.txt`, a generated Open Graph image, and Person structured data.
+- **Accessibility.** Semantic landmarks, a skip link, keyboard-operable menus, visible focus states, and AA contrast in both themes.
+- **Easter egg.** A playable Snake game on the 404 page, with keyboard and on-screen controls.
 
-## 🛠️ Getting Started
+## Project structure
 
-First, clone the repository and install the dependencies:
+```
+src/
+  app/          Routes. Each page is a server component that exports its own metadata.
+  components/   Shared UI (Navbar, Footer, CommandMenu, Reveal, PageHeader)
+    art/        Custom SVG artwork and the Parallax wrapper
+    <page>/     Client-side pieces for a specific page
+  data/         All site content as typed TypeScript (projects, experience, achievements...)
+  lib/site.ts   Site-wide config: name, links, navigation, base path
+```
+
+To update content, edit the files in `src/data/`. Home page case studies are listed in `caseStudies` in `src/data/home.ts`, and the build fails if a slug there doesn't match a project.
+
+## Development
+
+Requires Node 22.
 
 ```bash
 git clone https://github.com/Koala3353/portfolio.git
 cd portfolio
 npm install
-```
-
-Next, run the development server:
-
-```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-*(Note: If you run `npm run build`, the `prebuild` script will execute and automatically fetch the latest resume PDF into your `public/` directory).*
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` | Download the latest résumé, then build the static site into `out/` |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript, no emit |
 
-## 📄 License
+In production the site is served under `/portfolio` (set in `next.config.js` and `src/lib/site.ts`).
 
-This project is open-source and available under the MIT License. Feel free to fork and use it as inspiration for your own portfolio!
+## Deployment
+
+Every push to `main` runs `.github/workflows/deploy.yml`, which installs with `npm ci`, runs lint and typecheck, builds, and publishes `out/` to GitHub Pages. A failed lint, typecheck, or résumé download stops the deploy.

@@ -6,7 +6,7 @@ export interface Project {
   year: string;
   category: ProjectCategory;
   description: string;
-  github: string;
+  github?: string;
   preview?: string;
   featured?: boolean;
 }
@@ -63,6 +63,20 @@ export const projects: Project[] = [
     "description": "The first CelaWrapped: a Spotify Wrapped-style recap of each member's Recruitment Week activity, with fun facts about Ateneo Celadon's members and their backgrounds.",
     "github": "https://github.com/Koala3353/celaville-wrapped",
     "preview": "https://wrapped.ateneoceladon.com/"
+  },
+  {
+    "slug": "mahjong-leaderboard",
+    "title": "Mahjong Leaderboard Portal",
+    "year": "2026",
+    "category": "Web",
+    "description": "Ateneo Celadon's first mahjong leaderboard portal, built for Recruitment Week and used by 150+ members."
+  },
+  {
+    "slug": "apps-script-automations",
+    "title": "Google Apps Script Automations",
+    "year": "2026",
+    "category": "Tools",
+    "description": "6+ Google Apps Script projects for organizations and teams, including email blasts, live dashboards, and registration and tracking systems."
   },
   {
     "slug": "kandama-market-entry-model",

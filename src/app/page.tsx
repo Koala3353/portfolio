@@ -44,14 +44,16 @@ function ProjectLinks({ project }: { project: Project }) {
           Live demo <ArrowUpRight aria-hidden className="size-4" />
         </a>
       )}
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 link-underline"
-      >
-        <GithubLogo aria-hidden className="size-4" /> Source
-      </a>
+      {project.github && (
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 link-underline"
+        >
+          <GithubLogo aria-hidden className="size-4" /> Source
+        </a>
+      )}
       <Link href={`/projects#${project.slug}`} className="inline-flex items-center gap-1.5 text-muted link-underline">
         Details
       </Link>
