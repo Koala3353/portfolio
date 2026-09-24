@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader seed={4}
         title="Projects"
         intro={`${projects.length} projects from 2021 to today: client Discord bots, student organization platforms, hackathon builds, and tools I made because nothing else got the UX right.`}
       />

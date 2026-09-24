@@ -29,7 +29,7 @@ export default function AchievementsPage() {
 
   return (
     <>
-      <PageHeader
+      <PageHeader seed={5}
         title="Achievements"
         intro="A track record of competing at a high level, from national case competitions to international robotics championships."
       >

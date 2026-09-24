@@ -1,4 +1,5 @@
 "use client";
+import CategoryGlyph from "@/components/art/CategoryGlyph";
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -67,10 +68,13 @@ export default function ProjectFilter({ projects }: { projects: Project[] }) {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="scroll-mt-28 target:[&>article]:border-accent"
               >
-                <article className="surface flex h-full flex-col p-6">
-                  <p className="font-mono text-sm text-subtle">
-                    <time>{p.year}</time> · {p.category}
-                  </p>
+                <article className="surface group flex h-full flex-col p-6 transition-colors hover:border-accent/60">
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="font-mono text-sm text-subtle">
+                      <time>{p.year}</time> · {p.category}
+                    </p>
+                    <CategoryGlyph category={p.category} className="-mr-1 -mt-1 size-10 shrink-0 text-subtle transition-colors group-hover:text-fg" />
+                  </div>
                   <h3 className="mt-2 text-lg font-semibold">{p.title}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.description}</p>
                   <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-4 text-sm">

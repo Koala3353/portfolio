@@ -17,7 +17,7 @@ const icons = { email: EnvelopeSimple, linkedin: LinkedinLogo, github: GithubLog
 export default function ContactPage() {
   return (
     <>
-      <PageHeader title="Get in touch" intro={contactIntro} />
+      <PageHeader seed={8} title="Get in touch" intro={contactIntro} />
       <section aria-labelledby="channels-heading" className="container-page pb-24">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16">
           <Reveal>

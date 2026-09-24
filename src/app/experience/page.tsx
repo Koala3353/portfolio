@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function ExperiencePage() {
   return (
     <>
-      <PageHeader
+      <PageHeader seed={3}
         title="Experience"
         intro="5+ years of building, from Discord bots made at home to automation systems and consulting work for real companies. Each role sharpened a different skill."
       />

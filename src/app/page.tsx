@@ -3,6 +3,10 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
 import Reveal from "@/components/Reveal";
 import HeroIntro from "@/components/home/HeroIntro";
+import HeroSystem from "@/components/art/HeroSystem";
+import CategoryGlyph from "@/components/art/CategoryGlyph";
+import Parallax from "@/components/art/Parallax";
+import Orbit from "@/components/art/Orbit";
 import { site } from "@/lib/site";
 import { metrics, stack, now, featuredOrder } from "@/data/home";
 import { projects, type Project } from "@/data/projects";
@@ -20,9 +24,15 @@ function FeaturedCard({ project, large = false }: { project: Project; large?: bo
   return (
     <Link
       href={`/projects#${project.slug}`}
-      className={`surface group flex h-full flex-col justify-between p-6 transition-colors duration-200 hover:border-accent md:p-8 ${large ? "min-h-[20rem]" : "min-h-[13rem]"}`}
+      className={`surface group relative flex h-full flex-col justify-between overflow-hidden p-6 transition-colors duration-200 hover:border-accent md:p-8 ${large ? "min-h-[20rem]" : "min-h-[13rem]"}`}
     >
-      <div>
+      <Parallax
+        speed={large ? 70 : 40}
+        className={`pointer-events-none absolute text-subtle transition-colors duration-300 group-hover:text-fg ${large ? "-right-6 -top-4 size-56 md:size-72" : "-right-3 -top-3 size-28"}`}
+      >
+        <CategoryGlyph category={project.category} className="size-full opacity-60 transition-transform duration-500 ease-out group-hover:scale-105" />
+      </Parallax>
+      <div className="relative">
         <p className="font-mono text-sm text-subtle">
           {project.year} · {project.category}
         </p>
@@ -31,7 +41,7 @@ function FeaturedCard({ project, large = false }: { project: Project; large?: bo
           {project.description}
         </p>
       </div>
-      <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-fg">
+      <span className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-fg">
         Read more
         <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
       </span>
@@ -45,7 +55,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section aria-labelledby="hero-title" className="container-page grid min-h-[calc(100dvh-4rem)] items-center gap-12 pb-16 pt-16 md:grid-cols-12 md:pt-24">
+      <section aria-labelledby="hero-title" className="container-page relative grid overflow-x-clip min-h-[calc(100dvh-4rem)] items-center gap-12 pb-16 pt-16 md:grid-cols-12 md:pt-24">
         <HeroIntro className="md:col-span-7">
           <h1 id="hero-title" className="max-w-[16ch] text-5xl font-semibold leading-[1.02] md:text-7xl">
             I build the systems teams run on.
@@ -63,32 +73,37 @@ export default function HomePage() {
           </div>
         </HeroIntro>
 
-        <Reveal delay={0.2} className="md:col-span-5">
-          <aside aria-label="Currently" className="surface p-6 md:p-7">
-            <h2 className="text-sm font-medium text-subtle">Now</h2>
-            <p className="mt-3 text-xl font-semibold">{now.role}</p>
-            <p className="mt-1 text-muted">{now.company}</p>
-            <p className="mt-1 font-mono text-sm text-subtle">{now.period}</p>
-            <p className="mt-5 border-t border-line pt-5 text-sm leading-relaxed text-muted">{now.focus}</p>
-            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-5 text-sm">
-              <li>
-                <a href={site.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 link-underline">
-                  <GithubLogo aria-hidden className="size-4" /> GitHub
-                </a>
-              </li>
-              <li>
-                <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 link-underline">
-                  <LinkedinLogo aria-hidden className="size-4" /> LinkedIn
-                </a>
-              </li>
-              <li>
-                <Link href="/experience" className="link-underline">
-                  Full experience
-                </Link>
-              </li>
-            </ul>
-          </aside>
-        </Reveal>
+        <div className="relative md:col-span-5">
+          <HeroSystem className="pointer-events-none absolute -inset-x-10 -top-24 bottom-24 -z-10 opacity-90 md:-inset-x-16 md:-top-40" />
+          <Reveal delay={0.2} className="relative pt-64 md:pt-72">
+            <Parallax speed={-50}>
+          <aside aria-label="Currently" className="surface p-6 shadow-xl md:ml-10 md:p-7">
+                <h2 className="text-sm font-medium text-subtle">Now</h2>
+                <p className="mt-3 text-xl font-semibold">{now.role}</p>
+                <p className="mt-1 text-muted">{now.company}</p>
+                <p className="mt-1 font-mono text-sm text-subtle">{now.period}</p>
+                <p className="mt-5 border-t border-line pt-5 text-sm leading-relaxed text-muted">{now.focus}</p>
+                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-5 text-sm">
+                  <li>
+                    <a href={site.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 link-underline">
+                      <GithubLogo aria-hidden className="size-4" /> GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 link-underline">
+                      <LinkedinLogo aria-hidden className="size-4" /> LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <Link href="/experience" className="link-underline">
+                      Full experience
+                    </Link>
+                  </li>
+                </ul>
+              </aside>
+            </Parallax>
+          </Reveal>
+        </div>
       </section>
 
       {/* Metrics */}
@@ -186,7 +201,10 @@ export default function HomePage() {
       </section>
 
       {/* Closing CTA */}
-      <section aria-labelledby="cta-title" className="container-page pb-28">
+      <section aria-labelledby="cta-title" className="container-page relative isolate overflow-hidden pb-28 pt-16">
+        <Parallax rotate={60} speed={80} className="pointer-events-none absolute -right-24 top-0 -z-10 size-[28rem] opacity-70 md:right-0">
+          <Orbit className="size-full" />
+        </Parallax>
         <Reveal className="grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-8">
             <h2 id="cta-title" className="max-w-[20ch] text-4xl font-semibold leading-[1.05] md:text-6xl">

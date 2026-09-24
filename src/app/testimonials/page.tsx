@@ -40,7 +40,7 @@ export default function TestimonialsPage() {
 
   return (
     <>
-      <PageHeader
+      <PageHeader seed={6}
         title="Testimonials"
         intro="Recommendations from clients and supervisors who have seen the work firsthand."
       />

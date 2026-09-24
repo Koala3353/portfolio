@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function CVPage() {
   return (
     <>
-      <PageHeader title="Résumé" intro="The full one-page résumé. Download it or open it in a new tab.">
+      <PageHeader seed={9} title="Résumé" intro="The full one-page résumé. Download it or open it in a new tab.">
         <div className="flex flex-wrap gap-3">
           <a href={site.resume} download className="btn btn-primary">
             <DownloadSimple size={18} aria-hidden />

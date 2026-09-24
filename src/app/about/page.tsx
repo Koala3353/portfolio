@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title="About" intro={aboutIntro} />
+      <PageHeader seed={2} title="About" intro={aboutIntro} />
 
       <section aria-labelledby="story-heading" className="container-page pb-16 md:pb-24">
         <Reveal className="grid grid-cols-1 gap-12 md:grid-cols-[1fr_18rem] md:gap-16">

@@ -34,7 +34,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageHeader title="Code, operations, and AI in one hire" intro={recruiterSummary}>
+      <PageHeader seed={7} title="Code, operations, and AI in one hire" intro={recruiterSummary}>
         <Actions />
       </PageHeader>
 
