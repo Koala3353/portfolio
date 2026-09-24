@@ -196,7 +196,7 @@ export const latestRole = experience.find((e) => e.category === "work")!;
 
 export const educationEntries = [
   { institution: "Ateneo de Manila University", degree: "BS Management Engineering", period: "Jul 2025 - Present", note: "Director's List, 2x Dean's Lister" },
-  { institution: "Grace Christian College", degree: "Senior High School, STEM", period: "2023 - 2025", note: "" },
+  { institution: "Grace Christian College", degree: "Senior High School, STEM", period: "2023 - 2025", note: "Honors class, 96.17% GPA, graduated top 4" },
 ];
 
 export const certifications = [
