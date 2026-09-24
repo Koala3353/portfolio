@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "curl -fsSL -o public/resume.pdf -L https://raw.githubusercontent.com/Koala3353/Koala3353/main/BRIGADO-Resume.pdf",
+    "prebuild": "curl -fsSL --create-dirs -o public/resume.pdf https://raw.githubusercontent.com/Koala3353/Koala3353/main/BRIGADO-Resume.pdf",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
