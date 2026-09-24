@@ -2,171 +2,241 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { CaretDown, CircleHalf, List, MagnifyingGlass, Moon, Sun, X } from "@phosphor-icons/react";
+import { primaryNav, secondaryNav } from "@/lib/site";
+import { useTheme } from "./theme";
+import CommandMenu from "./CommandMenu";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/experience", label: "Experience" },
-  { href: "/projects", label: "Projects" },
-  { href: "/achievements", label: "Achievements" },
-];
-
-const moreLinks = [
-  { href: "/services", label: "For Recruiters" },
-  { href: "/testimonials", label: "Testimonials" },
-  { href: "/cv", label: "CV / Résumé" },
-];
+function ThemeButton() {
+  const { pref, cycle } = useTheme();
+  const Icon = pref === "light" ? Sun : pref === "dark" ? Moon : CircleHalf;
+  return (
+    <button
+      onClick={cycle}
+      className="grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+      aria-label={`Theme: ${pref}. Click to change.`}
+      title={`Theme: ${pref}`}
+    >
+      <Icon size={18} />
+    </button>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [cmdOpen, setCmdOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
+
+  const closeCmd = useCallback(() => setCmdOpen(false), []);
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+
+  // Close menus on route change
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing UI to navigation
+    setMobileOpen(false);
+    setMoreOpen(false);
+  }, [pathname]);
+
+  // Global shortcuts: Cmd/Ctrl+K for the command menu, Escape closes menus
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setCmdOpen((o) => !o);
+      } else if (e.key === "Escape") {
+        setMoreOpen(false);
+        setMobileOpen(false);
+      }
+    };
+    const onClick = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) setMoreOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("click", onClick);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
+    };
+  }, []);
+
+  // Lock page scroll while the mobile drawer is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const moreActive = secondaryNav.some((l) => l.href !== "/contact" && isActive(l.href));
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="text-lg font-bold tracking-tight hover:text-accent transition-colors group">
-          <span className="text-gradient">K</span>
-          <span className="text-foreground group-hover:text-foreground/80 transition-colors">eene</span>
-        </Link>
+    <>
+      <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/75 backdrop-blur-xl">
+        <nav className="container-page flex h-16 items-center justify-between gap-4" aria-label="Primary">
+          <Link href="/" className="font-semibold tracking-tight text-fg">
+            Keene Brigado
+          </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
+          <div className="hidden items-center gap-1 md:flex">
+            {primaryNav.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
-                  isActive
-                    ? "text-foreground"
-                    : "text-muted hover:text-foreground"
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`relative rounded-full px-3.5 py-1.5 text-sm transition-colors ${
+                  isActive(link.href) ? "text-fg" : "text-muted hover:text-fg"
                 }`}
               >
-                {link.label}
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-lg glow-border bg-accent/5"
-                    style={{ zIndex: -1 }}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                {isActive(link.href) && (
+                  <motion.span
+                    layoutId={reduce ? undefined : "nav-pill"}
+                    className="absolute inset-0 -z-10 rounded-full bg-surface-2"
+                    transition={{ type: "spring", stiffness: 400, damping: 34 }}
                   />
                 )}
+                {link.label}
               </Link>
-            );
-          })}
+            ))}
 
-          {/* More Dropdown */}
-          <div className="relative group">
-            <button className="px-3 py-1.5 text-sm font-medium text-muted hover:text-foreground transition-colors rounded-lg">
-              More
-            </button>
-            <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <div className="glass-card rounded-xl p-2 min-w-[160px]">
-                {moreLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                      pathname === link.href
-                        ? "text-foreground bg-accent/5"
-                        : "text-muted hover:text-foreground hover:bg-white/5"
-                    }`}
+            <div ref={moreRef} className="relative">
+              <button
+                onClick={() => setMoreOpen((o) => !o)}
+                aria-expanded={moreOpen}
+                aria-haspopup="true"
+                className={`flex items-center gap-1 rounded-full px-3.5 py-1.5 text-sm transition-colors hover:text-fg ${
+                  moreActive ? "text-fg" : "text-muted"
+                }`}
+              >
+                More
+                <CaretDown size={12} className={`transition-transform ${moreOpen ? "rotate-180" : ""}`} />
+              </button>
+              <AnimatePresence>
+                {moreOpen && (
+                  <motion.div
+                    initial={reduce ? false : { opacity: 0, y: -4, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                    transition={{ duration: 0.16 }}
+                    className="surface absolute right-0 top-full mt-2 w-48 origin-top-right p-1.5"
                   >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
+                    {secondaryNav
+                      .filter((l) => l.href !== "/contact")
+                      .map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          aria-current={isActive(link.href) ? "page" : undefined}
+                          className={`block rounded-xl px-3 py-2 text-sm transition-colors ${
+                            isActive(link.href) ? "bg-surface-2 text-fg" : "text-muted hover:bg-surface-2 hover:text-fg"
+                          }`}
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
-          <Link
-            href="/contact"
-            className="ml-3 px-4 py-1.5 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors glow-accent"
-          >
-            Get in Touch
-          </Link>
-        </div>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setCmdOpen(true)}
+              className="hidden h-9 items-center gap-2 rounded-full border border-line px-3 text-sm text-subtle transition-colors hover:text-fg lg:flex"
+              aria-label="Open command menu"
+            >
+              <MagnifyingGlass size={15} />
+              <kbd className="font-mono text-xs">⌘K</kbd>
+            </button>
+            <button
+              onClick={() => setCmdOpen(true)}
+              className="grid size-9 place-items-center rounded-full text-muted hover:bg-surface-2 hover:text-fg lg:hidden"
+              aria-label="Open command menu"
+            >
+              <MagnifyingGlass size={18} />
+            </button>
+            <ThemeButton />
+            <Link href="/contact" className="btn btn-primary ml-2 hidden h-9 px-4 text-sm md:inline-flex">
+              Get in touch
+            </Link>
+            <button
+              className="grid size-9 place-items-center rounded-full text-fg md:hidden"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+            >
+              <List size={20} />
+            </button>
+          </div>
+        </nav>
+      </header>
 
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden p-2 text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer — Slide in from right */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm md:hidden"
               onClick={() => setMobileOpen(false)}
+              aria-hidden
             />
-
-            {/* Panel */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 w-72 z-50 md:hidden glass-nav border-l border-white/5 flex flex-col"
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+              initial={reduce ? { opacity: 0 } : { x: "100%" }}
+              animate={reduce ? { opacity: 1 } : { x: 0 }}
+              exit={reduce ? { opacity: 0 } : { x: "100%" }}
+              transition={{ type: "spring", stiffness: 380, damping: 38 }}
+              className="fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col border-l border-line bg-surface md:hidden"
             >
-              <div className="flex items-center justify-between px-6 h-14 border-b border-white/5">
-                <span className="text-sm font-medium text-muted">Menu</span>
+              <div className="flex h-16 items-center justify-between px-5">
+                <span className="text-sm text-muted">Menu</span>
                 <button
+                  autoFocus
                   onClick={() => setMobileOpen(false)}
-                  className="p-2 text-foreground"
+                  className="grid size-9 place-items-center rounded-full hover:bg-surface-2"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X size={20} />
                 </button>
               </div>
-
-              <div className="px-4 py-4 flex flex-col gap-1 flex-1">
-                {[...navLinks, ...moreLinks].map((link) => {
-                  const isActive = pathname === link.href;
-                  return (
+              <div className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3">
+                {[{ href: "/", label: "Home" }, ...primaryNav, ...secondaryNav.filter((l) => l.href !== "/contact")].map(
+                  (link) => (
                     <Link
                       key={link.href}
                       href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={`px-4 py-3 text-base font-medium rounded-xl transition-colors ${
-                        isActive
-                          ? "text-foreground bg-accent/10 glow-border"
-                          : "text-muted hover:text-foreground hover:bg-white/5"
+                      aria-current={isActive(link.href) ? "page" : undefined}
+                      className={`rounded-xl px-4 py-3 text-lg transition-colors ${
+                        isActive(link.href) ? "bg-surface-2 text-fg" : "text-muted hover:text-fg"
                       }`}
                     >
                       {link.label}
                     </Link>
-                  );
-                })}
+                  )
+                )}
               </div>
-
-              <div className="px-4 pb-6">
-                <Link
-                  href="/contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 text-base font-medium bg-accent text-white rounded-xl text-center hover:bg-accent-hover transition-colors glow-accent"
-                >
-                  Get in Touch
+              <div className="p-5">
+                <Link href="/contact" className="btn btn-primary w-full">
+                  Get in touch
                 </Link>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
-    </nav>
+
+      <CommandMenu open={cmdOpen} onClose={closeCmd} />
+    </>
   );
 }

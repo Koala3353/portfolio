@@ -1,47 +1,30 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import SnakeGame from "@/components/SnakeGame";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "This page doesn't exist.",
+};
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col pt-24 pb-12 px-6">
-      <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center flex-1">
-        
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10"
-        >
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter text-glow mb-4">
-            404
-          </h1>
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4 text-foreground/90">
-            Lost in the terminal
-          </h2>
-          <p className="text-muted text-lg max-w-md mx-auto mb-8">
-            The page you're looking for doesn't exist. But hey, as long as you're here, why not play a quick game?
-          </p>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-foreground font-medium rounded-lg hover:bg-white/10 transition-colors"
-          >
-            ← Back to Home
-          </Link>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full max-w-[500px]"
-        >
-          <SnakeGame />
-        </motion.div>
-
-      </div>
+    <div className="container-page flex min-h-[80dvh] flex-col items-center gap-12 py-16 md:py-24">
+      <header className="text-center">
+        <p className="font-mono text-sm text-subtle">404</p>
+        <h1 className="mt-3 text-4xl font-semibold md:text-5xl">This page doesn&apos;t exist.</h1>
+        <p className="mx-auto mt-4 max-w-[50ch] leading-relaxed text-muted">
+          The link may be old or mistyped. Head back home, or play a round of snake while you&apos;re here.
+        </p>
+        <Link href="/" className="btn btn-secondary mt-8">
+          <ArrowLeft size={16} aria-hidden />
+          Back to home
+        </Link>
+      </header>
+      <section aria-label="Snake game" className="w-full max-w-[440px]">
+        <SnakeGame />
+      </section>
     </div>
   );
 }

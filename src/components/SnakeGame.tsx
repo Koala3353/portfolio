@@ -1,307 +1,234 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
-import { motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from "@phosphor-icons/react";
 
-const GRID_SIZE = 20;
-const INITIAL_SNAKE = [{ x: 10, y: 10 }];
-const INITIAL_DIRECTION = { x: 0, y: -1 };
+const GRID = 20;
+const TICK_MS = 120;
+const STORAGE_KEY = "snakeHighScore";
 
 type Point = { x: number; y: number };
+type Status = "ready" | "playing" | "over";
+
+const START: Point[] = [{ x: 10, y: 10 }];
+const UP: Point = { x: 0, y: -1 };
+const DOWN: Point = { x: 0, y: 1 };
+const LEFT: Point = { x: -1, y: 0 };
+const RIGHT: Point = { x: 1, y: 0 };
+
+const KEYS: Record<string, Point> = {
+  ArrowUp: UP, w: UP, W: UP,
+  ArrowDown: DOWN, s: DOWN, S: DOWN,
+  ArrowLeft: LEFT, a: LEFT, A: LEFT,
+  ArrowRight: RIGHT, d: RIGHT, D: RIGHT,
+};
+
+/* High score store (localStorage), read lazily via useSyncExternalStore. */
+const listeners = new Set<() => void>();
+function readHighScore() {
+  try {
+    return parseInt(window.localStorage.getItem(STORAGE_KEY) ?? "0", 10) || 0;
+  } catch {
+    return 0;
+  }
+}
+function writeHighScore(v: number) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, String(v));
+  } catch {}
+  listeners.forEach((l) => l());
+}
+function subscribe(l: () => void) {
+  listeners.add(l);
+  return () => listeners.delete(l);
+}
+
+/** Random free cell, or null when the board is full. */
+function generateFood(snake: Point[]): Point | null {
+  const taken = new Set(snake.map((p) => p.y * GRID + p.x));
+  const free: number[] = [];
+  for (let i = 0; i < GRID * GRID; i++) if (!taken.has(i)) free.push(i);
+  if (free.length === 0) return null;
+  const i = free[Math.floor(Math.random() * free.length)];
+  return { x: i % GRID, y: Math.floor(i / GRID) };
+}
 
 export default function SnakeGame() {
-  const [snake, setSnake] = useState<Point[]>(INITIAL_SNAKE);
-  const [direction, setDirection] = useState<Point>(INITIAL_DIRECTION);
-  const [food, setFood] = useState<Point>({ x: 5, y: 5 });
-  const [gameOver, setGameOver] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [snake, setSnake] = useState<Point[]>(START);
+  const [food, setFood] = useState<Point | null>({ x: 5, y: 5 });
   const [score, setScore] = useState(0);
+  const [status, setStatus] = useState<Status>("ready");
+  const highScore = useSyncExternalStore(subscribe, readHighScore, () => 0);
 
-  const directionRef = useRef(direction);
-  
-  // Joystick State
-  const [joystickPos, setJoystickPos] = useState({ x: 0, y: 0 });
-  const joystickBaseRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+  const snakeRef = useRef<Point[]>(START);
+  const foodRef = useRef<Point | null>({ x: 5, y: 5 });
+  const dirRef = useRef<Point>(UP); // direction applied on the last tick
+  const nextDirRef = useRef<Point>(UP); // queued direction for the next tick
+  const scoreRef = useRef(0);
 
-  // Track high score in local storage if possible
-  const [highScore, setHighScore] = useState(0);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("snakeHighScore");
-    if (saved) setHighScore(parseInt(saved, 10));
+  const endGame = useCallback(() => {
+    setStatus("over");
+    if (scoreRef.current > readHighScore()) writeHighScore(scoreRef.current);
   }, []);
 
-  const generateFood = useCallback((currentSnake: Point[]) => {
-    let newFood: Point;
-    while (true) {
-      newFood = {
-        x: Math.floor(Math.random() * GRID_SIZE),
-        y: Math.floor(Math.random() * GRID_SIZE),
-      };
-      // Make sure food doesn't spawn on the snake
-      const onSnake = currentSnake.some(
-        (segment) => segment.x === newFood.x && segment.y === newFood.y
-      );
-      if (!onSnake) break;
+  const tick = useCallback(() => {
+    const dir = nextDirRef.current;
+    dirRef.current = dir;
+    const body = snakeRef.current;
+    const head = { x: body[0].x + dir.x, y: body[0].y + dir.y };
+
+    const eats = foodRef.current !== null && head.x === foodRef.current.x && head.y === foodRef.current.y;
+    // Tail moves away this tick unless we eat, so it doesn't count as a collision.
+    const obstacles = eats ? body : body.slice(0, -1);
+    const hitWall = head.x < 0 || head.x >= GRID || head.y < 0 || head.y >= GRID;
+    if (hitWall || obstacles.some((p) => p.x === head.x && p.y === head.y)) {
+      endGame();
+      return;
     }
-    return newFood;
-  }, []);
 
-  const resetGame = () => {
-    setSnake(INITIAL_SNAKE);
-    setDirection(INITIAL_DIRECTION);
-    directionRef.current = INITIAL_DIRECTION;
-    setFood(generateFood(INITIAL_SNAKE));
-    setGameOver(false);
+    const next = [head, ...obstacles];
+    snakeRef.current = next;
+    setSnake(next);
+
+    if (eats) {
+      scoreRef.current += 10;
+      setScore(scoreRef.current);
+      const f = generateFood(next);
+      foodRef.current = f;
+      setFood(f);
+      if (f === null) endGame(); // board full
+    }
+  }, [endGame]);
+
+  const start = useCallback(() => {
+    const f = generateFood(START);
+    snakeRef.current = START;
+    foodRef.current = f;
+    dirRef.current = UP;
+    nextDirRef.current = UP;
+    scoreRef.current = 0;
+    setSnake(START);
+    setFood(f);
     setScore(0);
-    setIsPlaying(true);
-  };
-
-  useEffect(() => {
-    if (!isPlaying || gameOver) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Prevent default scrolling for arrow keys
-      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)) {
-        e.preventDefault();
-      }
-
-      const { x, y } = directionRef.current;
-      switch (e.key) {
-        case "ArrowUp":
-        case "w":
-        case "W":
-          if (y !== 1) directionRef.current = { x: 0, y: -1 };
-          break;
-        case "ArrowDown":
-        case "s":
-        case "S":
-          if (y !== -1) directionRef.current = { x: 0, y: 1 };
-          break;
-        case "ArrowLeft":
-        case "a":
-        case "A":
-          if (x !== 1) directionRef.current = { x: -1, y: 0 };
-          break;
-        case "ArrowRight":
-        case "d":
-        case "D":
-          if (x !== -1) directionRef.current = { x: 1, y: 0 };
-          break;
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isPlaying, gameOver]);
-
-  useEffect(() => {
-    if (!isPlaying || gameOver) return;
-
-    const moveSnake = () => {
-      setSnake((prevSnake) => {
-        const head = prevSnake[0];
-        const newHead = {
-          x: head.x + directionRef.current.x,
-          y: head.y + directionRef.current.y,
-        };
-
-        // Check wall collision
-        if (
-          newHead.x < 0 ||
-          newHead.x >= GRID_SIZE ||
-          newHead.y < 0 ||
-          newHead.y >= GRID_SIZE
-        ) {
-          handleGameOver();
-          return prevSnake;
-        }
-
-        // Check self collision
-        if (
-          prevSnake.some(
-            (segment) => segment.x === newHead.x && segment.y === newHead.y
-          )
-        ) {
-          handleGameOver();
-          return prevSnake;
-        }
-
-        const newSnake = [newHead, ...prevSnake];
-
-        // Check food collision
-        if (newHead.x === food.x && newHead.y === food.y) {
-          setScore((s) => s + 10);
-          setFood(generateFood(newSnake));
-        } else {
-          newSnake.pop(); // Remove tail if no food eaten
-        }
-
-        setDirection(directionRef.current);
-        return newSnake;
-      });
-    };
-
-    const gameInterval = setInterval(moveSnake, 120); // Snake speed
-    return () => clearInterval(gameInterval);
-  }, [isPlaying, gameOver, food, generateFood]);
-
-  const handleGameOver = () => {
-    setGameOver(true);
-    setIsPlaying(false);
-    setHighScore((prev) => {
-      const newHigh = Math.max(prev, score);
-      localStorage.setItem("snakeHighScore", newHigh.toString());
-      return newHigh;
-    });
-  };
-
-  const handleJoystickMove = useCallback((e: React.PointerEvent) => {
-    if (!isDragging.current || !joystickBaseRef.current) return;
-    
-    const rect = joystickBaseRef.current.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    let x = e.clientX - rect.left - centerX;
-    let y = e.clientY - rect.top - centerY;
-    
-    const radius = rect.width / 2;
-    const distance = Math.sqrt(x * x + y * y);
-    if (distance > radius) {
-      x = (x / distance) * radius;
-      y = (y / distance) * radius;
-    }
-    
-    setJoystickPos({ x, y });
-    
-    if (distance > 15) { // Deadzone threshold
-      const angle = Math.atan2(y, x);
-      const currentDir = directionRef.current;
-      
-      if (angle > -Math.PI/4 && angle <= Math.PI/4) {
-        if (currentDir.x !== -1) directionRef.current = { x: 1, y: 0 }; // Right
-      } else if (angle > Math.PI/4 && angle <= 3*Math.PI/4) {
-        if (currentDir.y !== -1) directionRef.current = { x: 0, y: 1 }; // Down
-      } else if (angle > -3*Math.PI/4 && angle <= -Math.PI/4) {
-        if (currentDir.y !== 1) directionRef.current = { x: 0, y: -1 }; // Up
-      } else {
-        if (currentDir.x !== 1) directionRef.current = { x: -1, y: 0 }; // Left
-      }
-    }
+    setStatus("playing");
   }, []);
 
-  const handleJoystickEnd = useCallback(() => {
-    isDragging.current = false;
-    setJoystickPos({ x: 0, y: 0 }); // Snap back to center
+  const steer = useCallback((d: Point) => {
+    const cur = dirRef.current;
+    if (d.x === -cur.x && d.y === -cur.y) return; // no 180-degree reversal
+    nextDirRef.current = d;
   }, []);
+
+  useEffect(() => {
+    if (status !== "playing") return;
+    const id = window.setInterval(tick, TICK_MS);
+    return () => window.clearInterval(id);
+  }, [status, tick]);
+
+  useEffect(() => {
+    if (status !== "playing") return;
+    const onKey = (e: KeyboardEvent) => {
+      const d = KEYS[e.key];
+      if (!d) return;
+      e.preventDefault(); // only while playing
+      steer(d);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [status, steer]);
+
+  const press = (d: Point) => {
+    if (status !== "playing") start();
+    steer(d);
+  };
+
+  const cells = new Map<number, "head" | "body" | "food">();
+  if (food) cells.set(food.y * GRID + food.x, "food");
+  snake.forEach((p, i) => cells.set(p.y * GRID + p.x, i === 0 ? "head" : "body"));
 
   return (
-    <div className="flex flex-col items-center justify-center font-mono">
-      {/* Score Board */}
-      <div className="flex w-full max-w-[400px] justify-between items-center mb-4 px-2">
-        <div className="text-muted">
-          Score: <span className="text-accent font-bold text-xl">{score}</span>
-        </div>
-        <div className="text-muted">
-          Best: <span className="text-foreground font-bold">{highScore}</span>
-        </div>
+    <div className="flex flex-col items-center font-mono text-sm">
+      <div className="mb-3 flex w-full justify-between text-subtle" aria-live="polite">
+        <span>
+          Score <span className="tabular font-semibold text-fg">{score}</span>
+        </span>
+        <span>
+          Best <span className="tabular font-semibold text-fg">{Math.max(highScore, status === "over" ? score : 0)}</span>
+        </span>
       </div>
 
-      {/* Game Board */}
-      <div className="relative bg-white/5 border border-white/10 rounded-xl overflow-hidden shadow-2xl p-4">
+      <div className="surface relative w-full overflow-hidden p-2">
         <div
-          className="grid bg-black/40 border border-white/5"
-          style={{
-            gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-            width: "min(90vw, 400px)",
-            height: "min(90vw, 400px)",
-          }}
+          role="img"
+          aria-label={`Snake board, ${GRID} by ${GRID}. Snake length ${snake.length}.`}
+          className="grid aspect-square w-full rounded-lg border border-line bg-surface-2"
+          style={{ gridTemplateColumns: `repeat(${GRID}, 1fr)` }}
         >
-          {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, i) => {
-            const x = i % GRID_SIZE;
-            const y = Math.floor(i / GRID_SIZE);
-            const isSnakeHead = snake[0].x === x && snake[0].y === y;
-            const isSnakeBody = snake.some((segment, idx) => idx !== 0 && segment.x === x && segment.y === y);
-            const isFood = food.x === x && food.y === y;
-
+          {Array.from({ length: GRID * GRID }, (_, i) => {
+            const c = cells.get(i);
             return (
               <div
                 key={i}
-                className={`w-full h-full ${
-                  isSnakeHead
-                    ? "bg-accent rounded-sm scale-95"
-                    : isSnakeBody
-                    ? "bg-accent/80 rounded-sm scale-90"
-                    : isFood
-                    ? "bg-red-500 rounded-full scale-75 shadow-[0_0_10px_rgba(239,68,68,0.8)]"
-                    : ""
-                }`}
+                className={
+                  c === "head"
+                    ? "m-px rounded-[3px] bg-fg"
+                    : c === "body"
+                      ? "m-[2px] rounded-[3px] bg-fg/75"
+                      : c === "food"
+                        ? "m-[3px] rounded-full bg-accent"
+                        : ""
+                }
               />
             );
           })}
         </div>
 
-        {/* Overlays */}
-        {(!isPlaying && !gameOver) && (
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center">
-            <h3 className="text-2xl font-bold text-white mb-2">Terminal Snake</h3>
-            <p className="text-muted text-sm mb-6">Use Arrow Keys or WASD to move.</p>
-            <button
-              onClick={resetGame}
-              className="px-6 py-3 bg-accent text-white font-bold rounded-lg hover:bg-accent/90 transition-all hover:scale-105 active:scale-95"
-            >
-              Start Game
-            </button>
-          </div>
-        )}
-
-        {gameOver && (
-          <div className="absolute inset-0 bg-red-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center">
-            <h3 className="text-3xl font-bold text-white mb-2">Game Over</h3>
-            <p className="text-white/80 mb-6">You scored {score} points!</p>
-            <button
-              onClick={resetGame}
-              className="px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-all hover:scale-105 active:scale-95"
-            >
-              Play Again
+        {status !== "playing" && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-bg/85 p-6 text-center">
+            <p className="font-sans text-2xl font-semibold text-fg">
+              {status === "over" ? "Game over" : "Snake"}
+            </p>
+            <p className="mt-2 text-muted">
+              {status === "over" ? `You scored ${score} points.` : "Arrow keys or WASD to move."}
+            </p>
+            <button type="button" onClick={start} className="btn btn-primary mt-6 font-sans">
+              {status === "over" ? "Play again" : "Start game"}
             </button>
           </div>
         )}
       </div>
-      
-      {/* Mobile Joystick (Only visible on md:hidden) */}
-      <div className="md:hidden mt-8 flex flex-col items-center">
-        <p className="text-xs text-muted mb-4 uppercase tracking-widest">Virtual Joystick</p>
-        <div 
-          ref={joystickBaseRef}
-          onPointerDown={(e) => {
-            if (!isPlaying && !gameOver) resetGame();
-            isDragging.current = true;
-            handleJoystickMove(e);
-            (e.target as HTMLElement).setPointerCapture(e.pointerId);
-          }}
-          onPointerMove={handleJoystickMove}
-          onPointerUp={(e) => {
-            handleJoystickEnd();
-            (e.target as HTMLElement).releasePointerCapture(e.pointerId);
-          }}
-          onPointerCancel={handleJoystickEnd}
-          className="w-32 h-32 rounded-full bg-white/5 border border-white/10 relative flex items-center justify-center touch-none shadow-inner"
-        >
-          <motion.div 
-            animate={{ x: joystickPos.x, y: joystickPos.y }}
-            transition={{ type: "spring", stiffness: 500, damping: 30, mass: 0.5 }}
-            className="w-12 h-12 rounded-full bg-accent shadow-[0_0_15px_rgba(255,255,255,0.2)] absolute pointer-events-none"
-          />
-        </div>
-      </div>
 
-      {/* Desktop Controls Hint */}
-      <p className="hidden md:block mt-6 text-xs text-muted/60 max-w-[300px] text-center">
-        Use Arrow Keys or WASD to move.
-      </p>
+      <div className="mt-6 grid grid-cols-3 gap-2 md:hidden" aria-label="Direction controls" role="group">
+        <span />
+        <DirButton label="Up" onPress={() => press(UP)} icon={<ArrowUp size={20} aria-hidden />} />
+        <span />
+        <DirButton label="Left" onPress={() => press(LEFT)} icon={<ArrowLeft size={20} aria-hidden />} />
+        <DirButton label="Down" onPress={() => press(DOWN)} icon={<ArrowDown size={20} aria-hidden />} />
+        <DirButton label="Right" onPress={() => press(RIGHT)} icon={<ArrowRight size={20} aria-hidden />} />
+      </div>
+      <p className="mt-4 hidden text-subtle md:block">Arrow keys or WASD to move.</p>
     </div>
+  );
+}
+
+function DirButton({ label, icon, onPress }: { label: string; icon: React.ReactNode; onPress: () => void }) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onPointerDown={(e) => {
+        e.preventDefault();
+        onPress();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onPress();
+        }
+      }}
+      className="flex size-14 touch-none items-center justify-center rounded-2xl border border-line bg-surface text-fg transition-colors active:bg-surface-2"
+    >
+      {icon}
+    </button>
   );
 }
