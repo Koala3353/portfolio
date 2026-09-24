@@ -52,7 +52,8 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Web",
     "description": "The official website of Ateneo Celadon, the premier Filipino-Chinese student-led organization of Ateneo de Manila University.",
-    "github": "https://github.com/Koala3353/celadon-website"
+    "github": "https://github.com/Koala3353/celadon-website",
+    "preview": "https://ateneoceladon.com/"
   },
   {
     "slug": "celaville-wrapped",
@@ -61,7 +62,7 @@ export const projects: Project[] = [
     "category": "Web",
     "description": "RecWeek recap story page for Ateneo Celadon, served from GitHub Pages.",
     "github": "https://github.com/Koala3353/celaville-wrapped",
-    "preview": "https://koala3353.github.io/celaville-wrapped/"
+    "preview": "https://wrapped.ateneoceladon.com/"
   },
   {
     "slug": "kandama-market-entry-model",
@@ -69,7 +70,8 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Tools",
     "description": "Interactive financial model for a proposed Melbourne market entry by Kandama Collective, with every figure computed live from tagged assumptions.",
-    "github": "https://github.com/Koala3353/kandama-model"
+    "github": "https://github.com/Koala3353/kandama-model",
+    "preview": "https://koala3353.github.io/kandama-model/"
   },
   {
     "slug": "scht",
@@ -77,7 +79,8 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Tools",
     "description": "Invite-only, local-first school and work planner. Current-term planning, IPS curriculum imports, and offline task persistence with owner-only operational metrics.",
-    "github": "https://github.com/Koala3353/scht"
+    "github": "https://github.com/Koala3353/scht",
+    "preview": "https://scht-admu.vercel.app"
   },
   {
     "slug": "splurge",
@@ -85,7 +88,8 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Web",
     "description": "Mobile-first bill-splitting PWA for tracking outings with friends. Scans receipts with OCR, splits costs proportionally, and logs payments over time.",
-    "github": "https://github.com/Koala3353/splurge"
+    "github": "https://github.com/Koala3353/splurge",
+    "preview": "https://koala3353.github.io/splurge/"
   },
   {
     "slug": "kbrigado-links",
@@ -93,7 +97,8 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Web",
     "description": "A Linktree alternative built with Vite, React, and Tailwind CSS. Modern dark theme and a centralized resume sync pipeline.",
-    "github": "https://github.com/Koala3353/kbrigado-links"
+    "github": "https://github.com/Koala3353/kbrigado-links",
+    "preview": "https://koala3353.github.io/kbrigado-links/"
   },
   {
     "slug": "vaultie",
@@ -101,7 +106,8 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Web",
     "description": "Weekly budgeting PWA, a differently themed sibling to Budge with the same no-clutter approach to tracking spend.",
-    "github": "https://github.com/Koala3353/vaultie"
+    "github": "https://github.com/Koala3353/vaultie",
+    "preview": "https://koala3353.github.io/vaultie/"
   },
   {
     "slug": "budge",
@@ -120,7 +126,7 @@ export const projects: Project[] = [
     "category": "Web",
     "description": "A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play: no scrolling, no distractions. Made because no existing app got the UX right.",
     "github": "https://github.com/Koala3353/poker-chips-tracker",
-    "preview": "https://koala3353.github.io/poker-chips-tracker/",
+    "preview": "https://poker-chips-tracker.vercel.app",
     "featured": true
   },
   {
@@ -148,7 +154,8 @@ export const projects: Project[] = [
     "year": "2025",
     "category": "Web",
     "description": "Full-stack e-commerce platform replacing legacy Google Forms, serving 850+ unique users with real-time Google Sheets integration.",
-    "github": "https://github.com/Koala3353/celadon-rose-sale"
+    "github": "https://github.com/Koala3353/celadon-rose-sale",
+    "preview": "https://koala3353.github.io/celadon-rose-sale/"
   },
   {
     "slug": "ripe-fx",

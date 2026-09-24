@@ -32,9 +32,9 @@ export default function HeroSystem({ className }: { className?: string }) {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const p = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
-  const gridY = useTransform(p, [0, 1], [0, 40]);
-  const wireY = useTransform(p, [0, 1], [0, 110]);
-  const nodeY = useTransform(p, [0, 1], [0, 190]);
+  const gridY = useTransform(p, [0, 1], [0, 24]);
+  const wireY = useTransform(p, [0, 1], [0, 56]);
+  const nodeY = useTransform(p, [0, 1], [0, 96]);
   const spin = useTransform(p, [0, 1], [0, 35]);
 
   const anim = (d: number) => (reduce ? {} : draw(d));
