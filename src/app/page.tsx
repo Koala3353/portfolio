@@ -19,9 +19,11 @@ export const metadata: Metadata = {
   description: site.description,
 };
 
-const studies = caseStudies
-  .map((c) => ({ ...c, project: projects.find((p) => p.slug === c.slug) }))
-  .filter((c): c is typeof c & { project: Project } => Boolean(c.project));
+const studies = caseStudies.map((c) => {
+  const project = projects.find((p) => p.slug === c.slug);
+  if (!project) throw new Error(`Home case study "${c.slug}" does not match any project slug`);
+  return { ...c, project };
+});
 
 const topWins = achievementGroups.flatMap((g) => g.items).filter((a) => a.featured).slice(0, 3);
 const quote = testimonials.find((t) => t.name === "Melvin Martinez") ?? testimonials[0];
@@ -130,7 +132,7 @@ export default function HomePage() {
           <div>
             <h2 id="work-title" className="text-3xl font-semibold md:text-5xl">Built for real users.</h2>
             <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
-              Student organizations, hackathon judges, and friends splitting a bill. Here is what the work did.
+              Live sites and tools for student organizations, market-entry planning, and everyday money.
             </p>
           </div>
           <Link href="/projects" className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline">
@@ -150,11 +152,13 @@ export default function HomePage() {
                 <p className="font-mono text-sm text-subtle">{lead.project.year} · {lead.project.category}</p>
                 <h3 className="mt-3 text-3xl font-semibold md:text-4xl">{lead.project.title}</h3>
                 <p className="mt-4 max-w-[55ch] leading-relaxed text-muted">{lead.project.description}</p>
-                <p className="mt-8 flex items-baseline gap-3 border-t border-line pt-6">
-                  <span className="tabular text-5xl font-semibold tracking-tight text-accent">{lead.impact}</span>
-                  <span className="text-muted">{lead.impactLabel}</span>
-                </p>
-                <div className="mt-6">
+                {lead.impact && (
+                  <p className="mt-8 flex items-baseline gap-3 border-t border-line pt-6">
+                    <span className="tabular text-5xl font-semibold tracking-tight text-accent">{lead.impact}</span>
+                    <span className="text-muted">{lead.impactLabel}</span>
+                  </p>
+                )}
+                <div className="mt-auto pt-8">
                   <ProjectLinks project={lead.project} />
                 </div>
               </div>
@@ -162,7 +166,7 @@ export default function HomePage() {
           </Reveal>
         )}
 
-        <ul className="mt-5 grid gap-4 md:grid-cols-3 md:gap-5">
+        <ul className="mt-5 grid gap-4 md:grid-cols-2 md:gap-5">
           {others.map((c, i) => (
             <Reveal as="li" key={c.slug} delay={i * 0.08}>
               <article className="surface group flex h-full flex-col p-6">
@@ -172,10 +176,12 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-2 text-xl font-semibold">{c.project.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{c.project.description}</p>
-                <p className="mt-6 flex items-baseline gap-2 border-t border-line pt-5">
-                  <span className="tabular text-3xl font-semibold tracking-tight">{c.impact}</span>
-                  <span className="text-sm text-muted">{c.impactLabel}</span>
-                </p>
+                {c.impact && (
+                  <p className="mt-6 flex items-baseline gap-2 border-t border-line pt-5">
+                    <span className="tabular text-3xl font-semibold tracking-tight">{c.impact}</span>
+                    <span className="text-sm text-muted">{c.impactLabel}</span>
+                  </p>
+                )}
                 <div className="mt-auto pt-5">
                   <ProjectLinks project={c.project} />
                 </div>

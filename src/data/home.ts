@@ -22,12 +22,16 @@ export const now = {
   focus: latestRole.bullets[0],
 };
 
-/** Home case studies, in display order. `impact` restates facts already in the project data. */
-export const caseStudies: { slug: string; impact: string; impactLabel: string }[] = [
-  { slug: "celadon-rose-sale", impact: "850+", impactLabel: "unique users served" },
-  { slug: "ripe-fx", impact: "2", impactLabel: "bounty prizes at Ship or Be Shipped 2025" },
-  { slug: "pop-portal", impact: "3", impactLabel: "payment channels verified: GCash, Maya, BDO" },
-  { slug: "budge", impact: "0", impactLabel: "subscriptions, clutter, or ads" },
+/**
+ * Home case studies, in display order (first is the lead card).
+ * `impact` is optional and must restate a fact already in the project data.
+ */
+export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
+  { slug: "celadon-website" },
+  { slug: "celadon-rose-sale-system", impact: "850+", impactLabel: "unique users served" },
+  { slug: "budge" },
+  { slug: "kandama-market-entry-model" },
+  { slug: "splurge" },
 ];
 
 /** The three disciplines, matching the nodes in the hero illustration. */
