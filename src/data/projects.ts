@@ -60,7 +60,7 @@ export const projects: Project[] = [
     "title": "Celaville Wrapped",
     "year": "2026",
     "category": "Web",
-    "description": "RecWeek recap story page for Ateneo Celadon, served from GitHub Pages.",
+    "description": "The first CelaWrapped: a Spotify Wrapped-style recap of each member's Recruitment Week activity, with fun facts about Ateneo Celadon's members and their backgrounds.",
     "github": "https://github.com/Koala3353/celaville-wrapped",
     "preview": "https://wrapped.ateneoceladon.com/"
   },

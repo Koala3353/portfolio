@@ -125,6 +125,8 @@ const entries: ExperienceEntry[] = [
     bullets: [
       "Directed a 44-person, 6-committee team that recruited 831 members (+24% returning YoY)",
       "Launched the organization's first mobile-game tournament, generating ₱81,770 in revenue against ₱8K in costs",
+      "Created the first CelaWrapped, a Spotify Wrapped-style recap of each member's RecWeek activity with fun facts about the organization's members and their backgrounds",
+      "Launched the organization's first mahjong leaderboard portal, used by 150+ members",
     ],
     tags: ["Project Management", "Team Collaboration", "Recruitment Strategy"],
   },

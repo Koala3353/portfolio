@@ -12,7 +12,7 @@ export const aboutIntro =
 
 export const story = [
   "I'm a Management Engineering sophomore who connects code, operations, and AI to build systems that scale. I founded Klick n Code at 14, and I've since consulted for companies like Ritual Matcha Co. and GoRocky.",
-  "On every team I join, I rethink how the work gets done. As Project Manager of Celadon's Recruitment Week, I led 44 people across 6 committees to 831 recruits and launched the organization's first mobile-game tournament, which brought in ₱81,770 on ₱8K in costs. For the JADE Business Summit and LEADS 2627, I rebuilt the registration, tracking, and backend systems behind events for 80+ and 100+ participants.",
+  "On every team I join, I rethink how the work gets done. As Project Manager of Celadon's Recruitment Week, I led 44 people across 6 committees to 831 recruits and launched three firsts for the organization: a mobile-game tournament that brought in ₱81,770 on ₱8K in costs, CelaWrapped, a Spotify Wrapped-style recap of each member's week, and a mahjong leaderboard portal with 150+ users. For the JADE Business Summit and LEADS 2627, I rebuilt the registration, tracking, and backend systems behind events for 80+ and 100+ participants.",
   "I design for everyone a system touches: the participants, the executive board (EBCB), and my own core team. I make sure every teammate walks away knowing a tool or a way of working they didn't before. The changes I push for tend to stick, and the feedback from the people using them has been consistently strong.",
 ];
 
