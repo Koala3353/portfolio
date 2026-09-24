@@ -1,363 +1,229 @@
-"use client";
-
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
-import FloatingOrbs from "@/components/FloatingOrbs";
-import TextReveal from "@/components/TextReveal";
-import TiltCard from "@/components/TiltCard";
-import MagneticButton from "@/components/MagneticButton";
-import SmoothReveal from "@/components/SmoothReveal";
+import { ArrowRight, ArrowUpRight, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
+import Reveal from "@/components/Reveal";
+import HeroIntro from "@/components/home/HeroIntro";
+import HeroSystem from "@/components/art/HeroSystem";
+import CategoryGlyph from "@/components/art/CategoryGlyph";
+import Parallax from "@/components/art/Parallax";
+import Orbit from "@/components/art/Orbit";
+import { site } from "@/lib/site";
+import { metrics, stack, now, featuredOrder } from "@/data/home";
+import { projects, type Project } from "@/data/projects";
 
-/* ── Marquee ── */
-const marqueeItems = [
-  "React", "Next.js", "TypeScript", "Python", "Google Apps Script",
-  "Tailwind CSS", "Framer Motion", "MongoDB", "Git", "Claude Code",
-  "Gemini", "Financial Modeling", "Process Optimization", "Data Analytics",
-];
+export const metadata: Metadata = {
+  title: { absolute: site.title },
+  description: site.description,
+};
 
-function Marquee() {
+const featured = featuredOrder
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter((p): p is Project => Boolean(p));
+
+function FeaturedCard({ project, large = false }: { project: Project; large?: boolean }) {
   return (
-    <div className="relative overflow-hidden py-8 border-y border-white/5 bg-background">
-      <div 
-        className="flex animate-[marquee_30s_linear_infinite] w-max"
-        style={{ transform: "translateZ(0)", willChange: "transform" }}
+    <Link
+      href={`/projects#${project.slug}`}
+      className={`surface group relative flex h-full flex-col justify-between overflow-hidden p-6 transition-colors duration-200 hover:border-accent md:p-8 ${large ? "min-h-[20rem]" : "min-h-[13rem]"}`}
+    >
+      <Parallax
+        speed={large ? 70 : 40}
+        className={`pointer-events-none absolute text-subtle transition-colors duration-300 group-hover:text-fg ${large ? "-right-6 -top-4 size-56 md:size-72" : "-right-3 -top-3 size-28"}`}
       >
-        {[...marqueeItems, ...marqueeItems].map((item, i) => (
-          <span
-            key={i}
-            className="mx-8 text-sm font-medium text-muted/60 whitespace-nowrap uppercase tracking-[0.2em] hover:text-accent transition-colors duration-300"
-          >
-            {item}
-          </span>
-        ))}
+        <CategoryGlyph category={project.category} className="size-full opacity-60 transition-transform duration-500 ease-out group-hover:scale-105" />
+      </Parallax>
+      <div className="relative">
+        <p className="font-mono text-sm text-subtle">
+          {project.year} · {project.category}
+        </p>
+        <h3 className={`mt-3 font-semibold ${large ? "text-3xl md:text-4xl" : "text-xl"}`}>{project.title}</h3>
+        <p className={`mt-3 max-w-[55ch] leading-relaxed text-muted ${large ? "text-base md:text-lg" : "text-sm"}`}>
+          {project.description}
+        </p>
       </div>
-    </div>
-  );
-}
-
-/* ── Featured Card ── */
-function FeaturedCard({
-  title,
-  description,
-  tags,
-  href,
-}: {
-  title: string;
-  description: string;
-  tags: string[];
-  href: string;
-}) {
-  return (
-    <Link href={href} className="block group">
-      <TiltCard>
-        <div className="glass-card rounded-2xl p-8 h-full flex flex-col justify-between min-h-[280px] hover:border-accent/20 transition-all duration-500 relative overflow-hidden">
-          {/* Hover glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-          <div className="relative z-10">
-            <h3 className="text-2xl font-bold mb-3 group-hover:text-gradient transition-colors duration-300">
-              {title}
-            </h3>
-            <p className="text-foreground/60 leading-relaxed mb-6 max-w-lg">
-              {description}
-            </p>
-          </div>
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-3 py-1 rounded-full bg-accent/5 border border-accent/10 text-accent/70"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <ArrowRight className="w-5 h-5 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
-          </div>
-        </div>
-      </TiltCard>
+      <span className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-fg">
+        Read more
+        <ArrowRight aria-hidden className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+      </span>
     </Link>
   );
 }
 
-/* ── Metric Card ── */
-function MetricCard({ value, label, delay }: { value: string; label: string; delay: number }) {
-  return (
-    <SmoothReveal variant="scale-in" delay={delay}>
-      <TiltCard>
-        <div className="glass-card rounded-2xl p-6 text-center glow-border">
-          <p className="text-3xl md:text-4xl font-bold text-gradient mb-1">{value}</p>
-          <p className="text-sm text-muted">{label}</p>
-        </div>
-      </TiltCard>
-    </SmoothReveal>
-  );
-}
-
-/* ── PAGE ── */
 export default function HomePage() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const heroY = useTransform(heroScroll, [0, 1], [0, 150]);
-  const heroOpacity = useTransform(heroScroll, [0, 0.6], [1, 0]);
-  const subtitleY = useTransform(heroScroll, [0, 1], [0, 80]);
+  const [lead, ...rest] = featured;
 
   return (
-    <div className="overflow-x-hidden">
-      {/* ═══════════════════════════════════════════════════════
-          CHAPTER 1: THE HOOK
-       ═══════════════════════════════════════════════════════ */}
-      <section
-        ref={heroRef}
-        className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden"
-      >
-        <FloatingOrbs opacity={0.6} />
-
-        {/* Hero Content */}
-        <motion.div
-          style={{ y: heroY, opacity: heroOpacity, willChange: "transform, opacity" }}
-          className="relative z-10 text-center max-w-5xl"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="mb-8 flex justify-center"
-            style={{ willChange: "transform, opacity" }}
-          >
-            <Link 
-              href="/services" 
-              className="group inline-flex items-center gap-2 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.15em] text-accent border border-accent/20 rounded-full bg-accent/5 hover:bg-accent/15 transition-all shadow-lg shadow-accent/5"
-            >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-              </span>
-              Hiring? View Recruiter Hub
-              <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+    <>
+      {/* Hero */}
+      <section aria-labelledby="hero-title" className="container-page relative grid overflow-x-clip min-h-[calc(100dvh-4rem)] items-center gap-12 pb-16 pt-16 md:grid-cols-12 md:pt-24">
+        <HeroIntro className="md:col-span-7">
+          <h1 id="hero-title" className="max-w-[16ch] text-5xl font-semibold leading-[1.02] md:text-7xl">
+            I build the systems teams run on.
+          </h1>
+          <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-muted">
+            I&apos;m Keene, a Management Engineering student at Ateneo bridging code, operations, and AI.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/projects" className="btn btn-primary">
+              View projects <ArrowRight aria-hidden className="size-4" />
             </Link>
-          </motion.div>
+            <Link href="/cv" className="btn btn-secondary">
+              View résumé
+            </Link>
+          </div>
+        </HeroIntro>
 
-          {/* Main headline with character reveal */}
-          <TextReveal
-            text="Bridging Code, Operations, and AI"
-            as="h1"
-            className="font-bold tracking-tight text-glow mb-6"
-            delay={0.3}
-          />
-
-          {/* Subtitle with parallax */}
-          <motion.div style={{ y: subtitleY, willChange: "transform" }}>
-            <motion.p
-              initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              style={{ willChange: "transform, opacity, filter" }}
-              className="text-lg md:text-xl text-muted max-w-2xl mx-auto mb-10 leading-relaxed"
-            >
-              I&apos;m <span className="text-foreground font-medium">Keene Xander Brigado</span> — 
-              a Management Engineering student at Ateneo de Manila who builds 
-              systems that scale.
-            </motion.p>
-          </motion.div>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6, duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <MagneticButton className="flex">
-              <Link
-                href="/projects"
-                className="w-full h-full px-6 py-3 text-sm font-medium bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors flex items-center justify-center gap-2 glow-accent"
-              >
-                View My Work <ArrowRight className="w-4 h-4" />
-              </Link>
-            </MagneticButton>
-            <MagneticButton className="flex">
-              <a
-                href="https://github.com/Koala3353"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full h-full px-6 py-3 text-sm font-medium bg-white/5 border border-white/10 rounded-lg text-foreground hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-            </MagneticButton>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.8 }}
-          className="absolute bottom-10 z-10 flex flex-col items-center gap-2"
-        >
-          <span className="text-xs text-muted/60 uppercase tracking-[0.2em]">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <ChevronDown className="w-5 h-5 text-muted/40" />
-          </motion.div>
-        </motion.div>
+        <div className="relative md:col-span-5">
+          <HeroSystem className="pointer-events-none absolute -inset-x-10 -top-24 bottom-24 -z-10 opacity-90 md:-inset-x-16 md:-top-40" />
+          <Reveal delay={0.2} className="relative pt-64 md:pt-72">
+            <Parallax speed={-50}>
+          <aside aria-label="Currently" className="surface p-6 shadow-xl md:ml-10 md:p-7">
+                <h2 className="text-sm font-medium text-subtle">Now</h2>
+                <p className="mt-3 text-xl font-semibold">{now.role}</p>
+                <p className="mt-1 text-muted">{now.company}</p>
+                <p className="mt-1 font-mono text-sm text-subtle">{now.period}</p>
+                <p className="mt-5 border-t border-line pt-5 text-sm leading-relaxed text-muted">{now.focus}</p>
+                <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-5 text-sm">
+                  <li>
+                    <a href={site.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 link-underline">
+                      <GithubLogo aria-hidden className="size-4" /> GitHub
+                    </a>
+                  </li>
+                  <li>
+                    <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 link-underline">
+                      <LinkedinLogo aria-hidden className="size-4" /> LinkedIn
+                    </a>
+                  </li>
+                  <li>
+                    <Link href="/experience" className="link-underline">
+                      Full experience
+                    </Link>
+                  </li>
+                </ul>
+              </aside>
+            </Parallax>
+          </Reveal>
+        </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          CHAPTER 2: THE NUMBERS
-       ═══════════════════════════════════════════════════════ */}
-      <section className="section-padding px-6 relative">
-        <div className="max-w-6xl mx-auto">
-          <SmoothReveal variant="fade-up" className="text-center mb-12">
-            <p className="text-accent font-mono text-xs tracking-[0.3em] uppercase mb-3">Track Record</p>
-            <h2 className="font-bold tracking-tight">
-              Numbers that <span className="text-gradient">speak</span>
+      {/* Metrics */}
+      <section aria-labelledby="metrics-title" className="container-page pb-20">
+        <h2 id="metrics-title" className="sr-only">
+          Track record
+        </h2>
+        <Reveal>
+          <dl className="grid grid-cols-2 border-y border-line md:grid-cols-4 md:divide-x md:divide-line">
+            {metrics.map((m, i) => (
+              <div
+                key={m.label}
+                className={`py-8 md:px-8 md:first:pl-0 ${i % 2 === 1 ? "pl-6 border-l border-line md:border-l-0" : ""} ${i < 2 ? "border-b border-line md:border-b-0" : ""}`}
+              >
+                <dt className="text-sm text-muted">{m.label}</dt>
+                <dd className="tabular mt-2 text-4xl font-semibold tracking-tight md:text-5xl">{m.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+      </section>
+
+      {/* Stack marquee (the only one sitewide) */}
+      <section aria-labelledby="stack-title" className="pb-24">
+        <h2 id="stack-title" className="sr-only">
+          Tools and skills
+        </h2>
+        <div className="group relative overflow-hidden border-y border-line py-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <ul className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-3 motion-reduce:px-5 motion-reduce:animate-none">
+            {[...stack, ...stack].map((item, i) => (
+              <li
+                key={i}
+                aria-hidden={i >= stack.length || undefined}
+                className={`mx-6 whitespace-nowrap font-mono text-sm text-muted ${i >= stack.length ? "motion-reduce:hidden" : ""}`}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Featured work */}
+      <section aria-labelledby="work-title" className="container-page pb-24">
+        <Reveal className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 id="work-title" className="text-3xl font-semibold md:text-5xl">
+              Selected work
             </h2>
-          </SmoothReveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <MetricCard value="43+" label="Projects Shipped" delay={0} />
-            <MetricCard value="5+" label="Years Building" delay={0.1} />
-            <MetricCard value="9+" label="Competition Wins" delay={0.2} />
-            <MetricCard value="10+" label="Tools & Languages" delay={0.3} />
+            <p className="mt-3 max-w-[55ch] leading-relaxed text-muted">
+              Tools built for real users: student organizations, hackathon judges, and friends splitting a bill.
+            </p>
           </div>
-        </div>
+          <Link href="/projects" className="inline-flex items-center gap-1.5 text-sm font-medium text-accent link-underline">
+            View projects <ArrowRight aria-hidden className="size-4" />
+          </Link>
+        </Reveal>
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-6 md:gap-5">
+          {lead && (
+            <Reveal as="li" className="md:col-span-4 md:row-span-2">
+              <FeaturedCard project={lead} large />
+            </Reveal>
+          )}
+          {rest.slice(0, 1).map((p) => (
+            <Reveal as="li" key={p.slug} delay={0.08} className="md:col-span-2">
+              <FeaturedCard project={p} />
+            </Reveal>
+          ))}
+          {rest.slice(1, 2).map((p) => (
+            <Reveal as="li" key={p.slug} delay={0.12} className="md:col-span-2">
+              <FeaturedCard project={p} />
+            </Reveal>
+          ))}
+          {rest.slice(2).map((p) => (
+            <Reveal as="li" key={p.slug} delay={0.16} className="md:col-span-6">
+              <FeaturedCard project={p} />
+            </Reveal>
+          ))}
+        </ul>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          CHAPTER 3: THE STACK
-       ═══════════════════════════════════════════════════════ */}
-      <Marquee />
-
-      {/* ═══════════════════════════════════════════════════════
-          CHAPTER 4: FEATURED WORK
-       ═══════════════════════════════════════════════════════ */}
-      <section className="section-padding px-6 relative">
-        <FloatingOrbs opacity={0.2} />
-        <div className="max-w-6xl mx-auto relative z-10">
-          <SmoothReveal variant="fade-up">
-            <div className="flex items-end justify-between mb-12">
-              <div>
-                <p className="text-accent font-mono text-xs tracking-[0.3em] uppercase mb-3">Selected Projects</p>
-                <h2 className="font-bold tracking-tight">
-                  Featured <span className="text-muted">Work</span>
-                </h2>
-              </div>
-              <Link
-                href="/projects"
-                className="hidden md:flex items-center gap-2 text-sm text-accent hover:underline underline-offset-4"
-              >
-                View all projects <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </SmoothReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <SmoothReveal variant="fade-up" delay={0}>
-              <FeaturedCard
-                title="Budge"
-                description="A personal budgeting web app built because existing finance apps had terrible UX. Clean interface for tracking expenses and income with real-time insights."
-                tags={["React", "Full-Stack", "Finance"]}
-                href="/projects"
-              />
-            </SmoothReveal>
-            <SmoothReveal variant="fade-up" delay={0.1}>
-              <FeaturedCard
-                title="Poker Chips Tracker"
-                description="A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play — no scrolling, no distractions."
-                tags={["React", "Mobile-First", "Real-Time"]}
-                href="/projects"
-              />
-            </SmoothReveal>
-            <SmoothReveal variant="fade-up" delay={0.2}>
-              <FeaturedCard
-                title="Ripe FX Widget"
-                description="Production-ready React widget providing real-time stablecoin-to-fiat transparency. Won 2 bounties at Ship or Be Shipped 2025 hackathon."
-                tags={["React", "DeFi", "Hackathon Winner"]}
-                href="/projects"
-              />
-            </SmoothReveal>
-            <SmoothReveal variant="fade-up" delay={0.3}>
-              <FeaturedCard
-                title="Proof of Purchase Portal"
-                description="Automated payment verification for Ateneo organizations, cross-checking GCash and Maya screenshots against official transaction history."
-                tags={["React", "OCR", "FinTech"]}
-                href="/projects"
-              />
-            </SmoothReveal>
+      {/* Recruiter strip */}
+      <section aria-labelledby="recruiter-title" className="container-page pb-24">
+        <Reveal className="flex flex-col gap-4 border-y border-line py-8 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 id="recruiter-title" className="text-xl font-semibold">
+              Hiring for an internship?
+            </h2>
+            <p className="mt-1 text-muted">A short overview of what I work on and how I can help your team.</p>
           </div>
+          <Link href="/services" className="inline-flex items-center gap-1.5 font-medium text-accent link-underline">
+            For recruiters <ArrowUpRight aria-hidden className="size-4" />
+          </Link>
+        </Reveal>
+      </section>
 
-          <div className="mt-8 md:hidden text-center">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-accent hover:underline underline-offset-4"
-            >
-              View all projects <ArrowRight className="w-4 h-4" />
+      {/* Closing CTA */}
+      <section aria-labelledby="cta-title" className="container-page relative isolate overflow-hidden pb-28 pt-16">
+        <Parallax rotate={60} speed={80} className="pointer-events-none absolute -right-24 top-0 -z-10 size-[28rem] opacity-70 md:right-0">
+          <Orbit className="size-full" />
+        </Parallax>
+        <Reveal className="grid gap-8 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-8">
+            <h2 id="cta-title" className="max-w-[20ch] text-4xl font-semibold leading-[1.05] md:text-6xl">
+              Ready to build something that matters?
+            </h2>
+            <p className="mt-5 max-w-[55ch] text-lg leading-relaxed text-muted">
+              I&apos;m seeking internships at fast-paced companies where code, operations, and AI can scale real impact.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 md:col-span-4 md:justify-end">
+            <Link href="/contact" className="btn btn-primary">
+              Get in touch
+            </Link>
+            <Link href="/cv" className="btn btn-secondary">
+              View résumé
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
-
-      {/* ═══════════════════════════════════════════════════════
-          CHAPTER 5: THE CLOSER
-       ═══════════════════════════════════════════════════════ */}
-      <section className="section-padding px-6 relative">
-        <div className="max-w-4xl mx-auto">
-          <SmoothReveal variant="scale-in">
-            <div className="glass-card rounded-3xl p-10 md:p-16 text-center relative overflow-hidden glow-border">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent-secondary/5" />
-              <FloatingOrbs opacity={0.15} />
-
-              <div className="relative z-10">
-                <TextReveal
-                  text="Ready to build something impactful?"
-                  as="h2"
-                  className="font-bold tracking-tight mb-4"
-                />
-
-                <SmoothReveal variant="fade-up" delay={0.3}>
-                  <p className="text-muted mb-8 max-w-lg mx-auto">
-                    I&apos;m actively seeking internships at fast-paced companies
-                    where I can leverage code, operations, and AI to scale impact.
-                  </p>
-                </SmoothReveal>
-
-                <SmoothReveal variant="fade-up" delay={0.5}>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <MagneticButton className="flex">
-                      <Link
-                        href="/contact"
-                        className="w-full h-full px-8 py-3.5 bg-accent text-white font-medium rounded-lg hover:bg-accent-hover transition-colors flex items-center justify-center glow-accent"
-                      >
-                        Get in Touch
-                      </Link>
-                    </MagneticButton>
-                    <MagneticButton className="flex">
-                      <Link
-                        href="/cv"
-                        className="w-full h-full px-8 py-3.5 bg-white/5 border border-white/10 text-foreground font-medium rounded-lg hover:bg-white/10 transition-colors flex items-center justify-center"
-                      >
-                        View Résumé
-                      </Link>
-                    </MagneticButton>
-                  </div>
-                </SmoothReveal>
-              </div>
-            </div>
-          </SmoothReveal>
-        </div>
-      </section>
-    </div>
+    </>
   );
 }

@@ -1,146 +1,178 @@
 @import "tailwindcss";
 
+/*
+  Design tokens
+  One neutral family (zinc) + one accent (signal orange).
+  Radius system: interactive controls = full pill, inputs = 12px, surfaces = 16px.
+  Z-index scale: nav 40, overlay 50, dialog 60, grain 70.
+*/
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  /* ── Electric Blue + Cyan Palette ── */
-  --background: #050507;
-  --foreground: #f0f0f3;
-  --muted: #8b8b9e;
-  --card: #12121a;
-  --border: rgba(255, 255, 255, 0.08);
-  --accent: #3b82f6;
-  --accent-hover: #2563eb;
-  --accent-secondary: #06b6d4;
-  --accent-glow: rgba(59, 130, 246, 0.4);
+  --bg: #f4f4f5;
+  --surface: #fbfbfc;
+  --surface-2: #ececef;
+  --fg: #18181b;
+  --muted: #52525b;
+  --subtle: #71717a;
+  --line: #dcdce1;
+  --accent: #c2410c;
+  --accent-hover: #9a3412;
+  --accent-fg: #fafafa;
+  --accent-soft: rgb(194 65 12 / 0.08);
+  --shadow: 24 24 27;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0b0b0d;
+  --surface: #131316;
+  --surface-2: #1b1b1f;
+  --fg: #ececee;
+  --muted: #a1a1aa;
+  --subtle: #8a8a93;
+  --line: #27272c;
+  --accent: #f97316;
+  --accent-hover: #fb923c;
+  --accent-fg: #0b0b0d;
+  --accent-soft: rgb(249 115 22 / 0.1);
+  --shadow: 0 0 0;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
   --color-muted: var(--muted);
-  --color-card: var(--card);
-  --color-border: var(--border);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
-  --color-accent-secondary: var(--accent-secondary);
-  --color-accent-glow: var(--accent-glow);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Base ── */
 html {
   scroll-behavior: smooth;
-  scrollbar-color: rgba(59, 130, 246, 0.25) transparent;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-@media (pointer: fine) {
-  html, body, *, a, button {
-    cursor: none !important;
-  }
-}
-
-/* ── Typography ── */
 h1, h2, h3, h4 {
-  font-family: var(--font-space), var(--font-inter), sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
-h1 { font-size: clamp(2.25rem, 1.2rem + 5.5vw, 5rem); line-height: 1.05; }
-h2 { font-size: clamp(1.5rem, 0.8rem + 3.5vw, 3rem); line-height: 1.15; }
-h3 { font-size: clamp(1.125rem, 0.6rem + 2vw, 1.75rem); line-height: 1.25; }
+p { text-wrap: pretty; }
 
-/* ── Glassmorphism ── */
-@utility glass-card {
-  background: rgba(18, 18, 26, 0.65);
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
 }
 
-@utility glass-panel {
-  background: rgba(5, 5, 7, 0.6);
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-@utility glass-nav {
-  background: rgba(5, 5, 7, 0.75);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ── Primitives ── */
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 768px) { padding-inline: 2rem; }
 }
 
-/* ── Text Effects ── */
-@utility text-glow {
-  text-shadow: 0 0 30px rgba(59, 130, 246, 0.3), 0 0 60px rgba(59, 130, 246, 0.1);
+@utility surface {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 1px 0 rgb(var(--shadow) / 0.03), 0 12px 32px -18px rgb(var(--shadow) / 0.18);
 }
 
-@utility text-gradient {
-  color: var(--accent);
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.75rem;
+  padding-inline: 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 200ms var(--ease-out-expo), color 200ms, border-color 200ms, transform 150ms var(--ease-out-expo);
+  &:active { transform: scale(0.97); }
 }
 
-/* ── Glow Effects ── */
-@utility glow-accent {
-  box-shadow:
-    0 0 20px rgba(59, 130, 246, 0.15),
-    0 0 60px rgba(59, 130, 246, 0.08),
-    0 8px 32px rgba(0, 0, 0, 0.4);
+@utility btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+  &:hover { background: var(--accent-hover); }
 }
 
-@utility glow-border {
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.05);
+@utility btn-secondary {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  &:hover { background: var(--surface-2); }
 }
 
-/* ── Spacing ── */
-@utility section-padding {
-  padding-top: clamp(3rem, 6vw, 6rem);
-  padding-bottom: clamp(3rem, 6vw, 6rem);
+@utility link-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 200ms;
+  &:hover { text-decoration-color: var(--accent); }
 }
 
-@utility page-top {
-  padding-top: clamp(7rem, 12vw, 12rem);
+@utility field {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--fg);
+  transition: border-color 200ms, box-shadow 200ms;
+  &::placeholder { color: var(--subtle); }
+  &:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  &[aria-invalid="true"] { border-color: #dc2626; }
 }
 
-/* ── Grain Overlay ── */
-@utility grain-overlay {
+/* Subtle grain on a fixed layer only (never on scrolling containers) */
+.grain {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 70;
   pointer-events: none;
   opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 128px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ── Animated Border Gradient ── */
-@keyframes border-spin {
-  0% { --border-angle: 0deg; }
-  100% { --border-angle: 360deg; }
-}
-
-@utility animated-border {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ── Marquee ── */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-/* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
