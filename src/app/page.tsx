@@ -25,18 +25,31 @@ const studies = caseStudies.map((c) => {
   return { ...c, project };
 });
 
-const topWins = achievementGroups.flatMap((g) => g.items).filter((a) => a.featured).slice(0, 3);
+const topWins = achievementGroups
+  .flatMap((g) => g.items)
+  .filter((a) => a.featured)
+  .slice(0, 3);
 const quote = testimonials.find((t) => t.name === "Melvin Martinez") ?? testimonials[0];
 
 function ProjectLinks({ project }: { project: Project }) {
   return (
     <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
       {project.preview && (
-        <a href={project.preview} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-accent link-underline">
+        <a
+          href={project.preview}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 font-medium text-accent link-underline"
+        >
           Live demo <ArrowUpRight aria-hidden className="size-4" />
         </a>
       )}
-      <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 link-underline">
+      <a
+        href={project.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 link-underline"
+      >
         <GithubLogo aria-hidden className="size-4" /> Source
       </a>
       <Link href={`/projects#${project.slug}`} className="inline-flex items-center gap-1.5 text-muted link-underline">
@@ -52,13 +65,17 @@ export default function HomePage() {
   return (
     <>
       {/* 1. Hero: claim + illustration, side by side (no overlap) */}
-      <section aria-labelledby="hero-title" className="container-page relative grid items-center gap-8 overflow-x-clip pb-12 pt-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-12 md:pt-16">
+      <section
+        aria-labelledby="hero-title"
+        className="container-page relative grid items-center gap-8 overflow-x-clip pb-12 pt-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-12 md:pt-16"
+      >
         <HeroIntro className="md:col-span-6 lg:col-span-6">
           <h1 id="hero-title" className="max-w-[14ch] text-5xl font-semibold leading-[1.02] md:text-6xl lg:text-7xl">
             I build the systems teams run on.
           </h1>
           <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
-            I&apos;m Keene, a Management Engineering student at Ateneo who ships software, models, and AI workflows for real operations.
+            I&apos;m Keene, a Management Engineering student at Ateneo who ships software, models, and AI workflows for
+            real operations.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href="/projects" className="btn btn-primary">
@@ -74,7 +91,9 @@ export default function HomePage() {
 
       {/* 2. Proof in numbers */}
       <section aria-labelledby="metrics-title" className="container-page pb-24">
-        <h2 id="metrics-title" className="sr-only">Track record</h2>
+        <h2 id="metrics-title" className="sr-only">
+          Track record
+        </h2>
         <Reveal>
           <dl className="grid grid-cols-2 border-y border-line md:grid-cols-4 md:divide-x md:divide-line">
             {metrics.map((m, i) => (
@@ -93,7 +112,9 @@ export default function HomePage() {
       {/* 3. What I do: the three nodes from the hero, explained */}
       <section aria-labelledby="do-title" className="container-page pb-28">
         <Reveal className="max-w-2xl">
-          <h2 id="do-title" className="text-3xl font-semibold md:text-5xl">One person across three disciplines.</h2>
+          <h2 id="do-title" className="text-3xl font-semibold md:text-5xl">
+            One person across three disciplines.
+          </h2>
           <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
             Most problems sit between engineering and operations. I work on both sides, and use AI to move faster.
           </p>
@@ -101,24 +122,65 @@ export default function HomePage() {
         <div className="mt-12 grid gap-4 md:grid-cols-12 md:gap-5">
           {disciplines.map((d, i) => {
             const skills = skillGroups.find((g) => g.title === d.skillGroup)?.items ?? [];
+            const work = d.work
+              .map((slug) => projects.find((p) => p.slug === slug))
+              .filter((p): p is Project => Boolean(p));
             const big = i === 0;
             return (
-              <Reveal
-                key={d.id}
-                delay={i * 0.08}
-                className={big ? "md:col-span-7 md:row-span-2" : "md:col-span-5"}
-              >
-                <article className={`surface flex h-full flex-col p-6 md:p-8 ${big ? "bg-accent-soft" : ""}`}>
-                  <p className="font-mono text-sm text-accent">{d.id}</p>
-                  <h3 className={`mt-3 font-semibold ${big ? "text-3xl" : "text-2xl"}`}>{d.title}</h3>
-                  <p className="mt-3 max-w-[48ch] leading-relaxed text-muted">{d.body}</p>
-                  <ul className="mt-auto flex flex-wrap gap-2 pt-8" aria-label={`${d.title} skills`}>
-                    {skills.slice(0, big ? 10 : 5).map((s) => (
-                      <li key={s} className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted">
-                        {s}
-                      </li>
-                    ))}
-                  </ul>
+              <Reveal key={d.id} delay={i * 0.08} className={big ? "md:col-span-12" : "md:col-span-6"}>
+                <article
+                  className={`surface h-full p-6 md:p-8 ${big ? "grid gap-8 bg-accent-soft md:grid-cols-2 md:gap-12 md:p-10" : "flex flex-col"}`}
+                >
+                  <div className="flex flex-col">
+                    <h3 className={`font-semibold ${big ? "text-3xl md:text-4xl" : "text-2xl"}`}>{d.title}</h3>
+                    <p className="mt-3 max-w-[48ch] leading-relaxed text-muted">{d.body}</p>
+                    {big && (
+                      <ul className="mt-auto flex flex-wrap gap-2 pt-8" aria-label={`${d.title} skills`}>
+                        {skills.map((s) => (
+                          <li
+                            key={s}
+                            className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted"
+                          >
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div className={big ? "" : "mt-6"}>
+                    <p className="text-sm font-medium text-subtle">Shipped</p>
+                    <ul className={`mt-3 divide-y divide-line border-y border-line ${big ? "md:text-lg" : ""}`}>
+                      {work.map((p) => (
+                        <li key={p.slug}>
+                          <a
+                            href={p.preview ?? `/projects#${p.slug}`}
+                            {...(p.preview ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                            className={`group flex items-center justify-between gap-4 ${big ? "py-4" : "py-3"}`}
+                          >
+                            <span className="font-medium transition-colors group-hover:text-accent">{p.title}</span>
+                            <span className="flex items-center gap-2 font-mono text-sm text-subtle">
+                              {p.year}
+                              <ArrowUpRight
+                                aria-hidden
+                                className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                              />
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {!big && (
+                    <ul className="mt-auto flex flex-wrap gap-2 pt-6" aria-label={`${d.title} skills`}>
+                      {skills.slice(0, 6).map((s) => (
+                        <li key={s} className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted">
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </article>
               </Reveal>
             );
@@ -130,12 +192,17 @@ export default function HomePage() {
       <section aria-labelledby="work-title" className="container-page pb-28">
         <Reveal className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 id="work-title" className="text-3xl font-semibold md:text-5xl">Built for real users.</h2>
+            <h2 id="work-title" className="text-3xl font-semibold md:text-5xl">
+              Built for real users.
+            </h2>
             <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
               Live sites and tools for student organizations, market-entry planning, and everyday money.
             </p>
           </div>
-          <Link href="/projects" className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline">
+          <Link
+            href="/projects"
+            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline"
+          >
             All {projects.length} projects <ArrowRight aria-hidden className="size-4" />
           </Link>
         </Reveal>
@@ -149,7 +216,9 @@ export default function HomePage() {
                 </Parallax>
               </div>
               <div className="flex flex-col p-6 md:col-span-7 md:p-10">
-                <p className="font-mono text-sm text-subtle">{lead.project.year} · {lead.project.category}</p>
+                <p className="font-mono text-sm text-subtle">
+                  {lead.project.year} · {lead.project.category}
+                </p>
                 <h3 className="mt-3 text-3xl font-semibold md:text-4xl">{lead.project.title}</h3>
                 <p className="mt-4 max-w-[55ch] leading-relaxed text-muted">{lead.project.description}</p>
                 {lead.impact && (
@@ -171,8 +240,13 @@ export default function HomePage() {
             <Reveal as="li" key={c.slug} delay={i * 0.08}>
               <article className="surface group flex h-full flex-col p-6">
                 <div className="flex items-start justify-between gap-4">
-                  <p className="font-mono text-sm text-subtle">{c.project.year} · {c.project.category}</p>
-                  <CategoryGlyph category={c.project.category} className="size-12 shrink-0 text-subtle transition-colors group-hover:text-fg" />
+                  <p className="font-mono text-sm text-subtle">
+                    {c.project.year} · {c.project.category}
+                  </p>
+                  <CategoryGlyph
+                    category={c.project.category}
+                    className="size-12 shrink-0 text-subtle transition-colors group-hover:text-fg"
+                  />
                 </div>
                 <h3 className="mt-2 text-xl font-semibold">{c.project.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{c.project.description}</p>
@@ -193,7 +267,9 @@ export default function HomePage() {
 
       {/* 5. Social proof: a manager's words + top wins */}
       <section aria-labelledby="proof-title" className="container-page pb-28">
-        <h2 id="proof-title" className="sr-only">What others say</h2>
+        <h2 id="proof-title" className="sr-only">
+          What others say
+        </h2>
         <div className="grid gap-10 md:grid-cols-12 md:gap-12">
           <Reveal className="md:col-span-7">
             <figure>
@@ -203,7 +279,10 @@ export default function HomePage() {
               <figcaption className="mt-6 text-muted">
                 <span className="font-medium text-fg">{quote.name}</span>, {quote.title}. {quote.relationship}.
               </figcaption>
-              <Link href="/testimonials" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent link-underline">
+              <Link
+                href="/testimonials"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent link-underline"
+              >
                 Read recommendations <ArrowRight aria-hidden className="size-4" />
               </Link>
             </figure>
@@ -221,7 +300,10 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/achievements" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium link-underline">
+            <Link
+              href="/achievements"
+              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium link-underline"
+            >
               All achievements <ArrowRight aria-hidden className="size-4" />
             </Link>
           </Reveal>
@@ -233,7 +315,9 @@ export default function HomePage() {
         <Reveal>
           <div className="surface grid gap-6 p-6 md:grid-cols-12 md:items-center md:p-8">
             <div className="md:col-span-8">
-              <h2 id="now-title" className="text-sm font-medium text-subtle">Currently</h2>
+              <h2 id="now-title" className="text-sm font-medium text-subtle">
+                Currently
+              </h2>
               <p className="mt-2 text-xl font-semibold md:text-2xl">
                 {now.role}, {now.company}
               </p>
@@ -241,7 +325,10 @@ export default function HomePage() {
             </div>
             <div className="md:col-span-4 md:text-right">
               <p className="font-mono text-sm text-subtle">{now.period}</p>
-              <Link href="/experience" className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium link-underline">
+              <Link
+                href="/experience"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium link-underline"
+              >
                 Full experience <ArrowRight aria-hidden className="size-4" />
               </Link>
             </div>
@@ -251,7 +338,9 @@ export default function HomePage() {
 
       {/* 7. Stack marquee (the only one sitewide) */}
       <section aria-labelledby="stack-title" className="pb-24">
-        <h2 id="stack-title" className="sr-only">Tools and skills</h2>
+        <h2 id="stack-title" className="sr-only">
+          Tools and skills
+        </h2>
         <div className="group relative overflow-hidden border-y border-line py-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <ul className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-3 motion-reduce:px-5 motion-reduce:animate-none">
             {[...stack, ...stack].map((item, i) => (
@@ -268,7 +357,10 @@ export default function HomePage() {
       </section>
 
       {/* 8. Close */}
-      <section aria-labelledby="cta-title" className="container-page grid items-center gap-10 pb-28 pt-8 md:grid-cols-12">
+      <section
+        aria-labelledby="cta-title"
+        className="container-page grid items-center gap-10 pb-28 pt-8 md:grid-cols-12"
+      >
         <Reveal className="md:col-span-7">
           <h2 id="cta-title" className="max-w-[18ch] text-4xl font-semibold leading-[1.05] md:text-6xl">
             Looking for an intern who ships?
@@ -288,7 +380,11 @@ export default function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <Parallax rotate={60} speed={60} className="pointer-events-none mx-auto hidden aspect-square w-full max-w-[22rem] md:col-span-5 md:block">
+        <Parallax
+          rotate={60}
+          speed={60}
+          className="pointer-events-none mx-auto hidden aspect-square w-full max-w-[22rem] md:col-span-5 md:block"
+        >
           <Orbit className="size-full" />
         </Parallax>
       </section>

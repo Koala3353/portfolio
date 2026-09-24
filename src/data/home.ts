@@ -41,17 +41,20 @@ export const disciplines = [
     title: "Code",
     body: "Full-stack web apps and internal tools, shipped to real users and kept running.",
     skillGroup: "Development",
+    work: ["celadon-website", "budge", "splurge", "scht"],
   },
   {
     id: "ops",
     title: "Operations",
     body: "Process design, capacity and financial models, and the dashboards teams make decisions from.",
     skillGroup: "Operations and logic",
+    work: ["kandama-market-entry-model", "pop-portal"],
   },
   {
     id: "ai",
     title: "AI",
     body: "Agentic workflows and LLM integrations that take repetitive work off people's plates.",
     skillGroup: "AI workflows",
+    work: ["proof-of-purchase-api", "mediguard-ai"],
   },
 ] as const;
