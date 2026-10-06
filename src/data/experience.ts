@@ -123,12 +123,15 @@ const entries: ExperienceEntry[] = [
     org: "Ateneo Celadon", role: "Project Manager, Recruitment Week and Welcome Week '26", category: "leadership",
     start: "2026-06", end: "2026-09",
     bullets: [
+      "Led the first Recruitment Week run by project managers instead of the executive board, which meant recruiting a core team through open applications for the first time, where cores were previously assigned",
+      "Marketed the core team openings with a primer and publicity materials that drew more applicants than the organization's yearly projects",
       "Directed a 44-person, 6-committee team that recruited 831 members (+24% returning YoY)",
+      "Led the marketing and creatives team, whose designs were voted the best among all organizations in ADMU",
       "Launched the organization's first mobile-game tournament, generating ₱81,770 in revenue against ₱8K in costs",
       "Created the first CelaWrapped, a Spotify Wrapped-style recap of each member's RecWeek activity with fun facts about the organization's members and their backgrounds",
       "Launched the organization's first mahjong leaderboard portal, used by 150+ members",
     ],
-    tags: ["Project Management", "Team Collaboration", "Recruitment Strategy"],
+    tags: ["Project Management", "Marketing", "Recruitment Strategy", "Team Collaboration"],
   },
   {
     org: "Ateneo Celadon", role: "Recruitment and Secretariat Core + OSR Analyst, Celaball '26", category: "leadership",
