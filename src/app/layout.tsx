@@ -22,6 +22,8 @@ export const metadata: Metadata = {
     siteName: site.name,
   },
   twitter: { card: "summary_large_image", title: site.title, description: site.description },
+  // Google Search Console verification (backup to public/google8b74c32466b39f11.html).
+  verification: { google: "79XGjPRkm9k6JhyRhmhAPpMih3fp7CMtVm5F6v1HBWA" },
 };
 
 export const viewport: Viewport = {
