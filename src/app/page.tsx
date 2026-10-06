@@ -72,12 +72,12 @@ export default function HomePage() {
         className="container-page relative grid items-center gap-8 overflow-x-clip pb-12 pt-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-12 md:pt-16"
       >
         <HeroIntro className="md:col-span-6 lg:col-span-6">
-          <h1 id="hero-title" className="max-w-[14ch] text-5xl font-semibold leading-[1.02] md:text-6xl lg:text-7xl">
-            I build the systems teams run on.
+          <h1 id="hero-title" className="max-w-[18ch] text-4xl font-semibold leading-[1.04] md:text-5xl lg:text-6xl">
+            I make and improve systems people actually want to use.
           </h1>
           <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
             I&apos;m Keene, a Management Engineering student at Ateneo who diagnoses how teams work and rebuilds the
-            systems they inherited, so everyone who uses them has an easier time.
+            systems they inherited.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href="/projects" className="btn btn-primary">
