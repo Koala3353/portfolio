@@ -27,9 +27,9 @@ export const now = {
  * `impact` is optional and must restate a fact already in the project data.
  */
 export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
-  { slug: "celadon-website" },
-  { slug: "celadon-rose-sale-system", impact: "850+", impactLabel: "unique users served" },
   { slug: "budge" },
+  { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
+  { slug: "celadon-rose-sale-system", impact: "850+", impactLabel: "unique users served" },
   { slug: "kandama-market-entry-model" },
   { slug: "splurge" },
 ];
@@ -41,14 +41,14 @@ export const disciplines = [
     title: "Code",
     body: "Full-stack web apps and internal tools, shipped to real users and kept running.",
     skillGroup: "Development",
-    work: ["celadon-website", "budge", "splurge", "scht"],
+    work: ["budge", "splurge", "scht"],
   },
   {
     id: "ops",
     title: "Operations",
     body: "Process design, capacity and financial models, and the dashboards teams make decisions from.",
     skillGroup: "Operations and logic",
-    work: ["kandama-market-entry-model", "pop-portal"],
+    work: ["he-venue-explorer", "kandama-market-entry-model", "pop-portal"],
   },
   {
     id: "ai",

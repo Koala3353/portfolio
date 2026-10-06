@@ -76,8 +76,8 @@ export default function HomePage() {
             I build the systems teams run on.
           </h1>
           <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
-            I&apos;m Keene, a Management Engineering student at Ateneo who ships software, models, and AI workflows for
-            real operations.
+            I&apos;m Keene, a Management Engineering student at Ateneo who diagnoses how teams work and rebuilds the
+            systems they inherited, so everyone who uses them has an easier time.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link href="/projects" className="btn btn-primary">

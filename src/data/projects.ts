@@ -47,6 +47,15 @@ export const eras: { year: string; label?: string; subtitle: string }[] = [
 
 export const projects: Project[] = [
   {
+    "slug": "he-venue-explorer",
+    "title": "HE Venue Explorer",
+    "year": "2026",
+    "category": "Tools",
+    "description": "Finds every free room in ADMU Higher Education at once by reading all 152 CFMO venue calendars, instead of checking them one by one. Prefills the CFMO reservation form so you can submit in seconds, before the day's capped slots run out minutes after the form opens.",
+    "github": "https://github.com/Koala3353/cldn-venue-explorer",
+    "preview": "https://script.google.com/a/student.ateneo.edu/macros/s/AKfycbw_zN1l9PCFGz35TdrD-ClBp77L8Csi8Sd7rPUljYO7Z3L7uvLhKkhGQb2rvokNbfYB/exec#/"
+  },
+  {
     "slug": "celadon-website",
     "title": "Celadon Website",
     "year": "2026",

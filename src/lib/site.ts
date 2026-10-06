@@ -6,7 +6,7 @@ export const site = {
   url: "https://koala3353.github.io/portfolio",
   title: "Keene Xander Brigado | Code, operations, and AI",
   description:
-    "Management Engineering student at Ateneo de Manila University building automation, full-stack apps, and AI-assisted workflows.",
+    "Management Engineering student at Ateneo de Manila University who rebuilds the systems teams inherit around every stakeholder who uses them, and makes sure each team leaves with new skills.",
   email: "brigadokeene@gmail.com",
   github: "https://github.com/Koala3353",
   linkedin: "https://linkedin.com/in/keene-brigado",

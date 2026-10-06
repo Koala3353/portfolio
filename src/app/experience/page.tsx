@@ -16,7 +16,7 @@ export default function ExperiencePage() {
     <>
       <PageHeader seed={3}
         title="Experience"
-        intro="5+ years of building, from Discord bots made at home to automation systems and consulting work for real companies. Each role sharpened a different skill."
+        intro="5+ years of building, from Discord bots made at home to automation systems and consulting work for real companies. In every role, head or core, I improve the system I inherit instead of just reusing it."
       />
 
       <section aria-labelledby="roles-heading" className="container-page pb-20">
