@@ -7,7 +7,7 @@ import { aboutIntro, education, facts, skillGroups, story } from "@/data/about";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Keene Xander Brigado, Management Engineering student at Ateneo de Manila University working across code, operations, and AI.",
+    "Keene Xander Brigado, Management Engineering student at Ateneo de Manila University working across operations, strategy, and brand.",
 };
 
 export default function AboutPage() {

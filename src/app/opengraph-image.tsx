@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
-export const alt = "Keene Xander Brigado: code, operations, and AI";
+export const alt = "Keene Xander Brigado: operations, strategy, and brand";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -29,7 +29,7 @@ export default function OpengraphImage() {
           </span>
         </div>
         <div style={{ display: "flex", fontSize: 28, color: "#a1a1aa" }}>
-          Management Engineering, Ateneo de Manila · Code, operations, AI
+          Management Engineering, Ateneo de Manila · Operations, strategy, brand
         </div>
       </div>
     ),

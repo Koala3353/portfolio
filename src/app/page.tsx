@@ -368,7 +368,7 @@ export default function HomePage() {
             Looking for an intern who ships?
           </h2>
           <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-muted">
-            I&apos;m seeking internships at fast-paced companies where code, operations, and AI can scale real impact.
+            I&apos;m seeking internships at fast-paced companies where operations, strategy, and brand can scale real impact.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link href="/contact" className="btn btn-primary">
