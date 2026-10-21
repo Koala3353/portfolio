@@ -779,7 +779,8 @@ export function Lamp({ reduceMotion, on }: { reduceMotion: boolean; on: number }
         <Toon color={C.metalLight} />
         <Ink t={0.008} />
       </mesh>
-      <group position={[0.62, 1.45, 0.25]} rotation={[0.6, 0, -0.9]}>
+      {/* Shade hangs off the end of the arm, its opening aimed down at the desk and the laptop. */}
+      <group position={[0.72, 1.25, 0.22]} rotation={[-0.2, 0, 0.45]}>
         {/* shade: dark green outside, warm inside */}
         <mesh>
           <coneGeometry args={[0.32, 0.45, 28, 1, true]} />
@@ -805,7 +806,7 @@ export function Lamp({ reduceMotion, on }: { reduceMotion: boolean; on: number }
       </group>
       <pointLight
         ref={light}
-        position={[0.9, 1.1, 0.6]}
+        position={[0.95, 0.85, 0.35]}
         color={C.lamp}
         intensity={reduceMotion ? 18 * on : 0}
         distance={9}
