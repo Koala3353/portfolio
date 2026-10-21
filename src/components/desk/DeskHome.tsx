@@ -9,6 +9,7 @@ import { useLocalHour, useManilaClock, useTypewriter } from "./hooks";
 import { reportDeskCrash, setHomeView } from "./homeMode";
 import LaptopScreen from "./LaptopScreen";
 import NotebookPages from "./NotebookPages";
+import BootLamp from "./BootLamp";
 import ObjectPanel, { type PanelId } from "./ObjectPanels";
 import {
   deskObjects,
@@ -52,6 +53,14 @@ export default function DeskHome() {
   const [idle, setIdle] = useState(0);
   const [ready, setReady] = useState(false);
   const [slow, setSlow] = useState(false);
+  // Give the lamp time to switch on. This runs from page load, so on a first visit it overlaps
+  // the site's logo intro instead of adding to it.
+  const [lampOn, setLampOn] = useState(false);
+  useEffect(() => {
+    const quick = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const id = setTimeout(() => setLampOn(true), quick ? 0 : 1700);
+    return () => clearTimeout(id);
+  }, []);
   const clock = useManilaClock();
   const hour = useLocalHour();
   const light = daylight(hour);
@@ -157,7 +166,7 @@ export default function DeskHome() {
 
       {/* Shown until the first frame is drawn. */}
       <AnimatePresence>
-        {ready ? null : (
+        {ready && lampOn ? null : (
           <motion.div
             key="boot"
             className="desk-boot"
@@ -165,8 +174,12 @@ export default function DeskHome() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="desk-boot-bulb" aria-hidden="true" />
-            <p className="font-mono">Turning on the desk lamp…</p>
+            <BootLamp />
+            <p className="desk-boot-text font-mono">
+              Turning on the desk lamp<span>.</span>
+              <span>.</span>
+              <span>.</span>
+            </p>
             {slow ? (
               <div className="desk-boot-slow">
                 <p>Taking a while? The regular version has everything too.</p>

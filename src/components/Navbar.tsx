@@ -8,6 +8,7 @@ import { CaretDown, CircleHalf, List, MagnifyingGlass, Moon, Sun, X } from "@pho
 import { primaryNav, secondaryNav } from "@/lib/site";
 import { useTheme } from "./theme";
 import CommandMenu from "./CommandMenu";
+import BrandMark from "./brand/BrandMark";
 
 function ThemeButton() {
   const { pref, cycle } = useTheme();
@@ -78,7 +79,8 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/75 backdrop-blur-xl">
         <nav className="container-page flex h-16 items-center justify-between gap-4" aria-label="Primary">
-          <Link href="/" className="font-semibold tracking-tight text-fg">
+          <Link href="/" className="group flex items-center gap-2.5 font-semibold tracking-tight text-fg">
+            <BrandMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105" />
             Keene Brigado
           </Link>
 
