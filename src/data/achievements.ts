@@ -151,14 +151,6 @@ export const achievementGroups: AchievementGroup[] = [
         description:
           "Top 100 in the DLSU College Admission Test, recognized for outstanding academic potential.",
       },
-      {
-        placement: "Gold & Silver",
-        title: "CMA Mental Arithmetic",
-        date: "Jul 2017",
-        dateTime: "2017-07",
-        description:
-          "Multiple distinctions including Gold (2016, 2017) and Silver (2016, 2017) medals in mental arithmetic competitions.",
-      },
     ],
   },
 ];

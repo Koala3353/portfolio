@@ -78,7 +78,7 @@ export const projects: Project[] = [
     "title": "Mahjong Leaderboard Portal",
     "year": "2026",
     "category": "Web",
-    "description": "Ateneo Celadon's first mahjong leaderboard portal, built for Recruitment Week and used by 150+ members."
+    "description": "Ateneo Celadon's first mahjong leaderboard portal, built for Recruitment Week, with 350+ users and 1,000+ games logged in 4 days."
   },
   {
     "slug": "apps-script-automations",
