@@ -753,7 +753,8 @@ export function Lamp({ reduceMotion, on }: { reduceMotion: boolean; on: number }
     light.current.intensity = Math.min(18, state.clock.elapsedTime * 14) * on;
   });
   return (
-    <group position={[-2.5, 0, -0.9]}>
+    // Set back in the left corner and slightly enlarged, so the shade clears the laptop lid.
+    <group position={[-2.78, 0, -1.22]} scale={1.12}>
       <mesh position={[0, 0.05, 0]}>
         <cylinderGeometry args={[0.3, 0.36, 0.1, 28]} />
         <Toon color={C.matchaDark} />
@@ -780,7 +781,7 @@ export function Lamp({ reduceMotion, on }: { reduceMotion: boolean; on: number }
         <Ink t={0.008} />
       </mesh>
       {/* Shade hangs off the end of the arm, its opening aimed down at the desk and the laptop. */}
-      <group position={[0.72, 1.25, 0.22]} rotation={[-0.2, 0, 0.45]}>
+      <group position={[0.7, 1.28, 0.2]} rotation={[-0.25, 0, 0.32]}>
         {/* shade: dark green outside, warm inside */}
         <mesh>
           <coneGeometry args={[0.32, 0.45, 28, 1, true]} />
@@ -806,7 +807,7 @@ export function Lamp({ reduceMotion, on }: { reduceMotion: boolean; on: number }
       </group>
       <pointLight
         ref={light}
-        position={[0.95, 0.85, 0.35]}
+        position={[0.85, 0.8, 0.4]}
         color={C.lamp}
         intensity={reduceMotion ? 18 * on : 0}
         distance={9}
