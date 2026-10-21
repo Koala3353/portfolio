@@ -60,6 +60,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keep the scrollbar's space reserved, so locking scroll (open desk views) doesn't shift the page. */
+  scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -196,10 +198,21 @@ p { text-wrap: pretty; }
   overflow: hidden;
   isolation: isolate;
   color: #eef0fa;
+  /* Set from the visitor's time of day (see desk/daylight.ts); night until the page hydrates. */
   background:
     radial-gradient(60% 55% at 22% 38%, rgb(255 207 122 / 0.16), transparent 70%),
-    radial-gradient(80% 70% at 70% 30%, #252c52, var(--desk-wall) 70%);
+    radial-gradient(80% 70% at 70% 30%, var(--desk-bg-a, #252c52), var(--desk-bg-b, var(--desk-wall)) 70%);
+  transition: background 1.2s;
 }
+/* Daytime: a bright room, so the title switches to dark ink on a pale shade. */
+.desk[data-light="day"] .desk-hud::before {
+  background: radial-gradient(closest-side, rgb(243 234 216 / 0.85), rgb(243 234 216 / 0.55) 55%, transparent);
+}
+.desk[data-light="day"] .desk-title { color: var(--desk-ink); text-shadow: 0 2px 18px rgb(255 255 255 / 0.6); }
+.desk[data-light="day"] .desk-sub { color: #33302b; text-shadow: 0 1px 10px rgb(255 255 255 / 0.8); }
+.desk[data-light="day"] .desk-clock { color: rgb(32 34 43 / 0.75); }
+.desk[data-light="day"] .desk-plain:not(.desk-plain-ink) { color: rgb(32 34 43 / 0.75); text-decoration-color: rgb(32 34 43 / 0.3); }
+.desk[data-light="day"] .desk-plain:not(.desk-plain-ink):hover { color: var(--desk-ink); }
 .desk-canvas { position: absolute; inset: 0; z-index: 0; }
 .desk-canvas canvas { touch-action: pan-y; }
 .desk-loading {

@@ -1,9 +1,8 @@
 import { experience, formatRange, educationEntries } from "@/data/experience";
-import { achievementGroups } from "@/data/achievements";
+import { headlineWins } from "@/data/achievements";
 import { site } from "@/lib/site";
 
-/** Case competitions come first in the achievements data; these are the headline wins. */
-const topAwards = achievementGroups[0].items.slice(0, 3);
+const topAwards = headlineWins;
 const work = experience.filter((e) => e.category === "work").slice(0, 4);
 
 /** A one-page résumé preview, shared by the laptop's Résumé app and the printer. */

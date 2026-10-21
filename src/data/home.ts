@@ -54,7 +54,7 @@ export const paths = [
     body: "Diagnose the problem, size it, and make the case for the fix with numbers people can check.",
     proof: [
       "Built the financial model behind a joint venture GoRocky approved",
-      "Top 4% of 5,861+ at Case Consilium 2026, as team leader",
+      "Top 0.5% of 30,000+ at L'Oréal Brandstorm 2026, as team leader",
     ],
     skillGroup: "Operations and logic",
     work: ["kandama-market-entry-model"],

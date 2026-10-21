@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 import { metrics, stack, now, caseStudies, paths } from "@/data/home";
 import { projects, type Project } from "@/data/projects";
 import { testimonials } from "@/data/testimonials";
-import { achievementGroups } from "@/data/achievements";
+import { headlineWins } from "@/data/achievements";
 
 export const metadata: Metadata = {
   title: { absolute: site.title },
@@ -29,8 +29,7 @@ const projectBySlug = (slug: string) => {
   return p;
 };
 
-/** Case competitions come first in the achievements data; these are the headline wins. */
-const topWins = achievementGroups[0].items.slice(0, 3);
+const topWins = headlineWins;
 const quote = testimonials.find((t) => t.name === "Melvin Martinez") ?? testimonials[0];
 
 /** Sticky-note colours, the same pads that hang on the 3D desk's wall. */

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { experience, formatRange } from "@/data/experience";
-import { achievementGroups } from "@/data/achievements";
+import { winsInOrder } from "@/data/achievements";
 import { testimonials } from "@/data/testimonials";
 import { paths } from "@/data/home";
 import { site } from "@/lib/site";
@@ -16,7 +16,7 @@ export type PanelId = Exclude<DeskObjectId, "laptop" | "notebook">;
 
 const work = experience.filter((e) => e.category === "work").slice(0, 5);
 const leadershipCount = experience.filter((e) => e.category === "leadership").length;
-const plaques = achievementGroups.flatMap((g) => g.items).slice(0, 6);
+const plaques = winsInOrder.slice(0, 6);
 const notes = ["#ffe27a", "#ffb3c7", "#a7e3c4"];
 
 /* -------------------------------------------------------------------------- */

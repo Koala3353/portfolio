@@ -4,6 +4,7 @@ import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber"
 import { ContactShadows } from "@react-three/drei";
 import { useEffect, useMemo, useRef, type ReactNode } from "react";
 import * as THREE from "three";
+import { daylight } from "./daylight";
 import { reportDeskCrash } from "./homeMode";
 import type { DeskObjectId } from "./objects";
 import Kobi from "./scene/Kobi";
@@ -19,6 +20,8 @@ export type SceneProps = {
   focus: DeskObjectId | null;
   /** Called once the first frame has been drawn. */
   onReady: () => void;
+  /** The visitor's local time of day, in hours; sets sunrise, day, sunset, or night. */
+  hour: number;
 };
 
 /* -------------------------------------------------------------------------- */
@@ -185,7 +188,8 @@ function CameraRig({ focus, reduceMotion }: { focus: DeskObjectId | null; reduce
 }
 
 export default function DeskScene(props: SceneProps) {
-  const { hovered, reduceMotion, focus, onReady } = props;
+  const { hovered, reduceMotion, focus, onReady, hour } = props;
+  const light = daylight(hour);
   // R3F forces a context loss when the canvas unmounts; stop listening first so leaving isn't a "crash".
   const canvasEl = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
@@ -217,12 +221,12 @@ export default function DeskScene(props: SceneProps) {
       }}
       aria-hidden="true"
     >
-      <hemisphereLight args={["#aab8ff", "#2a1e18", 0.55]} />
-      <directionalLight position={[3, 7, 5]} intensity={0.9} />
-      <Lamp reduceMotion={reduceMotion} />
+      <hemisphereLight color={light.hemiSky} groundColor={light.hemiGround} intensity={light.hemiIntensity} />
+      <directionalLight position={[3, 7, 5]} color={light.sunColor} intensity={light.sunIntensity} />
+      <Lamp reduceMotion={reduceMotion} on={light.lamp} />
       <CameraRig focus={focus} reduceMotion={reduceMotion} />
 
-      <Room />
+      <Room light={light} hour={hour} />
       <Desk />
       <Clutter />
 

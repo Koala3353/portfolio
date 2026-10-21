@@ -27,7 +27,7 @@ export const services: Service[] = [
   {
     title: "Consulting & strategy",
     description:
-      "Diagnosing a problem, sizing it, and making the case for a fix. I built the financial model behind a joint venture GoRocky approved, and led teams to four case competition placements, including the top 4% of Case Consilium.",
+      "Diagnosing a problem, sizing it, and making the case for a fix. I built the financial model behind a joint venture GoRocky approved, and led teams to four case competition placements, including the top 0.5% of L'Oréal Brandstorm.",
     highlights: [
       "Financial modeling",
       "Market research",
@@ -70,5 +70,5 @@ export const quickFacts = [
   { value: "500+", label: "Café clients served at RMC" },
   { value: "-87%", label: "Processing time cut" },
   { value: "850+", label: "Users on a system I built" },
-  { value: "Top 4%", label: "Case Consilium 2026" },
+  { value: "Top 0.5%", label: "L'Oréal Brandstorm 2026" },
 ];

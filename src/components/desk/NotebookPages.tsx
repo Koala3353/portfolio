@@ -5,7 +5,7 @@ import { AnimatePresence, motion, type Variants } from "motion/react";
 import { useEffect, useState } from "react";
 import { aboutIntro, facts } from "@/data/about";
 import { certifications, educationEntries } from "@/data/experience";
-import { achievementGroups } from "@/data/achievements";
+import { winsInOrder } from "@/data/achievements";
 import { testimonials } from "@/data/testimonials";
 import { lookingFor } from "@/data/services";
 import { site } from "@/lib/site";
@@ -19,7 +19,7 @@ const pages: { id: Page; tab: string; title: string }[] = [
   { id: "next", tab: "Next", title: "What I'm looking for" },
 ];
 
-const wins = achievementGroups.flatMap((g) => g.items).slice(0, 7);
+const wins = winsInOrder.slice(0, 7);
 
 /**
  * Page turns. Forward: the old page swings over the spine and the next one is already underneath.

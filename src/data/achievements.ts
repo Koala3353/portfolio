@@ -158,3 +158,18 @@ export const achievementGroups: AchievementGroup[] = [
 export const featuredAchievements = achievementGroups
   .flatMap((g) => g.items)
   .filter((a) => a.featured);
+
+/** Wins to lead with on the home page, the desk, and the résumé preview. Brandstorm first. */
+const HEADLINE = [
+  "National Semifinalist, L'Oréal Brandstorm 2026",
+  "International Semifinalist, Case Consilium 2026",
+  "FUSION 2026",
+];
+const allWins = achievementGroups.flatMap((g) => g.items);
+export const headlineWins = HEADLINE.map((title) => {
+  const win = allWins.find((a) => a.title === title);
+  if (!win) throw new Error(`Headline win "${title}" is not in achievementGroups`);
+  return win;
+});
+/** Every win, headline ones first. */
+export const winsInOrder = [...headlineWins, ...allWins.filter((a) => !HEADLINE.includes(a.title))];

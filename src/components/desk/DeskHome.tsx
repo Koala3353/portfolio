@@ -2,9 +2,10 @@
 
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Component, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { fredoka } from "./fonts";
-import { useManilaClock, useTypewriter } from "./hooks";
+import { daylight, greeting } from "./daylight";
+import { useLocalHour, useManilaClock, useTypewriter } from "./hooks";
 import { reportDeskCrash, setHomeView } from "./homeMode";
 import LaptopScreen from "./LaptopScreen";
 import NotebookPages from "./NotebookPages";
@@ -52,7 +53,10 @@ export default function DeskHome() {
   const [ready, setReady] = useState(false);
   const [slow, setSlow] = useState(false);
   const clock = useManilaClock();
+  const hour = useLocalHour();
+  const light = daylight(hour);
   const deviceRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const lastTrigger = useRef<HTMLElement | null>(null);
 
   const focus: DeskObjectId | null = view ? (view.kind === "object" ? view.id : view.kind) : null;
@@ -73,8 +77,10 @@ export default function DeskHome() {
 
   const line = useMemo(() => {
     const target = hovered ?? focus;
-    return target ? objectById[target].kobi : kobiIdleLines[idle];
-  }, [hovered, focus, idle]);
+    if (target) return objectById[target].kobi;
+    // Kobi opens with a greeting for the visitor's time of day.
+    return idle === 0 ? greeting(hour) : kobiIdleLines[idle];
+  }, [hovered, focus, idle, hour]);
   const bubble = useTypewriter(line, reduce);
 
   const open = useCallback((id: DeskObjectId) => {
@@ -102,10 +108,23 @@ export default function DeskHome() {
   // Escape closes whatever is open; focus moves into it when it opens.
   useEffect(() => {
     if (!focus) return;
+    // Line the desk up under the sticky header, then hold the page still until the view closes,
+    // so nothing slides under the header while you read.
+    const section = sectionRef.current;
+    if (section) {
+      const header = document.querySelector("header")?.offsetHeight ?? 0;
+      const top = section.getBoundingClientRect().top + window.scrollY - header;
+      window.scrollTo({ top, behavior: "instant" });
+    }
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
     deviceRef.current?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      root.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
   }, [focus, close]);
 
   const busy = view !== null;
@@ -113,9 +132,12 @@ export default function DeskHome() {
 
   return (
     <section
+      ref={sectionRef}
       aria-labelledby="desk-title"
       className={`desk ${fredoka.variable}`}
       data-view={focus ? "device" : "desk"}
+      data-light={light.bright > 0.55 ? "day" : "night"}
+      style={{ "--desk-bg-a": light.bgA, "--desk-bg-b": light.bgB } as CSSProperties}
       data-ready={ready}
     >
       {/* The 3D desk is decoration; every object also exists as a real button below. */}
@@ -128,6 +150,7 @@ export default function DeskHome() {
             reduceMotion={reduce}
             focus={focus}
             onReady={() => setReady(true)}
+            hour={hour}
           />
         </SceneBoundary>
       </div>

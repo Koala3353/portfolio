@@ -4,6 +4,7 @@ import { Instance, Instances, RoundedBox } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
+import { mix } from "../daylight";
 import { C, Flat, Ink, Toon } from "./toon";
 
 /** Eases a value toward a target each frame (or snaps there with reduced motion). */
@@ -743,12 +744,13 @@ export function StickyNotes({ glow, open, reduceMotion }: OpenProps) {
 /* Desk lamp                                                                   */
 /* -------------------------------------------------------------------------- */
 
-export function Lamp({ reduceMotion }: { reduceMotion: boolean }) {
+/** `on` runs from 0 (daytime, lamp off) to 1 (evening and night). */
+export function Lamp({ reduceMotion, on }: { reduceMotion: boolean; on: number }) {
   const light = useRef<THREE.PointLight>(null);
   useFrame((state) => {
     if (!light.current || reduceMotion) return;
     // A soft warm-up on load.
-    light.current.intensity = Math.min(18, state.clock.elapsedTime * 14);
+    light.current.intensity = Math.min(18, state.clock.elapsedTime * 14) * on;
   });
   return (
     <group position={[-2.5, 0, -0.9]}>
@@ -786,7 +788,7 @@ export function Lamp({ reduceMotion }: { reduceMotion: boolean }) {
         </mesh>
         <mesh>
           <coneGeometry args={[0.315, 0.445, 28, 1, true]} />
-          <Flat color="#ffe3a3" side={THREE.BackSide} />
+          <Flat color={mix("#59613f", "#ffe3a3", on)} side={THREE.BackSide} />
         </mesh>
         <mesh position={[0, -0.225, 0]} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[0.32, 0.018, 8, 28]} />
@@ -798,14 +800,14 @@ export function Lamp({ reduceMotion }: { reduceMotion: boolean }) {
         </mesh>
         <mesh position={[0, -0.16, 0]}>
           <sphereGeometry args={[0.1, 16, 14]} />
-          <Flat color="#fff6d8" />
+          <Flat color={mix("#a8a294", "#fff6d8", on)} />
         </mesh>
       </group>
       <pointLight
         ref={light}
         position={[0.9, 1.1, 0.6]}
         color={C.lamp}
-        intensity={reduceMotion ? 18 : 0}
+        intensity={reduceMotion ? 18 * on : 0}
         distance={9}
         decay={1.6}
       />

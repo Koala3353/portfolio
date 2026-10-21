@@ -1,7 +1,9 @@
 "use client";
 
 import { RoundedBox } from "@react-three/drei";
+import { useEffect, useMemo } from "react";
 import * as THREE from "three";
+import { mix, sunInWindow, type Daylight } from "../daylight";
 import { C, Flat, Ink, Toon } from "./toon";
 
 /* -------------------------------------------------------------------------- */
@@ -100,58 +102,113 @@ const STARS: [number, number, number][] = [
   [0.15, -0.5, 0.016],
 ];
 
-export function Room() {
+/** The window's sky: a two-colour gradient, top to horizon. */
+function SkyPane({ top, bottom }: { top: string; bottom: string }) {
+  const geometry = useMemo(() => {
+    const g = new THREE.PlaneGeometry(1.35, 1.6);
+    const t = new THREE.Color(top);
+    const b = new THREE.Color(bottom);
+    // PlaneGeometry's vertices run top-left, top-right, bottom-left, bottom-right.
+    const colors = [t, t, b, b].flatMap((c) => [c.r, c.g, c.b]);
+    g.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+    return g;
+  }, [top, bottom]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  return (
+    <mesh geometry={geometry} position={[0, 0, 0.045]}>
+      <meshBasicMaterial vertexColors toneMapped={false} />
+    </mesh>
+  );
+}
+
+export function Room({ light, hour }: { light: Daylight; hour: number }) {
+  const isNight = light.night > 0.5;
+  const sun = sunInWindow(hour);
+  const skyline = mix(mix(light.skyBottom, "#2a3566", 0.6), "#1d2a5c", light.night);
+  // The moon's "bite" is painted in the sky colour at the moon's height.
+  const moonBite = mix(light.skyTop, light.skyBottom, 0.2);
   return (
     <group>
       {/* back wall, with a darker lower half and a trim line */}
       <mesh position={[0, 2.2, -1.85]}>
         <planeGeometry args={[24, 4.6]} />
-        <meshLambertMaterial color={C.wall} />
+        <meshLambertMaterial color={light.wall} />
       </mesh>
       <mesh position={[0, -1.05, -1.85]}>
         <planeGeometry args={[24, 2.1]} />
-        <meshLambertMaterial color={C.wallLow} />
+        <meshLambertMaterial color={light.wallLow} />
       </mesh>
       <mesh position={[0, -0.05, -1.84]}>
         <boxGeometry args={[24, 0.08, 0.04]} />
         <Toon color={C.trim} />
       </mesh>
 
-      {/* window: night sky, moon, stars */}
+      {/* window: the sky follows the visitor's time of day, with the sun or the moon and stars */}
       <group position={[-3.45, 2.25, -1.82]}>
         <RoundedBox args={[1.55, 1.8, 0.08]} radius={0.04}>
           <Toon color={C.paper} />
           <Ink t={0.014} />
         </RoundedBox>
-        <mesh position={[0, 0, 0.045]}>
-          <planeGeometry args={[1.35, 1.6]} />
-          <Flat color="#121a3e" />
-        </mesh>
-        <mesh position={[0.3, 0.42, 0.05]}>
-          <circleGeometry args={[0.2, 28]} />
-          <Flat color="#fff3c4" layer={1} />
-        </mesh>
-        <mesh position={[0.38, 0.47, 0.051]}>
-          <circleGeometry args={[0.17, 28]} />
-          <Flat color="#121a3e" layer={2} />
-        </mesh>
-        {STARS.map(([x, y, r]) => (
-          <mesh key={`${x}${y}`} position={[x, y, 0.05]} rotation={[0, 0, Math.PI / 4]}>
-            <planeGeometry args={[r * 2, r * 2]} />
+        <SkyPane top={light.skyTop} bottom={light.skyBottom} />
+        {sun ? (
+          <group position={[sun.x * 0.55, sun.y * 0.7, 0.047]}>
+            <mesh>
+              <circleGeometry args={[0.24, 28]} />
+              <Flat color="#fff1b8" layer={1} transparent opacity={0.35} />
+            </mesh>
+            <mesh>
+              <circleGeometry args={[0.15, 28]} />
+              <Flat color={mix("#ffb25c", "#fff3c4", light.bright)} layer={2} />
+            </mesh>
+          </group>
+        ) : null}
+        {/* puffy clouds in the daytime */}
+        {light.bright > 0.5
+          ? [
+              [-0.35, 0.35, 1],
+              [0.3, 0.05, 0.8],
+            ].map(([x, y, s]) => (
+              <group key={x} position={[x, y, 0.049]} scale={s}>
+                {[
+                  [-0.09, 0, 0.08],
+                  [0.02, 0.04, 0.1],
+                  [0.12, 0, 0.07],
+                ].map(([cx, cy, r]) => (
+                  <mesh key={cx} position={[cx, cy, 0]}>
+                    <circleGeometry args={[r, 20]} />
+                    <Flat color="#ffffff" layer={3} />
+                  </mesh>
+                ))}
+              </group>
+            ))
+          : null}
+        <group visible={isNight}>
+          <mesh position={[0.3, 0.42, 0.05]}>
+            <circleGeometry args={[0.2, 28]} />
             <Flat color="#fff3c4" layer={1} />
           </mesh>
-        ))}
+          <mesh position={[0.38, 0.47, 0.051]}>
+            <circleGeometry args={[0.17, 28]} />
+            <Flat color={moonBite} layer={2} />
+          </mesh>
+          {STARS.map(([x, y, r]) => (
+            <mesh key={`${x}${y}`} position={[x, y, 0.05]} rotation={[0, 0, Math.PI / 4]}>
+              <planeGeometry args={[r * 2, r * 2]} />
+              <Flat color="#fff3c4" layer={1} />
+            </mesh>
+          ))}
+        </group>
         {/* a city skyline along the bottom */}
         {[-0.5, -0.32, -0.1, 0.1, 0.3, 0.5].map((x, i) => (
           <mesh key={x} position={[x, -0.6 + (i % 3) * 0.05, 0.05]}>
             <planeGeometry args={[0.18, 0.4 + (i % 3) * 0.12]} />
-            <Flat color="#1d2a5c" layer={1} />
+            <Flat color={skyline} layer={4} />
           </mesh>
         ))}
         {[-0.5, -0.1, 0.3].map((x) => (
-          <mesh key={x} position={[x, -0.55, 0.052]}>
+          <mesh key={x} position={[x, -0.55, 0.052]} visible={light.night > 0.2}>
             <planeGeometry args={[0.04, 0.05]} />
-            <Flat color={C.lamp} layer={2} />
+            <Flat color={C.lamp} layer={5} />
           </mesh>
         ))}
         {/* mullions and sill */}
@@ -177,7 +234,8 @@ export function Room() {
       {BULBS.map((p, i) => (
         <mesh key={i} position={[p.x, p.y - 0.05, p.z + 0.02]}>
           <sphereGeometry args={[0.045, 10, 8]} />
-          <Flat color={BULB_COLORS[i % BULB_COLORS.length]} />
+          {/* lit at dusk and night, plain glass in the daytime */}
+          <Flat color={mix("#d9dce8", BULB_COLORS[i % BULB_COLORS.length], Math.max(light.night, light.lamp))} />
         </mesh>
       ))}
 
@@ -201,7 +259,7 @@ export function Room() {
       {/* floor and a round rug */}
       <mesh position={[0, -2.2, 1]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[30, 12]} />
-        <meshLambertMaterial color="#171b38" />
+        <meshLambertMaterial color={light.floor} />
       </mesh>
       <mesh position={[0, -2.19, 0.8]} rotation={[-Math.PI / 2, 0, 0]} scale={[1.3, 1, 1]}>
         <circleGeometry args={[2.6, 48]} />
