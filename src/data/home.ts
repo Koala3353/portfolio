@@ -1,17 +1,13 @@
 import { formatRange, latestRole } from "./experience";
-import { projects } from "./projects";
+import { quickFacts } from "./services";
 
-export const metrics = [
-  { value: String(projects.length), label: "Projects shipped" },
-  { value: "5+", label: "Years building" },
-  { value: "9+", label: "Competition wins" },
-  { value: "10+", label: "Tools and languages" },
-] as const;
+/** Resume-backed numbers for the regular home. Same as the For recruiters page. */
+export const metrics = quickFacts;
 
 export const stack = [
-  "React", "Next.js", "TypeScript", "Python", "Google Apps Script",
-  "Tailwind CSS", "Framer Motion", "MongoDB", "Git", "Claude Code",
-  "Gemini", "Financial Modeling", "Process Optimization", "Data Analytics",
+  "React", "Next.js", "TypeScript", "Python", "SQL", "Supabase", "Shopify",
+  "Google Apps Script", "n8n", "Cloudflare", "Claude Code", "Financial Modeling",
+  "Market Research", "Process Optimization", "Data Analytics",
 ] as const;
 
 /** Derived from the newest work role in src/data/experience.ts. */
@@ -27,34 +23,52 @@ export const now = {
  * `impact` is optional and must restate a fact already in the project data.
  */
 export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
-  { slug: "budge" },
   { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
   { slug: "celadon-rose-sale-system", impact: "850+", impactLabel: "unique users served" },
+  { slug: "budge" },
   { slug: "kandama-market-entry-model" },
   { slug: "splurge" },
 ];
 
-/** The three disciplines, matching the nodes in the hero illustration. */
-export const disciplines = [
+/**
+ * The three paths Keene is open to, each with proof from the résumé.
+ * `work` holds project slugs from src/data/projects.ts.
+ */
+export const paths = [
   {
-    id: "code",
-    title: "Code",
-    body: "Full-stack web apps and internal tools, shipped to real users and kept running.",
+    id: "tech",
+    title: "Tech",
+    kicker: "Software & business systems",
+    body: "Internal tools and web apps that teams use every day, from the first sketch to keeping them running.",
+    proof: [
+      "Leading Ritual Matcha's move from Google Sheets to Supabase and Cloudflare",
+      "5 years of freelance builds for 30+ international clients",
+    ],
     skillGroup: "Development",
-    work: ["budge", "splurge", "scht"],
+    work: ["he-venue-explorer", "budge", "splurge"],
   },
   {
-    id: "ops",
-    title: "Operations",
-    body: "Process design, capacity and financial models, and the dashboards teams make decisions from.",
+    id: "consulting",
+    title: "Consulting",
+    kicker: "Consulting & strategy",
+    body: "Diagnose the problem, size it, and make the case for the fix with numbers people can check.",
+    proof: [
+      "Built the financial model behind a joint venture GoRocky approved",
+      "Top 4% of 5,861+ at Case Consilium 2026, as team leader",
+    ],
     skillGroup: "Operations and logic",
-    work: ["he-venue-explorer", "kandama-market-entry-model", "pop-portal"],
+    work: ["kandama-market-entry-model"],
   },
   {
-    id: "ai",
-    title: "AI",
-    body: "Agentic workflows and LLM integrations that take repetitive work off people's plates.",
-    skillGroup: "AI workflows",
-    work: ["proof-of-purchase-api", "mediguard-ai"],
+    id: "fmcg",
+    title: "FMCG",
+    kicker: "Operations & supply chain",
+    body: "Inventory, procurement, and sales operations for a B2B matcha supplier serving 500+ cafés.",
+    proof: [
+      "Cut purchase-order turnaround from a week to same-day",
+      "Unified 8+ Google Sheets into one Shopify-connected portal",
+    ],
+    skillGroup: "Operations and logic",
+    work: ["celadon-rose-sale-system", "apps-script-automations"],
   },
 ] as const;

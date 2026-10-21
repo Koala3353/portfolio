@@ -1,9 +1,9 @@
 export const recruiterSummary =
-  "I combine full-stack engineering, operations expertise, and AI fluency to deliver solutions that are technically sound and business-aligned.";
+  "I figure out how a business actually runs, recommend what should change, and then build it. That makes me useful on a tech team, a consulting team, or inside an operations-heavy business like FMCG.";
 
 export const lookingFor = {
-  headline: "Actively seeking internships and project collaborations.",
-  areas: ["Full-stack development", "Operations & process design", "AI-augmented workflows"],
+  headline: "Open to internships in tech, consulting, and FMCG.",
+  areas: ["Software & business systems", "Consulting & strategy", "FMCG operations & supply chain"],
 };
 
 export interface Service {
@@ -14,61 +14,61 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    title: "Full-stack development",
+    title: "Software & business systems",
     description:
-      "End-to-end application engineering from React frontends to server-side automation. Shipped 30+ projects spanning e-commerce platforms, fintech tools, and enterprise dashboards.",
+      "Internal tools and web apps that real teams use every day. At Ritual Matcha I unified 8+ Google Sheets into one Shopify-connected portal and I'm leading its move to Supabase and Cloudflare.",
     highlights: [
-      "React / Next.js / TypeScript",
-      "Google Apps Script automation",
-      "REST APIs & database design",
-      "CI/CD & deployment",
+      "Google Apps Script, Python, SQL",
+      "React, Next.js, TypeScript",
+      "Supabase, Shopify, Cloudflare",
+      "n8n and AI-assisted development",
     ],
   },
   {
-    title: "Operations & process design",
+    title: "Consulting & strategy",
     description:
-      "Data-driven process optimization, capacity modeling, and supply chain analysis. Architected an automated inventory receiving and transfer portal for Ritual Matcha, establishing full supply chain traceability and eliminating manual tracking. The system remains in active daily production.",
+      "Diagnosing a problem, sizing it, and making the case for a fix. I built the financial model behind a joint venture GoRocky approved, and led teams to four case competition placements, including the top 4% of Case Consilium.",
     highlights: [
       "Financial modeling",
-      "Capacity & supply chain analysis",
-      "Process automation",
-      "Data analytics & reporting",
+      "Market research",
+      "Process diagnosis and redesign",
+      "Stakeholder management",
     ],
   },
   {
-    title: "AI-augmented workflows",
+    title: "FMCG operations & supply chain",
     description:
-      "Using Claude Code, Gemini, and agentic automation to ship code and draft architecture 10x faster.",
+      "Inventory, procurement, and sales operations for a B2B matcha supplier serving 500+ cafés. I cut purchase-order turnaround from a week to same-day and gave the founders inventory data they could plan purchasing on.",
     highlights: [
-      "Claude Code & Gemini integration",
-      "Agentic automation pipelines",
-      "AI-assisted code generation",
-      "Prompt engineering & optimization",
+      "Inventory and procurement systems",
+      "Demand-based purchasing",
+      "Sales operations dashboards",
+      "Process automation",
     ],
   },
 ];
 
 export const reasons = [
   {
-    title: "Quick learner who ships fast",
+    title: "I build what I recommend",
     description:
-      "From zero to deployed in days, not months. I thrive in fast-paced environments where speed and iteration matter.",
+      "Most analysis stops at the slide. I can take a fix from diagnosis to a working system, then hand it over so the team can run it.",
   },
   {
-    title: "Cross-functional communicator",
+    title: "Comfortable on both sides",
     description:
-      "I speak both engineering and business. Management Engineering training means I understand stakeholders, not just code.",
+      "Management Engineering trained me to think in processes and stakeholders. Five years of building trained me to ship.",
   },
   {
-    title: "Proven track record",
+    title: "Real results, not class projects",
     description:
-      "7+ hackathon and competition wins, real client work, and a portfolio of shipped products that deliver measurable impact.",
+      "Systems in daily use at a growing supplier, 30+ international freelance clients since I was 13, and 9+ competition placements.",
   },
 ];
 
 export const quickFacts = [
-  { value: "30+", label: "Projects shipped" },
-  { value: "94%", label: "Reporting cycle reduction" },
-  { value: "850+", label: "Users served" },
-  { value: "10x", label: "Faster with AI" },
+  { value: "500+", label: "Café clients served at RMC" },
+  { value: "-87%", label: "Processing time cut" },
+  { value: "850+", label: "Users on a system I built" },
+  { value: "Top 4%", label: "Case Consilium 2026" },
 ];

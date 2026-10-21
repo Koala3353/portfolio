@@ -15,8 +15,8 @@ export default function Footer() {
         <div className="max-w-sm">
           <p className="font-semibold">{site.name}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Management Engineering at Ateneo de Manila. I build automation, apps, and AI workflows for
-            teams that need things to run.
+            Management Engineering at Ateneo de Manila. I diagnose how a business runs and build the
+            systems that fix it. Open to internships in tech, consulting, and FMCG.
           </p>
           <div className="mt-5 flex gap-2">
             {socials.map(({ href, label, Icon }) => (

@@ -2,15 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, GithubLogo } from "@phosphor-icons/react/dist/ssr";
 import Reveal from "@/components/Reveal";
-import HeroIntro from "@/components/home/HeroIntro";
-import HeroSystem from "@/components/art/HeroSystem";
+import HomeSwitch from "@/components/home/HomeSwitch";
+import ClassicHero from "@/components/home/ClassicHero";
+import Kobi2D from "@/components/desk/Kobi2D";
 import CategoryGlyph from "@/components/art/CategoryGlyph";
-import Parallax from "@/components/art/Parallax";
-import Orbit from "@/components/art/Orbit";
 import { site } from "@/lib/site";
-import { metrics, stack, now, caseStudies, disciplines } from "@/data/home";
+import { metrics, stack, now, caseStudies, paths } from "@/data/home";
 import { projects, type Project } from "@/data/projects";
-import { skillGroups } from "@/data/about";
 import { testimonials } from "@/data/testimonials";
 import { achievementGroups } from "@/data/achievements";
 
@@ -25,11 +23,20 @@ const studies = caseStudies.map((c) => {
   return { ...c, project };
 });
 
-const topWins = achievementGroups
-  .flatMap((g) => g.items)
-  .filter((a) => a.featured)
-  .slice(0, 3);
+const projectBySlug = (slug: string) => {
+  const p = projects.find((x) => x.slug === slug);
+  if (!p) throw new Error(`Home path project "${slug}" does not match any project slug`);
+  return p;
+};
+
+/** Case competitions come first in the achievements data; these are the headline wins. */
+const topWins = achievementGroups[0].items.slice(0, 3);
 const quote = testimonials.find((t) => t.name === "Melvin Martinez") ?? testimonials[0];
+
+/** Sticky-note colours, the same pads that hang on the 3D desk's wall. */
+const stickies = ["#ffe27a", "#ffb3c7", "#a7e3c4", "#bfdcff"];
+const tilts = [-2, 1.5, -1, 2];
+const cups = ["#e8b04a", "#c9ccd6", "#c07a45"];
 
 function ProjectLinks({ project }: { project: Project }) {
   return (
@@ -61,136 +68,104 @@ function ProjectLinks({ project }: { project: Project }) {
   );
 }
 
-export default function HomePage() {
+/** The regular home: the desk's content laid flat, for anyone who skips or can't load the 3D. */
+function ClassicHome() {
   const [lead, ...others] = studies;
 
   return (
     <>
-      {/* 1. Hero: claim + illustration, side by side (no overlap) */}
-      <section
-        aria-labelledby="hero-title"
-        className="container-page relative grid items-center gap-8 overflow-x-clip pb-12 pt-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-12 md:pt-16"
-      >
-        <HeroIntro className="md:col-span-6 lg:col-span-6">
-          <h1 id="hero-title" className="max-w-[18ch] text-4xl font-semibold leading-[1.04] md:text-5xl lg:text-6xl">
-            I make and improve systems people actually want to use.
-          </h1>
-          <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-muted">
-            I&apos;m Keene, a Management Engineering student at Ateneo who diagnoses how teams work and rebuilds the
-            systems they inherited.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link href="/projects" className="btn btn-primary">
-              View projects <ArrowRight aria-hidden className="size-4" />
-            </Link>
-            <Link href="/contact" className="btn btn-secondary">
-              Get in touch
-            </Link>
-          </div>
-        </HeroIntro>
-        <HeroSystem className="pointer-events-none mx-auto aspect-square w-full max-w-[34rem] md:col-span-6" />
-      </section>
+      <ClassicHero />
 
-      {/* 2. Proof in numbers */}
+      {/* Proof in numbers, as sticky notes */}
       <section aria-labelledby="metrics-title" className="container-page pb-24">
         <h2 id="metrics-title" className="sr-only">
           Track record
         </h2>
-        <Reveal>
-          <dl className="grid grid-cols-2 border-y border-line md:grid-cols-4 md:divide-x md:divide-line">
-            {metrics.map((m, i) => (
-              <div
-                key={m.label}
-                className={`py-8 md:px-8 md:first:pl-0 ${i % 2 === 1 ? "border-l border-line pl-6 md:border-l-0" : ""} ${i < 2 ? "border-b border-line md:border-b-0" : ""}`}
-              >
-                <dt className="text-sm text-muted">{m.label}</dt>
-                <dd className="tabular mt-2 text-4xl font-semibold tracking-tight md:text-5xl">{m.value}</dd>
+        <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+          {metrics.map((m, i) => (
+            <Reveal as="li" key={m.label} delay={i * 0.06}>
+              <div className="sticky-note" style={{ background: stickies[i], rotate: `${tilts[i]}deg` }}>
+                <p className="tabular font-kobi text-4xl font-semibold lg:text-5xl">{m.value}</p>
+                <p className="mt-2 text-sm leading-snug">{m.label}</p>
               </div>
-            ))}
-          </dl>
-        </Reveal>
+            </Reveal>
+          ))}
+        </ul>
       </section>
 
-      {/* 3. What I do: the three nodes from the hero, explained */}
-      <section aria-labelledby="do-title" className="container-page pb-28">
+      {/* The three paths, each with proof */}
+      <section aria-labelledby="paths-title" className="container-page pb-28">
         <Reveal className="max-w-2xl">
-          <h2 id="do-title" className="text-3xl font-semibold md:text-5xl">
-            One person across three disciplines.
+          <p className="font-mono text-sm text-subtle">Tech · Consulting · FMCG</p>
+          <h2 id="paths-title" className="mt-3 text-3xl font-semibold md:text-5xl">
+            Three paths, one way of working.
           </h2>
           <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
-            Most problems sit between engineering and operations. I work on both sides, and use AI to move faster.
+            I figure out how a business actually runs, recommend what should change, then build it. That works on a
+            tech team, a consulting team, or inside an operations-heavy business.
           </p>
         </Reveal>
-        <div className="mt-12 grid gap-4 md:grid-cols-12 md:gap-5">
-          {disciplines.map((d, i) => {
-            const skills = skillGroups.find((g) => g.title === d.skillGroup)?.items ?? [];
-            const work = d.work
-              .map((slug) => projects.find((p) => p.slug === slug))
-              .filter((p): p is Project => Boolean(p));
-            const big = i === 0;
-            return (
-              <Reveal key={d.id} delay={i * 0.08} className={big ? "md:col-span-12" : "md:col-span-6"}>
-                <article
-                  className={`surface h-full p-6 md:p-8 ${big ? "grid gap-8 bg-accent-soft md:grid-cols-2 md:gap-12 md:p-10" : "flex flex-col"}`}
-                >
-                  <div className="flex flex-col">
-                    <h3 className={`font-semibold ${big ? "text-3xl md:text-4xl" : "text-2xl"}`}>{d.title}</h3>
-                    <p className="mt-3 max-w-[48ch] leading-relaxed text-muted">{d.body}</p>
-                    {big && (
-                      <ul className="mt-auto flex flex-wrap gap-2 pt-8" aria-label={`${d.title} skills`}>
-                        {skills.map((s) => (
-                          <li
-                            key={s}
-                            className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted"
-                          >
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
 
-                  <div className={big ? "" : "mt-6"}>
-                    <p className="text-sm font-medium text-subtle">Shipped</p>
-                    <ul className={`mt-3 divide-y divide-line border-y border-line ${big ? "md:text-lg" : ""}`}>
-                      {work.map((p) => (
-                        <li key={p.slug}>
-                          <a
-                            href={p.preview ?? `/projects#${p.slug}`}
-                            {...(p.preview ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                            className={`group flex items-center justify-between gap-4 ${big ? "py-4" : "py-3"}`}
-                          >
-                            <span className="font-medium transition-colors group-hover:text-accent">{p.title}</span>
-                            <span className="flex items-center gap-2 font-mono text-sm text-subtle">
-                              {p.year}
-                              <ArrowUpRight
-                                aria-hidden
-                                className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                              />
-                            </span>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {!big && (
-                    <ul className="mt-auto flex flex-wrap gap-2 pt-6" aria-label={`${d.title} skills`}>
-                      {skills.slice(0, 6).map((s) => (
-                        <li key={s} className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted">
-                          {s}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
+        <ul className="ruled-list mt-12">
+          {paths.map((p, i) => (
+            <Reveal
+              as="li"
+              key={p.id}
+              delay={i * 0.06}
+              className="grid gap-6 py-8 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:py-10"
+            >
+              <div className="md:col-span-2 lg:col-span-4">
+                <h3 className="font-kobi text-4xl font-semibold lg:text-5xl">{p.title}</h3>
+                <p className="mt-2 font-mono text-sm text-subtle">{p.kicker}</p>
+              </div>
+              <div className="lg:col-span-4">
+                <p className="leading-relaxed text-muted">{p.body}</p>
+                <ul className="mt-4 grid gap-2">
+                  {p.proof.map((line) => (
+                    <li key={line} className="tick">
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="lg:col-span-4">
+                <p className="text-sm font-medium text-subtle">Shipped</p>
+                <ul className="mt-2 divide-y divide-line border-y border-line">
+                  {p.work.map((slug) => {
+                    const w = projectBySlug(slug);
+                    return (
+                      <li key={slug}>
+                        <a
+                          href={w.preview ?? `/projects#${w.slug}`}
+                          {...(w.preview ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="group flex items-center justify-between gap-4 py-3"
+                        >
+                          <span className="font-medium transition-colors group-hover:text-accent">{w.title}</span>
+                          <span className="flex items-center gap-2 font-mono text-sm text-subtle">
+                            {w.year}
+                            <ArrowUpRight
+                              aria-hidden
+                              className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                            />
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
+        <Link
+          href="/services"
+          className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-accent link-underline"
+        >
+          What I can do for your team <ArrowRight aria-hidden className="size-4" />
+        </Link>
       </section>
 
-      {/* 4. Selected work as case studies */}
+      {/* Selected work, the lead one on a little laptop */}
       <section aria-labelledby="work-title" className="container-page pb-28">
         <Reveal className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -198,7 +173,7 @@ export default function HomePage() {
               Built for real users.
             </h2>
             <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
-              Live sites and tools for student organizations, market-entry planning, and everyday money.
+              Live tools for student organizations, a market-entry model, and everyday money apps.
             </p>
           </div>
           <Link
@@ -212,10 +187,12 @@ export default function HomePage() {
         {lead && (
           <Reveal>
             <article className="surface grid overflow-hidden md:grid-cols-12">
-              <div className="relative grid min-h-56 place-items-center border-b border-line bg-surface-2 md:col-span-5 md:border-b-0 md:border-r">
-                <Parallax speed={50} className="size-40 text-subtle md:size-56">
-                  <CategoryGlyph category={lead.project.category} className="size-full" />
-                </Parallax>
+              <div className="mini-laptop md:col-span-5" aria-hidden="true">
+                <div className="mini-laptop-screen">
+                  <CategoryGlyph category={lead.project.category} className="size-24 md:size-32" />
+                  <span className="font-mono text-xs">{lead.project.title}</span>
+                </div>
+                <div className="mini-laptop-base" />
               </div>
               <div className="flex flex-col p-6 md:col-span-7 md:p-10">
                 <p className="font-mono text-sm text-subtle">
@@ -267,38 +244,42 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* 5. Social proof: a manager's words + top wins */}
+      {/* Social proof: a note taped up, and the trophy shelf */}
       <section aria-labelledby="proof-title" className="container-page pb-28">
         <h2 id="proof-title" className="sr-only">
           What others say
         </h2>
-        <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+        <div className="grid gap-12 md:grid-cols-12 md:items-start">
           <Reveal className="md:col-span-7">
-            <figure>
-              <blockquote className="text-2xl font-medium leading-snug tracking-tight md:text-4xl">
+            <figure className="paper-card">
+              <span className="paper-tape" aria-hidden="true" />
+              <blockquote className="font-kobi text-2xl font-medium leading-snug md:text-3xl">
                 &ldquo;{quote.excerpt}&rdquo;
               </blockquote>
-              <figcaption className="mt-6 text-muted">
-                <span className="font-medium text-fg">{quote.name}</span>, {quote.title}. {quote.relationship}.
+              <figcaption className="paper-muted mt-6">
+                <span className="font-semibold text-[#20222b]">{quote.name}</span>, {quote.title}.{" "}
+                {quote.relationship}.
               </figcaption>
-              <Link
-                href="/testimonials"
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent link-underline"
-              >
+              <Link href="/testimonials" className="paper-link mt-5 inline-flex items-center gap-1.5 text-sm font-medium">
                 Read recommendations <ArrowRight aria-hidden className="size-4" />
               </Link>
             </figure>
           </Reveal>
           <Reveal delay={0.1} className="md:col-span-5">
-            <h3 className="text-sm font-medium text-subtle">Recent wins</h3>
-            <ul className="mt-4 divide-y divide-line border-y border-line">
-              {topWins.map((w) => (
-                <li key={w.title} className="py-5">
-                  <p className="font-semibold text-accent">{w.placement}</p>
-                  <p className="mt-1 font-medium">{w.title}</p>
-                  <p className="mt-1 font-mono text-sm text-subtle">
-                    <time dateTime={w.dateTime}>{w.date}</time>
-                  </p>
+            <h3 className="text-sm font-medium text-subtle">On the trophy shelf</h3>
+            <ul className="trophy-shelf mt-4">
+              {topWins.map((w, i) => (
+                <li key={w.title} className="trophy-row">
+                  <svg viewBox="0 0 24 24" className="size-7 shrink-0" fill={cups[i]} aria-hidden="true">
+                    <path d="M7 3h10v3h3v2a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V6h3zm0 5V8H6a2 2 0 0 0 1 1.7zm10 0v1.7A2 2 0 0 0 18 8z" />
+                  </svg>
+                  <span>
+                    <span className="block font-semibold text-accent">{w.placement}</span>
+                    <span className="block font-medium">{w.title}</span>
+                    <time dateTime={w.dateTime} className="block font-mono text-sm text-subtle">
+                      {w.date}
+                    </time>
+                  </span>
                 </li>
               ))}
             </ul>
@@ -312,25 +293,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. Currently */}
+      {/* Currently, as a notebook page */}
       <section aria-labelledby="now-title" className="container-page pb-24">
         <Reveal>
-          <div className="surface grid gap-6 p-6 md:grid-cols-12 md:items-center md:p-8">
+          <div className="notebook-page grid gap-6 md:grid-cols-12 md:items-center">
             <div className="md:col-span-8">
-              <h2 id="now-title" className="text-sm font-medium text-subtle">
+              <h2 id="now-title" className="paper-muted font-mono text-sm">
                 Currently
               </h2>
-              <p className="mt-2 text-xl font-semibold md:text-2xl">
+              <p className="mt-2 font-kobi text-2xl font-semibold md:text-3xl">
                 {now.role}, {now.company}
               </p>
-              <p className="mt-2 max-w-[60ch] text-muted">{now.focus}</p>
+              <p className="mt-2 max-w-[60ch]">{now.focus}</p>
             </div>
             <div className="md:col-span-4 md:text-right">
-              <p className="font-mono text-sm text-subtle">{now.period}</p>
-              <Link
-                href="/experience"
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium link-underline"
-              >
+              <p className="paper-muted font-mono text-sm">{now.period}</p>
+              <Link href="/experience" className="paper-link mt-3 inline-flex items-center gap-1.5 text-sm font-medium">
                 Full experience <ArrowRight aria-hidden className="size-4" />
               </Link>
             </div>
@@ -338,7 +316,7 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      {/* 7. Stack marquee (the only one sitewide) */}
+      {/* Stack marquee (the only one sitewide) */}
       <section aria-labelledby="stack-title" className="pb-24">
         <h2 id="stack-title" className="sr-only">
           Tools and skills
@@ -358,7 +336,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. Close */}
+      {/* Close */}
       <section
         aria-labelledby="cta-title"
         className="container-page grid items-center gap-10 pb-28 pt-8 md:grid-cols-12"
@@ -368,7 +346,8 @@ export default function HomePage() {
             Looking for an intern who ships?
           </h2>
           <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-muted">
-            I&apos;m seeking internships at fast-paced companies where operations, strategy, and brand can scale real impact.
+            I&apos;m open to internships in tech, consulting, and FMCG, anywhere a messy process needs someone to
+            diagnose it and then build the fix.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link href="/contact" className="btn btn-primary">
@@ -382,14 +361,15 @@ export default function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <Parallax
-          rotate={60}
-          speed={60}
-          className="pointer-events-none mx-auto hidden aspect-square w-full max-w-[22rem] md:col-span-5 md:block"
-        >
-          <Orbit className="size-full" />
-        </Parallax>
+        <div className="mx-auto hidden w-full max-w-[16rem] md:col-span-5 md:block" aria-hidden="true">
+          <Kobi2D variant="peek" className="w-full" />
+          <div className="cta-ledge" />
+        </div>
       </section>
     </>
   );
+}
+
+export default function HomePage() {
+  return <HomeSwitch classic={<ClassicHome />} />;
 }

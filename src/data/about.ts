@@ -20,7 +20,7 @@ export const story = [
 export const facts: { label: string; value: string }[] = [
   { label: "School", value: "Ateneo de Manila University" },
   { label: "Program", value: "BS Management Engineering" },
-  { label: "Focus", value: "Operations, strategy, systems design" },
+  { label: "Open to", value: "Tech, consulting, FMCG" },
   { label: "Honors", value: "Director's List (Mar 2025)" },
 ];
 

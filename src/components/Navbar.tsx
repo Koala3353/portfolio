@@ -82,7 +82,7 @@ export default function Navbar() {
             Keene Brigado
           </Link>
 
-          <div className="hidden items-center gap-1 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {primaryNav.map((link) => (
               <Link
                 key={link.href}
@@ -165,7 +165,7 @@ export default function Navbar() {
               Get in touch
             </Link>
             <button
-              className="grid size-9 place-items-center rounded-full text-fg md:hidden"
+              className="grid size-9 place-items-center rounded-full text-fg lg:hidden"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
               aria-expanded={mobileOpen}
@@ -184,7 +184,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm lg:hidden"
               onClick={() => setMobileOpen(false)}
               aria-hidden
             />
@@ -197,7 +197,7 @@ export default function Navbar() {
               animate={reduce ? { opacity: 1 } : { x: 0 }}
               exit={reduce ? { opacity: 0 } : { x: "100%" }}
               transition={{ type: "spring", stiffness: 380, damping: 38 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col border-l border-line bg-surface md:hidden"
+              className="fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col border-l border-line bg-surface lg:hidden"
             >
               <div className="flex h-16 items-center justify-between px-5">
                 <span className="text-sm text-muted">Menu</span>

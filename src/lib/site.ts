@@ -4,9 +4,9 @@ export const site = {
   name: "Keene Xander Brigado",
   shortName: "Keene Brigado",
   url: "https://koala3353.github.io/portfolio",
-  title: "Keene Xander Brigado | Operations, strategy, and brand",
+  title: "Keene Xander Brigado | Tech, consulting, and operations",
   description:
-    "Management Engineering student at Ateneo de Manila University who rebuilds the systems teams inherit around every stakeholder who uses them, and makes sure each team leaves with new skills.",
+    "Management Engineering student at Ateneo de Manila University who diagnoses how a business runs and builds the systems that fix it. Open to internships in tech, consulting, and FMCG.",
   email: "brigadokeene@gmail.com",
   github: "https://github.com/Koala3353",
   linkedin: "https://linkedin.com/in/keene-brigado",
