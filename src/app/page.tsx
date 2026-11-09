@@ -32,9 +32,6 @@ const projectBySlug = (slug: string) => {
 const topWins = headlineWins;
 const quote = testimonials.find((t) => t.name === "Melvin Martinez") ?? testimonials[0];
 
-/** Sticky-note colours, the same pads that hang on the 3D desk's wall. */
-const stickies = ["#ffe27a", "#ffb3c7", "#a7e3c4", "#bfdcff"];
-const tilts = [-2, 1.5, -1, 2];
 const cups = ["#e8b04a", "#c9ccd6", "#c07a45"];
 
 function ProjectLinks({ project }: { project: Project }) {
@@ -45,7 +42,7 @@ function ProjectLinks({ project }: { project: Project }) {
           href={project.preview}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 font-medium text-accent link-underline"
+          className="inline-flex min-h-11 items-center gap-1.5 font-medium text-accent link-underline"
         >
           Live demo <ArrowUpRight aria-hidden className="size-4" />
         </a>
@@ -55,12 +52,12 @@ function ProjectLinks({ project }: { project: Project }) {
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 link-underline"
+          className="inline-flex min-h-11 items-center gap-1.5 link-underline"
         >
           <GithubLogo aria-hidden className="size-4" /> Source
         </a>
       )}
-      <Link href={`/projects#${project.slug}`} className="inline-flex items-center gap-1.5 text-muted link-underline">
+      <Link href={`/projects#${project.slug}`} className="inline-flex min-h-11 items-center gap-1.5 text-muted link-underline">
         Details
       </Link>
     </div>
@@ -75,18 +72,16 @@ function ClassicHome() {
     <>
       <ClassicHero />
 
-      {/* Proof in numbers, as sticky notes */}
+      {/* Proof in numbers, each with what changed */}
       <section aria-labelledby="metrics-title" className="container-page pb-24">
         <h2 id="metrics-title" className="sr-only">
           Track record
         </h2>
-        <ul className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {metrics.map((m, i) => (
-            <Reveal as="li" key={m.label} delay={i * 0.06}>
-              <div className="sticky-note" style={{ background: stickies[i], rotate: `${tilts[i]}deg` }}>
-                <p className="tabular font-kobi text-4xl font-semibold lg:text-5xl">{m.value}</p>
-                <p className="mt-2 text-sm leading-snug">{m.label}</p>
-              </div>
+            <Reveal as="li" key={m.label} delay={i * 0.06} className="surface p-5">
+              <p className="tabular text-3xl font-semibold tracking-tight text-accent">{m.value}</p>
+              <p className="mt-2 text-sm leading-snug text-muted">{m.label}</p>
             </Reveal>
           ))}
         </ul>
@@ -97,11 +92,10 @@ function ClassicHome() {
         <Reveal className="max-w-2xl">
           <p className="font-mono text-sm text-subtle">Tech · Consulting · FMCG</p>
           <h2 id="paths-title" className="mt-3 text-3xl font-semibold md:text-5xl">
-            Three paths, one way of working.
+            What I&apos;ve done in each lane
           </h2>
           <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
-            I figure out how a business actually runs, recommend what should change, then build it. That works on a
-            tech team, a consulting team, or inside an operations-heavy business.
+            Find the one you&apos;re hiring for. Each lists what I did and what I shipped.
           </p>
         </Reveal>
 
@@ -114,7 +108,7 @@ function ClassicHome() {
               className="grid gap-6 py-8 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:py-10"
             >
               <div className="md:col-span-2 lg:col-span-4">
-                <h3 className="font-kobi text-4xl font-semibold lg:text-5xl">{p.title}</h3>
+                <h3 className="text-4xl font-semibold tracking-tight lg:text-5xl">{p.title}</h3>
                 <p className="mt-2 font-mono text-sm text-subtle">{p.kicker}</p>
               </div>
               <div className="lg:col-span-4">
@@ -158,7 +152,7 @@ function ClassicHome() {
         </ul>
         <Link
           href="/services"
-          className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-accent link-underline"
+          className="mt-8 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent link-underline"
         >
           What I can do for your team <ArrowRight aria-hidden className="size-4" />
         </Link>
@@ -169,15 +163,16 @@ function ClassicHome() {
         <Reveal className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <h2 id="work-title" className="text-3xl font-semibold md:text-5xl">
-              Built for real users.
+              Selected work
             </h2>
             <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
-              Live tools for student organizations, a market-entry model, and everyday money apps.
+              Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also: a student
+              org&apos;s online store, a market-entry model, and two money apps.
             </p>
           </div>
           <Link
             href="/projects"
-            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline"
+            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline"
           >
             All {projects.length} projects <ArrowRight aria-hidden className="size-4" />
           </Link>
@@ -252,14 +247,14 @@ function ClassicHome() {
           <Reveal className="md:col-span-7">
             <figure className="paper-card">
               <span className="paper-tape" aria-hidden="true" />
-              <blockquote className="font-kobi text-2xl font-medium leading-snug md:text-3xl">
+              <blockquote className="text-2xl font-medium leading-snug tracking-tight md:text-3xl">
                 &ldquo;{quote.excerpt}&rdquo;
               </blockquote>
               <figcaption className="paper-muted mt-6">
                 <span className="font-semibold text-[#20222b]">{quote.name}</span>, {quote.title}.{" "}
                 {quote.relationship}.
               </figcaption>
-              <Link href="/testimonials" className="paper-link mt-5 inline-flex items-center gap-1.5 text-sm font-medium">
+              <Link href="/testimonials" className="paper-link mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium">
                 Read recommendations <ArrowRight aria-hidden className="size-4" />
               </Link>
             </figure>
@@ -284,7 +279,7 @@ function ClassicHome() {
             </ul>
             <Link
               href="/achievements"
-              className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium link-underline"
+              className="mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium link-underline"
             >
               All achievements <ArrowRight aria-hidden className="size-4" />
             </Link>
@@ -300,14 +295,14 @@ function ClassicHome() {
               <h2 id="now-title" className="paper-muted font-mono text-sm">
                 Currently
               </h2>
-              <p className="mt-2 font-kobi text-2xl font-semibold md:text-3xl">
+              <p className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
                 {now.role}, {now.company}
               </p>
               <p className="mt-2 max-w-[60ch]">{now.focus}</p>
             </div>
             <div className="md:col-span-4 md:text-right">
               <p className="paper-muted font-mono text-sm">{now.period}</p>
-              <Link href="/experience" className="paper-link mt-3 inline-flex items-center gap-1.5 text-sm font-medium">
+              <Link href="/experience" className="paper-link mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium">
                 Full experience <ArrowRight aria-hidden className="size-4" />
               </Link>
             </div>
@@ -342,11 +337,10 @@ function ClassicHome() {
       >
         <Reveal className="md:col-span-7">
           <h2 id="cta-title" className="max-w-[18ch] text-4xl font-semibold leading-[1.05] md:text-6xl">
-            Looking for an intern who ships?
+            Hiring an intern for tech, consulting, or FMCG?
           </h2>
           <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-muted">
-            I&apos;m open to internships in tech, consulting, and FMCG, anywhere a messy process needs someone to
-            diagnose it and then build the fix.
+            Email is the fastest way to reach me. If you&apos;d rather start with the résumé, it&apos;s one page.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link href="/contact" className="btn btn-primary">
@@ -355,7 +349,7 @@ function ClassicHome() {
             <a href={site.resume} download className="btn btn-secondary">
               Download résumé
             </a>
-            <Link href="/services" className="ml-2 inline-flex items-center gap-1.5 text-sm font-medium link-underline">
+            <Link href="/services" className="ml-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium link-underline">
               For recruiters <ArrowUpRight aria-hidden className="size-4" />
             </Link>
           </div>

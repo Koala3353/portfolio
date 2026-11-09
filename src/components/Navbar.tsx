@@ -16,7 +16,7 @@ function ThemeButton() {
   return (
     <button
       onClick={cycle}
-      className="grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+      className="grid size-11 place-items-center rounded-full text-muted transition-colors hover:bg-surface-2 hover:text-fg"
       aria-label={`Theme: ${pref}. Click to change.`}
       title={`Theme: ${pref}`}
     >
@@ -79,7 +79,7 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 border-b border-line/70 bg-bg/75 backdrop-blur-xl">
         <nav className="container-page flex h-16 items-center justify-between gap-4" aria-label="Primary">
-          <Link href="/" className="group flex items-center gap-2.5 font-semibold tracking-tight text-fg">
+          <Link href="/" className="group flex min-h-11 items-center gap-2.5 font-semibold tracking-tight text-fg">
             <BrandMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105" />
             Keene Brigado
           </Link>
@@ -157,7 +157,7 @@ export default function Navbar() {
             </button>
             <button
               onClick={() => setCmdOpen(true)}
-              className="grid size-9 place-items-center rounded-full text-muted hover:bg-surface-2 hover:text-fg lg:hidden"
+              className="grid size-11 place-items-center rounded-full text-muted hover:bg-surface-2 hover:text-fg lg:hidden"
               aria-label="Open command menu"
             >
               <MagnifyingGlass size={18} />
@@ -167,7 +167,7 @@ export default function Navbar() {
               Get in touch
             </Link>
             <button
-              className="grid size-9 place-items-center rounded-full text-fg lg:hidden"
+              className="grid size-11 place-items-center rounded-full text-fg lg:hidden"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
               aria-expanded={mobileOpen}
@@ -206,7 +206,7 @@ export default function Navbar() {
                 <button
                   autoFocus
                   onClick={() => setMobileOpen(false)}
-                  className="grid size-9 place-items-center rounded-full hover:bg-surface-2"
+                  className="grid size-11 place-items-center rounded-full hover:bg-surface-2"
                   aria-label="Close menu"
                 >
                   <X size={20} />

@@ -25,8 +25,8 @@ export default function Boot() {
 
 /**
  * Runs in <head> before anything paints. First visit in a browser tab (or any page with ?intro): show the loading
- * screen (html[data-boot="show"]), keep it up long enough for the logo to build itself, then
- * hide it once the page has loaded (or after 4 seconds, or on a click, whichever comes first).
+ * screen (html[data-boot="show"]) for one second while the logo builds itself, then hide it
+ * (sooner on a click). The page keeps loading underneath, so it never holds a visitor past 1s.
  */
 export const BOOT_SCRIPT = `(function(){
 var root=document.documentElement;
@@ -34,10 +34,8 @@ var replay=/[?&]intro(=|&|$)/.test(location.search);
 try{if(sessionStorage.getItem('kb-boot')&&!replay)return;sessionStorage.setItem('kb-boot','1');}catch(e){if(!replay)return;}
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 root.dataset.boot='show';
-var start=Date.now(),min=reduce?250:1750,gone=false;
+var gone=false;
 function leave(){if(gone)return;gone=true;root.dataset.boot='done';}
-function ready(){setTimeout(leave,Math.max(0,min-(Date.now()-start)));}
-if(document.readyState==='complete')ready();else window.addEventListener('load',ready);
-setTimeout(leave,4000);
+setTimeout(leave,reduce?250:1000);
 document.addEventListener('click',leave,{once:true});
 })();`;

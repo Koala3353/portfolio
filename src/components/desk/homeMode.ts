@@ -3,8 +3,8 @@
 import { useSyncExternalStore } from "react";
 
 /**
- * Which home the visitor sees: the 3D desk, or the regular (flat) page.
- * The choice is remembered per browser; `?view=classic` forces the regular page.
+ * Which home the visitor sees: the regular (flat) page by default, or the 3D desk once they ask for it.
+ * The choice is remembered per browser; `?view=desk` opens the desk and `?view=classic` forces the regular page.
  */
 const KEY = "home-view";
 const EVENT = "home-view-change";
@@ -18,22 +18,28 @@ function subscribe(onChange: () => void) {
   };
 }
 
+let sessionView: "desk" | "classic" | undefined;
+
 function readPrefersClassic() {
-  if (new URLSearchParams(window.location.search).get("view") === "classic") return true;
+  const param = new URLSearchParams(window.location.search).get("view");
+  if (param === "classic") return true;
+  if (param === "desk") return false;
+  if (sessionView) return sessionView === "classic";
   try {
-    return localStorage.getItem(KEY) === "classic";
+    return localStorage.getItem(KEY) !== "desk";
   } catch {
-    return false;
+    return true;
   }
 }
 
 export function setHomeView(view: "desk" | "classic") {
+  sessionView = view;
   try {
     localStorage.setItem(KEY, view);
   } catch {
-    // Private mode or blocked storage: the switch still works for this visit.
+    // Private mode or blocked storage: sessionView keeps the switch working for this visit.
   }
-  if (view === "desk" && new URLSearchParams(window.location.search).get("view") === "classic") {
+  if (new URLSearchParams(window.location.search).has("view")) {
     window.history.replaceState(null, "", window.location.pathname);
   }
   if (view === "desk" && crashed) {
@@ -45,7 +51,7 @@ export function setHomeView(view: "desk" | "classic") {
 }
 
 export function usePrefersClassic() {
-  return useSyncExternalStore(subscribe, readPrefersClassic, () => false);
+  return useSyncExternalStore(subscribe, readPrefersClassic, () => true);
 }
 
 let webgl: boolean | undefined;

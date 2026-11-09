@@ -34,7 +34,7 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageHeader seed={7} title="Operations, strategy, and brand in one hire" intro={recruiterSummary}>
+      <PageHeader seed={7} title="What I'd bring to your team" intro={recruiterSummary}>
         <Actions />
       </PageHeader>
 
@@ -44,7 +44,9 @@ export default function ServicesPage() {
           <h2 id="looking-for" className="text-2xl font-semibold">
             What I&apos;m looking for
           </h2>
-          <p className="mt-3 max-w-[45ch] leading-relaxed text-muted">{lookingFor.headline}</p>
+          <p className="mt-3 max-w-[45ch] leading-relaxed text-muted">
+            {lookingFor.headline} {lookingFor.workMode}
+          </p>
           <ul className="mt-5 flex flex-wrap gap-2">
             {lookingFor.areas.map((a) => (
               <li key={a} className="rounded-full border border-line px-3 py-1 text-sm text-fg">
@@ -57,9 +59,9 @@ export default function ServicesPage() {
           <h2 className="text-2xl font-semibold">Quick facts</h2>
           <dl className="mt-5 grid grid-cols-2 gap-x-8 gap-y-6">
             {quickFacts.map((f) => (
-              <div key={f.label}>
-                <dd className="tabular text-3xl font-semibold">{f.value}</dd>
+              <div key={f.label} className="flex flex-col-reverse">
                 <dt className="mt-1 text-sm text-muted">{f.label}</dt>
+                <dd className="tabular text-3xl font-semibold">{f.value}</dd>
               </div>
             ))}
           </dl>

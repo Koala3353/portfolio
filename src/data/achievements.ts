@@ -21,7 +21,7 @@ export interface AchievementGroup {
 export const achievementStats = [
   { value: "9+", label: "Competitions" },
   { value: "3", label: "Countries" },
-  { value: "Top 0.5%", label: "Brandstorm" },
+  { value: "Top 24", label: "of 5,000+ teams, Brandstorm" },
   { value: "1st", label: "FLL PH 2024" },
 ];
 
@@ -29,7 +29,7 @@ export const achievementGroups: AchievementGroup[] = [
   {
     id: "case",
     title: "Case competitions",
-    subtitle: "Strategy, innovation, and leadership under pressure.",
+    subtitle: "Case competitions and a hackathon, mostly as team leader.",
     items: [
       {
         placement: "Top 4%",
@@ -59,7 +59,7 @@ export const achievementGroups: AchievementGroup[] = [
         dateTime: "2026-03",
         role: "Team Leader",
         description:
-          "Top 0.5% of 30,000+ innovators across 5,000+ teams. Represented Ateneo as one of the youngest groups in the competition.",
+          "Top 24 of 5,000+ teams. We represented Ateneo as one of the youngest teams in the competition.",
         featured: true,
       },
       {
@@ -70,7 +70,7 @@ export const achievementGroups: AchievementGroup[] = [
         dateTime: "2025-10",
         role: "Team Leader",
         description:
-          "Led team in developing sustainability solutions for the Ateneo Challenge for Transformational Sustainability.",
+          "Led a team pitching sustainability solutions in the Ateneo Challenge for Transformational Sustainability.",
       },
       {
         placement: "2x Winner",
@@ -87,7 +87,7 @@ export const achievementGroups: AchievementGroup[] = [
   {
     id: "international",
     title: "International competitions",
-    subtitle: "Representing the Philippines on the global stage.",
+    subtitle: "Robotics and tech competitions, in the Philippines and abroad.",
     items: [
       {
         placement: "7th Place",
@@ -126,14 +126,14 @@ export const achievementGroups: AchievementGroup[] = [
         dateTime: "2024-08",
         role: "Out of 2,000 entrants",
         description:
-          "Global peer-judged innovation exhibition showcasing creative technical projects from young developers worldwide.",
+          "A peer-judged online showcase of projects by teen developers.",
       },
     ],
   },
   {
     id: "academic",
     title: "Academic honors",
-    subtitle: "Excellence recognized across institutions.",
+    subtitle: "QPI 3.56 at Ateneo, plus 2x Dean's Lister.",
     items: [
       {
         placement: "Director's List",
@@ -141,7 +141,7 @@ export const achievementGroups: AchievementGroup[] = [
         date: "Mar 2025",
         dateTime: "2025-03",
         description:
-          "Premier distinction for holistic excellence in academics, leadership, and character. Top 150 ACET performers.",
+          "Given to the top 150 Ateneo College Entrance Test takers, weighing academics, leadership, and character.",
       },
       {
         placement: "Archer Achiever",
@@ -149,7 +149,7 @@ export const achievementGroups: AchievementGroup[] = [
         date: "May 2025",
         dateTime: "2025-05",
         description:
-          "Top 100 in the DLSU College Admission Test, recognized for outstanding academic potential.",
+          "Top 100 in the De La Salle University College Admission Test.",
       },
     ],
   },

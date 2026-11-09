@@ -1,43 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useReducedMotion } from "motion/react";
 import Kobi2D from "@/components/desk/Kobi2D";
 import { fredoka } from "@/components/desk/fonts";
-import { useManilaClock, useTypewriter } from "@/components/desk/hooks";
+import { useManilaClock } from "@/components/desk/hooks";
 import { setHomeView, useDeskCrashed, useWebGL } from "@/components/desk/homeMode";
+import { proofStrip } from "@/data/home";
 import { lookingFor } from "@/data/services";
 import { site } from "@/lib/site";
 
-const lines = [
-  "Hi, I'm Kobi. This is the regular version of Keene's desk.",
-  "Same content, no 3D. Scroll down for the quick tour.",
-  "Keene's open to tech, consulting, and FMCG internships.",
-  "The résumé is one click away. I checked.",
-];
-
-/** The top of the regular home: the desk, flattened onto an index card. */
+/** The top of the regular home: who Keene is, who trusted him with real work, and how to reach him. */
 export default function ClassicHero() {
-  const reduce = useReducedMotion() ?? false;
   const clock = useManilaClock();
   const webgl = useWebGL();
   const crashed = useDeskCrashed();
-  const [i, setI] = useState(0);
-  const bubble = useTypewriter(lines[i], reduce);
-
-  useEffect(() => {
-    if (reduce) return;
-    const id = setInterval(() => setI((n) => (n + 1) % lines.length), 6500);
-    return () => clearInterval(id);
-  }, [reduce]);
 
   return (
     <section aria-labelledby="home-title" className={`classic-hero ${fredoka.variable}`}>
       <div className="container-page grid items-center gap-12 pb-16 pt-12 md:grid-cols-12 md:pb-24 md:pt-20">
         <div className="md:col-span-7">
           <p className="classic-clock font-mono">
-            <span className="classic-lamp" aria-hidden="true" /> Keene&apos;s desk · Manila{" "}
+            <span className="classic-lamp" aria-hidden="true" /> Manila, Philippines{" "}
             <time suppressHydrationWarning>{clock}</time>
           </p>
           <h1 id="home-title" className="classic-title">
@@ -54,21 +37,33 @@ export default function ClassicHero() {
               Download résumé
             </a>
           </div>
+
+          <div className="mt-10 max-w-[34rem]">
+            <p className="font-mono text-sm text-subtle">Recent work</p>
+            <ul className="classic-proof mt-3">
+              {proofStrip.map((p) => (
+                <li key={p.name}>
+                  <span className="font-semibold text-fg">{p.name}</span>
+                  <span className="text-muted">{p.detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {webgl && !crashed ? (
             <button type="button" className="classic-desk-link" onClick={() => setHomeView("desk")}>
-              <span aria-hidden="true">◐</span> Open the 3D desk instead
+              <span aria-hidden="true">◐</span> Explore the 3D desk
             </button>
           ) : (
             <p className="classic-note" role="note">
               {crashed
-                ? "The 3D desk didn't load this time, so you're on the regular version. Everything's here."
-                : "This browser can't draw the 3D desk, so you're on the regular version. Everything's here."}
+                ? "The 3D desk didn't load this time. Everything is on this page too."
+                : "This browser can't draw the 3D desk. Everything is on this page too."}
             </p>
           )}
         </div>
 
         <div className="classic-stage md:col-span-5" aria-hidden="true">
-          <div className="classic-bubble">{bubble || " "}</div>
           <Kobi2D variant="peek" className="classic-kobi" />
           <div className="classic-card">
             <p className="classic-card-head font-mono">Open to</p>
@@ -81,7 +76,6 @@ export default function ClassicHero() {
           </div>
         </div>
       </div>
-      {/* Screen readers get Kobi's lines without the typing. */}
       <p className="sr-only">{lookingFor.headline}</p>
     </section>
   );

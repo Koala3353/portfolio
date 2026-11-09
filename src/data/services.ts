@@ -1,8 +1,9 @@
 export const recruiterSummary =
-  "I figure out how a business actually runs, recommend what should change, and then build it. That makes me useful on a tech team, a consulting team, or inside an operations-heavy business like FMCG.";
+  "I'm a Management Engineering student at Ateneo who has built the systems a matcha supplier, a growth team, and several student organizations run on. I'm looking for an internship in tech, consulting, or FMCG operations.";
 
 export const lookingFor = {
   headline: "Open to internships in tech, consulting, and FMCG.",
+  workMode: "Hybrid or remote, based in Manila.",
   areas: ["Software & business systems", "Consulting & strategy", "FMCG operations & supply chain"],
 };
 
@@ -27,7 +28,7 @@ export const services: Service[] = [
   {
     title: "Consulting & strategy",
     description:
-      "Diagnosing a problem, sizing it, and making the case for a fix. I built the financial model behind a joint venture GoRocky approved, and led teams to four case competition placements, including the top 0.5% of L'Oréal Brandstorm.",
+      "Diagnosing a problem, sizing it, and making the case for a fix. I built the financial model behind a joint venture GoRocky approved, and led teams to four case competition placements, including top 24 of 5,000+ teams at L'Oréal Brandstorm.",
     highlights: [
       "Financial modeling",
       "Market research",
@@ -60,15 +61,16 @@ export const reasons = [
       "Management Engineering trained me to think in processes and stakeholders. Five years of building trained me to ship.",
   },
   {
-    title: "Real results, not class projects",
+    title: "Other people depend on it",
     description:
       "Systems in daily use at a growing supplier, 30+ international freelance clients since I was 13, and 9+ competition placements.",
   },
 ];
 
+/** Résumé-backed numbers, each with what changed and where. */
 export const quickFacts = [
-  { value: "500+", label: "Café clients served at RMC" },
-  { value: "-87%", label: "Processing time cut" },
-  { value: "850+", label: "Users on a system I built" },
-  { value: "Top 0.5%", label: "L'Oréal Brandstorm 2026" },
+  { value: "₱1.7M", label: "Monthly EBITDA in the joint venture model I built at GoRocky, approved to launch" },
+  { value: "₱390K+", label: "Profit from the dev studio I founded at 13, across 30+ international clients" },
+  { value: "~850", label: "People who used the Rose Sale store I built for a student org" },
+  { value: "Top 24", label: "of 5,000+ teams at L'Oréal Brandstorm 2026, as team leader" },
 ];

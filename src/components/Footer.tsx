@@ -15,8 +15,8 @@ export default function Footer() {
         <div className="max-w-sm">
           <p className="font-semibold">{site.name}</p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Management Engineering at Ateneo de Manila. I diagnose how a business runs and build the
-            systems that fix it. Open to internships in tech, consulting, and FMCG.
+            Management Engineering at Ateneo de Manila, based in Manila. Open to internships in tech,
+            consulting, and FMCG.
           </p>
           <div className="mt-5 flex gap-2">
             {socials.map(({ href, label, Icon }) => (
@@ -26,7 +26,7 @@ export default function Footer() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
-                className="grid size-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+                className="grid size-11 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
               >
                 <Icon size={18} />
               </a>
@@ -36,10 +36,10 @@ export default function Footer() {
 
         <nav aria-label="Footer: explore">
           <p className="text-sm font-medium">Explore</p>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-2">
             {primaryNav.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="text-sm text-muted transition-colors hover:text-fg">
+                <Link href={l.href} className="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-fg">
                   {l.label}
                 </Link>
               </li>
@@ -49,10 +49,10 @@ export default function Footer() {
 
         <nav aria-label="Footer: more">
           <p className="text-sm font-medium">More</p>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-2">
             {secondaryNav.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="text-sm text-muted transition-colors hover:text-fg">
+                <Link href={l.href} className="inline-flex min-h-11 items-center text-sm text-muted transition-colors hover:text-fg">
                   {l.label}
                 </Link>
               </li>

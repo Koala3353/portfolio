@@ -8,20 +8,35 @@ export type EducationItem = {
 };
 
 export const aboutIntro =
-  "Management Engineering student at Ateneo de Manila University. I diagnose how an organization actually runs, recommend what should change, and build it, always with the people who use it in mind. I join projects to improve the systems they inherited, not to rerun them.";
+  "Management Engineering student at Ateneo de Manila University. I started a paid development studio at 13. These days I build and fix the operations systems behind a matcha supplier, a growth team, and several student organizations.";
 
-export const story = [
-  "I'm a Management Engineering sophomore who approaches every role like a consultant: understand the business, then fix what's slowing it down. I founded Klick n Code at 13 and built for 30+ international clients. Since then I've consulted for Ritual Matcha Co., where I turned 8+ scattered Google Sheets into one Shopify-connected portal behind a business with seven-figure monthly sales, cut purchase-order turnaround from a week to same-day, and now lead the move to Supabase and Cloudflare. At GoRocky, I built the financial model for a joint venture projecting seven-figure monthly EBITDA, which leadership approved to launch. Code is how I execute, but the work starts with understanding the business and the people it serves.",
-  "I don't take on a role just to run last year's playbook. Whether I'm a head or a core member, in recruitment and secretariat, operations, recruitment strategy, or OSR, I look at the system I inherited and ask how it should work instead. For Rose Sale, I replaced the legacy Google Forms with a full-stack store that served about 850 users, and built a delivery portal that raised delivery volume by 35%. For Celaball, I built a centralized table reservation system for 70+ attendees. As an OSR analyst, I write audit reports so the next team starts from a better system than I did.",
-  "As Project Manager of Celadon's Recruitment Week, the first run by project managers instead of the executive board, I recruited the core team through open applications for the first time; my primer and publicity materials drew more applicants than the organization's yearly projects. I led 44 people across 6 committees to 832 recruits, returning about 10x on project costs, and launched three firsts for the organization: a mobile-game tournament at 2x the expected turnout, CelaWrapped, a Spotify Wrapped-style recap of each member's week, and a mahjong leaderboard portal with 350+ users and 1,000+ games in 4 days. The marketing and creatives team I led was voted best design among all organizations in ADMU. For the JADE Business Summit and LEADS 2627, I rebuilt the registration, tracking, and backend systems behind events for 80+ and 100+ participants.",
-  "When I lead, a better system for the project is only half the goal. The other half is my team: everyone should leave knowing a tool or a way of working they didn't know before, so the improvement outlasts my term. I also consider every stakeholder a system touches, from the participants to the executive board (EBCB) to my own core team, and design so each of them has an easier time using it. The changes I push for tend to stick, and the feedback from the people using them has been consistently strong.",
+/** The About story in short titled blocks, so it scans instead of reading as one wall of text. */
+export const story: { title: string; body: string }[] = [
+  {
+    title: "Work",
+    body: "I founded Klick n Code at 13 and built Discord bots and websites for 30+ international clients. At Ritual Matcha Co., a B2B matcha supplier, I turned 8+ scattered Google Sheets into one Shopify-connected portal behind seven-figure monthly sales, cut purchase-order turnaround from a week to same-day, and now lead the move to Supabase and Cloudflare. At GoRocky, I built the financial model for a joint venture projecting ₱1.7M in monthly EBITDA, and leadership approved it to launch.",
+  },
+  {
+    title: "Student organizations",
+    body: "In student organizations I keep ending up rebuilding whatever the last team left behind. For Celadon's Rose Sale, I replaced the old Google Forms with an online store that about 850 people used, and built a delivery portal that raised delivery volume by 35%. For Celaball, I built a table reservation system for 70+ attendees. As an analyst in Celadon's research department, I write audit reports so the next team starts from a better system than I did.",
+  },
+  {
+    title: "Recruitment Week",
+    body: "I was Project Manager of Celadon's Recruitment Week, the first one run by project managers instead of the executive board. That meant recruiting a core team through open applications for the first time, and my primer drew more applicants than the organization's yearly projects. I led 44 people across 6 committees to 832 recruits, returning about 10x on project costs. We added a mobile-game tournament at twice the expected turnout, CelaWrapped (a Spotify Wrapped-style recap of each member's week), and a mahjong leaderboard with 350+ users and 1,000+ games in 4 days. Our creatives were voted the best design among all ADMU organizations.",
+  },
+  {
+    title: "How I lead",
+    body: "I want my team to leave knowing a tool or a way of working they didn't know before, so the fix outlasts my term. I also design for everyone a system touches: participants, the executive board, and my own core team. For the JADE Business Summit and LEADS 2627, that meant rebuilding the registration, tracking, and backend systems for 80+ and 100+ participants.",
+  },
 ];
 
 export const facts: { label: string; value: string }[] = [
   { label: "School", value: "Ateneo de Manila University" },
   { label: "Program", value: "BS Management Engineering" },
+  { label: "QPI", value: "3.56" },
+  { label: "Honors", value: "Director's List, 2x Dean's Lister" },
   { label: "Open to", value: "Tech, consulting, FMCG" },
-  { label: "Honors", value: "Director's List (Mar 2025)" },
+  { label: "Work setup", value: "Hybrid or remote, Manila" },
 ];
 
 export const skillGroups: SkillGroup[] = [
@@ -44,7 +59,7 @@ export const education: EducationItem[] = [
     school: "Ateneo de Manila University",
     program: "BS Management Engineering",
     period: "2025 - Present",
-    highlight: "Director's List (Mar 2025)",
+    highlight: "QPI 3.56 · Director's List · 2x Dean's Lister",
   },
   {
     school: "Grace Christian College",

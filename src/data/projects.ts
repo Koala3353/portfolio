@@ -17,31 +17,31 @@ export const eras: { year: string; label?: string; subtitle: string }[] = [
   {
     "year": "2026",
     "label": "Current year",
-    "subtitle": "Building full-stack applications and expanding into financial modeling and growth analytics."
+    "subtitle": "Internal tools for Ritual Matcha and student organizations, a market-entry model, and a few apps I use myself."
   },
   {
     "year": "2025",
-    "subtitle": "College freshman year, full-stack development, hackathons, and production-grade applications."
+    "subtitle": "First year at Ateneo: hackathons, an online store for a student org, and freelance client work."
   },
   {
     "year": "2024",
     "label": "Senior high school",
-    "subtitle": "Transitioned into web development and application design while competing in first robotics competition."
+    "subtitle": "Moved from bots to websites, and built software for the FIRST LEGO League team that won nationals."
   },
   {
     "year": "2023",
     "label": "Grade 11",
-    "subtitle": "Achieved proficiency in Discord bot development with high-value client projects."
+    "subtitle": "Paid Discord bot commissions for international clients."
   },
   {
     "year": "2022",
     "label": "Grade 10 · most productive year",
-    "subtitle": "Integrated databases and delivered numerous Discord bot solutions for international clients."
+    "subtitle": "My busiest year: Discord bots with databases behind them, for clients abroad."
   },
   {
     "year": "2021",
     "label": "Where it all began",
-    "subtitle": "Started my programming journey with Java and Discord bots, the first builds that kicked everything off."
+    "subtitle": "Taught myself Java and built my first paid Discord bots."
   }
 ];
 
@@ -53,16 +53,18 @@ export const projects: Project[] = [
     "category": "Tools",
     "description": "Finds every free room in ADMU Higher Education at once by reading all 152 CFMO venue calendars, instead of checking them one by one. Prefills the CFMO reservation form so you can submit in seconds, before the day's capped slots run out minutes after the form opens.",
     "github": "https://github.com/Koala3353/cldn-venue-explorer",
-    "preview": "https://script.google.com/a/student.ateneo.edu/macros/s/AKfycbw_zN1l9PCFGz35TdrD-ClBp77L8Csi8Sd7rPUljYO7Z3L7uvLhKkhGQb2rvokNbfYB/exec#/"
+    "preview": "https://script.google.com/a/student.ateneo.edu/macros/s/AKfycbw_zN1l9PCFGz35TdrD-ClBp77L8Csi8Sd7rPUljYO7Z3L7uvLhKkhGQb2rvokNbfYB/exec#/",
+    "featured": true
   },
   {
     "slug": "celadon-website",
     "title": "Celadon Website",
     "year": "2026",
     "category": "Web",
-    "description": "The official website of Ateneo Celadon, the premier Filipino-Chinese student-led organization of Ateneo de Manila University.",
+    "description": "Celadon's first professional website, with an applicant portal and a project manager toolkit. Ateneo Celadon is the Filipino-Chinese student organization at Ateneo.",
     "github": "https://github.com/Koala3353/celadon-website",
-    "preview": "https://ateneoceladon.com/"
+    "preview": "https://ateneoceladon.com/",
+    "featured": true
   },
   {
     "slug": "celaville-wrapped",
@@ -94,7 +96,8 @@ export const projects: Project[] = [
     "category": "Tools",
     "description": "Interactive financial model for a proposed Melbourne market entry by Kandama Collective, with every figure computed live from tagged assumptions.",
     "github": "https://github.com/Koala3353/kandama-model",
-    "preview": "https://koala3353.github.io/kandama-model/"
+    "preview": "https://koala3353.github.io/kandama-model/",
+    "featured": true
   },
   {
     "slug": "scht",
@@ -149,8 +152,7 @@ export const projects: Project[] = [
     "category": "Web",
     "description": "A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play: no scrolling, no distractions. Made because no existing app got the UX right.",
     "github": "https://github.com/Koala3353/poker-chips-tracker",
-    "preview": "https://poker-chips-tracker.vercel.app",
-    "featured": true
+    "preview": "https://poker-chips-tracker.vercel.app"
   },
   {
     "slug": "proof-of-purchase-api",
@@ -168,17 +170,17 @@ export const projects: Project[] = [
     "category": "Web",
     "description": "Automated payment verification system for Ateneo student organizations, cross-checking GCash, Maya, and BDO receipt screenshots against official transaction history.",
     "github": "https://github.com/Koala3353/pop-portal",
-    "preview": "https://koala3353.github.io/pop-portal/",
-    "featured": true
+    "preview": "https://koala3353.github.io/pop-portal/"
   },
   {
     "slug": "celadon-rose-sale-system",
     "title": "Celadon Rose Sale System",
     "year": "2025",
     "category": "Web",
-    "description": "Full-stack e-commerce platform replacing legacy Google Forms, serving 850+ unique users with real-time Google Sheets integration.",
+    "description": "Online store for Celadon's Rose Sale that replaced the old Google Forms ordering, with orders syncing live to Google Sheets. About 850 unique users used it.",
     "github": "https://github.com/Koala3353/celadon-rose-sale",
-    "preview": "https://koala3353.github.io/celadon-rose-sale/"
+    "preview": "https://koala3353.github.io/celadon-rose-sale/",
+    "featured": true
   },
   {
     "slug": "ripe-fx",

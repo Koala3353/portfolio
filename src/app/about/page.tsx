@@ -21,9 +21,12 @@ export default function AboutPage() {
             <h2 id="story-heading" className="text-2xl font-semibold">
               Background
             </h2>
-            <div className="mt-5 max-w-[65ch] space-y-5 leading-relaxed text-muted">
-              {story.map((p) => (
-                <p key={p}>{p}</p>
+            <div className="mt-5 max-w-[65ch] space-y-8">
+              {story.map((s) => (
+                <div key={s.title}>
+                  <h3 className="font-semibold">{s.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
+                </div>
               ))}
             </div>
           </div>

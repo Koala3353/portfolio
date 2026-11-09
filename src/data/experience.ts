@@ -42,7 +42,7 @@ const entries: ExperienceEntry[] = [
     role: "Growth Analyst Intern", org: "GoRocky", category: "work", type: "Internship",
     start: "2026-01", end: "2026-04",
     bullets: [
-      "Built an end-to-end financial model for a joint venture projecting seven-figure monthly EBITDA, securing leadership approval to launch",
+      "Built an end-to-end financial model for a joint venture projecting ₱1.7M in monthly EBITDA, securing leadership approval to launch",
       "Built an n8n CRM pipeline automating 1,000+ Viber/SMS messages per week, removing manual outreach",
     ],
     tags: ["Financial Modeling", "n8n", "Growth Strategy"],
@@ -94,7 +94,7 @@ const entries: ExperienceEntry[] = [
     role: "Owner and Founder", org: "Klick n Code", category: "work",
     start: "2021-03", end: "2026-04",
     bullets: [
-      "Founded a solo development studio at age 13, building Discord bots and websites for 30+ international clients, including BETDEX, and generating six-figure profit",
+      "Founded a solo development studio at age 13, building Discord bots and websites for 30+ international clients, including BETDEX, and generating ₱390K+ in profit",
       "Built a reusable bot framework that cut development time by 40%, shipping most projects within a week",
     ],
     tags: ["Java", "JavaScript", "Full-Stack Development"],

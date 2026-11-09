@@ -10,6 +10,13 @@ export const stack = [
   "Market Research", "Process Optimization", "Data Analytics",
 ] as const;
 
+/** First-screen proof on the regular home: who trusted Keene with real work, each name explained once. */
+export const proofStrip = [
+  { name: "Ritual Matcha Co.", detail: "Business systems for a B2B matcha supplier" },
+  { name: "GoRocky", detail: "Growth analyst intern, joint venture model" },
+  { name: "L'Oréal Brandstorm 2026", detail: "Top 24 of 5,000+ teams, team leader" },
+] as const;
+
 /** Derived from the newest work role in src/data/experience.ts. */
 export const now = {
   role: latestRole.role,
@@ -24,7 +31,7 @@ export const now = {
  */
 export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
   { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
-  { slug: "celadon-rose-sale-system", impact: "850+", impactLabel: "unique users served" },
+  { slug: "celadon-rose-sale-system", impact: "~850", impactLabel: "unique users served" },
   { slug: "budge" },
   { slug: "kandama-market-entry-model" },
   { slug: "splurge" },
@@ -54,7 +61,7 @@ export const paths = [
     body: "Diagnose the problem, size it, and make the case for the fix with numbers people can check.",
     proof: [
       "Built the financial model behind a joint venture GoRocky approved",
-      "Top 0.5% of 30,000+ at L'Oréal Brandstorm 2026, as team leader",
+      "Top 24 of 5,000+ teams at L'Oréal Brandstorm 2026, as team leader",
     ],
     skillGroup: "Operations and logic",
     work: ["kandama-market-entry-model"],

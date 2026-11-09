@@ -1,9 +1,8 @@
 "use client";
-import CategoryGlyph from "@/components/art/CategoryGlyph";
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react";
+import ProjectCard from "@/components/projects/ProjectCard";
 import { categories, type Project, type ProjectCategory } from "@/data/projects";
 
 type Filter = "All" | ProjectCategory;
@@ -32,7 +31,7 @@ export default function ProjectFilter({ projects }: { projects: Project[] }) {
               type="button"
               aria-pressed={active}
               onClick={() => setFilter(o.key)}
-              className={`inline-flex h-9 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors duration-200 ${
+              className={`inline-flex h-11 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors duration-200 ${
                 active ? "border-fg bg-fg text-bg" : "border-line text-muted hover:border-subtle hover:text-fg"
               }`}
             >
@@ -68,44 +67,7 @@ export default function ProjectFilter({ projects }: { projects: Project[] }) {
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                 className="scroll-mt-28 target:[&>article]:border-accent"
               >
-                <article className="surface group flex h-full flex-col p-6 transition-colors hover:border-accent/60">
-                  <div className="flex items-start justify-between gap-4">
-                    <p className="font-mono text-sm text-subtle">
-                      <time>{p.year}</time> · {p.category}
-                    </p>
-                    <CategoryGlyph
-                      category={p.category}
-                      className="-mr-1 -mt-1 size-10 shrink-0 text-subtle transition-colors group-hover:text-fg"
-                    />
-                  </div>
-                  <h3 className="mt-2 text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.description}</p>
-                  <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-line pt-4 text-sm">
-                    {!p.github && !p.preview && <span className="text-subtle">Private, no public link</span>}
-                    {p.github && (
-                      <a
-                        href={p.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 link-underline"
-                        aria-label={`${p.title} source code on GitHub`}
-                      >
-                        <GithubLogo aria-hidden className="size-4" /> Source
-                      </a>
-                    )}
-                    {p.preview && (
-                      <a
-                        href={p.preview}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-accent link-underline"
-                        aria-label={`${p.title} live demo`}
-                      >
-                        Live demo <ArrowUpRight aria-hidden className="size-4" />
-                      </a>
-                    )}
-                  </div>
-                </article>
+                <ProjectCard project={p} />
               </motion.li>
             ))}
           </AnimatePresence>

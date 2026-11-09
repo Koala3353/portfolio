@@ -9,7 +9,7 @@ export type ContactChannel = {
 };
 
 export const contactIntro =
-  "I'm actively seeking internships at fast-paced, origin-story-driven companies where I can use operations, strategy, and brand to scale impact.";
+  "I'm looking for internships in tech, consulting, or FMCG operations, hybrid or remote. I'm based in Manila. Email is the fastest way to reach me.";
 
 export const contactChannels: ContactChannel[] = [
   { id: "email", label: "Email", href: `mailto:${site.email}`, display: site.email, external: false },

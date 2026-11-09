@@ -2,8 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
+import EarlierWork from "@/components/projects/EarlierWork";
+import ProjectCard from "@/components/projects/ProjectCard";
 import ProjectFilter from "@/components/projects/ProjectFilter";
-import { eras, projects } from "@/data/projects";
+import { eras, featuredProjects, projects } from "@/data/projects";
+
+const CUTOFF = "2024";
+const recent = projects.filter((p) => p.year >= CUTOFF);
+const earlier = projects.filter((p) => p.year < CUTOFF);
+const earlierYears = `${earlier.at(-1)?.year}-${earlier[0]?.year}`;
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -16,14 +23,31 @@ export default function ProjectsPage() {
     <>
       <PageHeader seed={4}
         title="Projects"
-        intro={`${projects.length} projects from 2021 to today: client Discord bots, student organization platforms, hackathon builds, and tools I made because nothing else got the UX right.`}
+        intro={`The ${featuredProjects.length} I'd show first, then everything since ${CUTOFF}. My Discord bot work from ${earlierYears.replace("-", " to ")} is at the bottom.`}
       />
 
-      <section aria-labelledby="all-projects" className="container-page pb-24">
-        <h2 id="all-projects" className="sr-only">
-          All projects
+      <section aria-labelledby="start-here" className="container-page pb-20">
+        <h2 id="start-here" className="text-2xl font-semibold md:text-3xl">
+          Start here
         </h2>
-        <ProjectFilter projects={projects} />
+        <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {featuredProjects.map((p, i) => (
+            <Reveal as="li" key={p.slug} delay={i * 0.05}>
+              <ProjectCard project={p} />
+            </Reveal>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="all-projects" className="container-page pb-16">
+        <h2 id="all-projects" className="mb-8 text-2xl font-semibold md:text-3xl">
+          Everything since {CUTOFF}
+        </h2>
+        <ProjectFilter projects={recent} />
+      </section>
+
+      <section aria-label="Earlier work" className="container-page pb-24">
+        <EarlierWork projects={earlier} years={earlierYears} />
       </section>
 
       <section aria-labelledby="timeline-title" className="container-page pb-28">
