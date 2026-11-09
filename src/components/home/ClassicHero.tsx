@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight, Cube } from "@phosphor-icons/react/dist/ssr";
 import Kobi2D from "@/components/desk/Kobi2D";
 import { fredoka } from "@/components/desk/fonts";
 import { useManilaClock } from "@/components/desk/hooks";
@@ -51,8 +52,18 @@ export default function ClassicHero() {
           </div>
 
           {webgl && !crashed ? (
-            <button type="button" className="classic-desk-link" onClick={() => setHomeView("desk")}>
-              <span aria-hidden="true">◐</span> Explore the 3D desk
+            <button type="button" className="classic-desk-link group" onClick={() => setHomeView("desk")}>
+              <span className="classic-desk-icon" aria-hidden="true">
+                <Cube className="size-6" weight="duotone" />
+              </span>
+              <span className="min-w-0 flex-1 text-left">
+                <span className="block font-semibold text-fg">Explore the 3D desk</span>
+                <span className="block text-sm text-muted">An interactive version of this site, built with three.js</span>
+              </span>
+              <ArrowRight
+                aria-hidden
+                className="size-5 shrink-0 text-subtle transition-transform group-hover:translate-x-1 group-hover:text-accent"
+              />
             </button>
           ) : (
             <p className="classic-note" role="note">

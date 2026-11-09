@@ -69,7 +69,7 @@ export const reasons = [
 
 /** Résumé-backed numbers, each with what changed and where. */
 export const quickFacts = [
-  { value: "₱1.7M", label: "Monthly EBITDA in the joint venture model I built at GoRocky, approved to launch" },
+  { value: "Sheets → SQL", label: "Leading Ritual Matcha's move of its whole operations and client backend to Supabase, plus a new central web portal, with one intern" },
   { value: "₱390K+", label: "Profit from the dev studio I founded at 13, across 30+ international clients" },
   { value: "~850", label: "People who used the Rose Sale store I built for a student org" },
   { value: "Top 24", label: "of 5,000+ teams at L'Oréal Brandstorm 2026, as team leader" },

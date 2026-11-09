@@ -581,12 +581,18 @@ p { text-wrap: pretty; }
   padding-block: 0.7rem; border-bottom: 1px solid var(--line); font-size: 0.95rem;
 }
 .classic-desk-link {
-  margin-top: 1.75rem; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem;
-  font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);
-  text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px;
-  transition: color 200ms, text-decoration-color 200ms;
+  margin-top: 1.75rem; display: flex; align-items: center; gap: 1rem; width: 100%; max-width: 34rem;
+  padding: 0.9rem 1.1rem; border: 1px solid var(--line); border-radius: 1rem;
+  background: var(--surface); cursor: pointer;
+  transition: border-color 200ms, background-color 200ms, transform 200ms var(--ease-out-expo);
 }
-.classic-desk-link:hover { color: var(--fg); text-decoration-color: var(--accent); }
+.classic-desk-link:hover { border-color: var(--accent); background: var(--surface-2); }
+.classic-desk-link:active { transform: scale(0.99); }
+.classic-desk-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.classic-desk-icon {
+  display: grid; place-items: center; flex-shrink: 0; width: 2.75rem; height: 2.75rem;
+  border-radius: 0.75rem; background: var(--accent-soft); color: var(--accent);
+}
 .classic-note { margin-top: 1.75rem; max-width: 46ch; font-size: 0.9rem; color: var(--subtle); padding-left: 0.9rem; border-left: 2px solid #e8b04a; }
 .classic-stage { position: relative; width: 100%; max-width: 23rem; margin-inline: auto; }
 .classic-stage:hover .kobi2d-head { rotate: -6deg; }
