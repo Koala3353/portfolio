@@ -1,10 +1,24 @@
+import Image from "next/image";
 import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react/dist/ssr";
 import CategoryGlyph from "@/components/art/CategoryGlyph";
 import type { Project } from "@/data/projects";
+import { basePath } from "@/lib/site";
 
 export default function ProjectCard({ project: p }: { project: Project }) {
   return (
-    <article className="surface group flex h-full flex-col p-6 transition-colors hover:border-accent/60">
+    <article className="surface shot-card group flex h-full flex-col overflow-hidden">
+      {p.image && (
+        <div className="shot">
+          <Image
+            src={`${basePath}${p.image}`}
+            alt={`Screenshot of ${p.title}`}
+            width={1600}
+            height={900}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          />
+        </div>
+      )}
+      <div className="flex flex-1 flex-col p-6">
       <div className="flex items-start justify-between gap-4">
         <p className="font-mono text-sm text-subtle">
           <time>{p.year}</time> · {p.category}
@@ -40,6 +54,7 @@ export default function ProjectCard({ project: p }: { project: Project }) {
             Live demo <ArrowUpRight aria-hidden className="size-4" />
           </a>
         )}
+      </div>
       </div>
     </article>
   );

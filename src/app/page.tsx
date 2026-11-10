@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, GithubLogo } from "@phosphor-icons/react/dist/ssr";
 import Reveal from "@/components/Reveal";
 import HomeSwitch from "@/components/home/HomeSwitch";
 import ClassicHero from "@/components/home/ClassicHero";
 import Kobi2D from "@/components/desk/Kobi2D";
-import CategoryGlyph from "@/components/art/CategoryGlyph";
-import { site } from "@/lib/site";
-import { metrics, stack, now, caseStudies, paths } from "@/data/home";
+import { basePath, site } from "@/lib/site";
+import { metrics, now, caseStudies, alsoBuilt, paths } from "@/data/home";
 import { projects, type Project } from "@/data/projects";
 import { testimonials } from "@/data/testimonials";
 import { headlineWins } from "@/data/achievements";
@@ -32,7 +32,23 @@ const projectBySlug = (slug: string) => {
 const topWins = headlineWins;
 const quote = testimonials.find((t) => t.name === "Melvin Martinez") ?? testimonials[0];
 
-const cups = ["#e8b04a", "#c9ccd6", "#c07a45"];
+const also = alsoBuilt.map(projectBySlug);
+
+function Shot({ project, priority }: { project: Project; priority?: boolean }) {
+  if (!project.image) return null;
+  return (
+    <div className="shot">
+      <Image
+        src={`${basePath}${project.image}`}
+        alt={`Screenshot of ${project.title}`}
+        width={1600}
+        height={900}
+        sizes="(min-width: 768px) 50vw, 100vw"
+        priority={priority}
+      />
+    </div>
+  );
+}
 
 function ProjectLinks({ project }: { project: Project }) {
   return (
@@ -72,15 +88,110 @@ function ClassicHome() {
     <>
       <ClassicHero />
 
+      {/* Selected work: real screenshots, one figure each */}
+      <section aria-labelledby="work-title" className="container-page pb-24">
+        <Reveal className="mb-8 flex flex-col gap-3 border-t border-line pt-8 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 id="work-title" className="text-3xl md:text-4xl">
+              Selected work
+            </h2>
+            <p className="mt-3 max-w-[58ch] leading-relaxed text-muted">
+              Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also a student org&apos;s
+              online store, a market-entry model, and that org&apos;s first website.
+            </p>
+          </div>
+          <Link
+            href="/projects"
+            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline"
+          >
+            All {projects.length} projects <ArrowRight aria-hidden className="size-4" />
+          </Link>
+        </Reveal>
+
+        {lead && (
+          <Reveal>
+            <article className="surface shot-card grid overflow-hidden md:grid-cols-12">
+              <div className="md:col-span-7 md:border-r md:border-line [&_.shot]:h-full [&_.shot]:border-b-0 max-md:[&_.shot]:border-b">
+                <Shot project={lead.project} priority />
+              </div>
+              <div className="flex flex-col p-6 md:col-span-5 md:p-8">
+                <p className="font-mono text-xs text-subtle">
+                  {lead.project.year} · {lead.project.category}
+                </p>
+                <h3 className="mt-2 text-2xl font-semibold">{lead.project.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{lead.project.description}</p>
+                {lead.impact && (
+                  <p className="mt-6 flex items-baseline gap-3 border-t border-line pt-5">
+                    <span className="mark tabular font-mono text-3xl font-semibold">{lead.impact}</span>
+                    <span className="text-sm text-muted">{lead.impactLabel}</span>
+                  </p>
+                )}
+                <div className="mt-auto pt-6">
+                  <ProjectLinks project={lead.project} />
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        )}
+
+        <ul className="mt-5 grid gap-5 md:grid-cols-3">
+          {others.map((c, i) => (
+            <Reveal as="li" key={c.slug} delay={i * 0.06}>
+              <article className="surface shot-card flex h-full flex-col overflow-hidden">
+                <Shot project={c.project} />
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="font-mono text-xs text-subtle">
+                    {c.project.year} · {c.project.category}
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold">{c.project.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.project.description}</p>
+                  {c.impact && (
+                    <p className="mt-4 flex items-baseline gap-2">
+                      <span className="tabular font-mono text-xl font-semibold">{c.impact}</span>
+                      <span className="text-sm text-muted">{c.impactLabel}</span>
+                    </p>
+                  )}
+                  <div className="mt-auto pt-4">
+                    <ProjectLinks project={c.project} />
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </ul>
+
+        <Reveal className="mt-8">
+          <p className="text-sm font-medium text-subtle">Also built</p>
+          <ul className="ruled-list mt-3 grid md:grid-cols-2 md:gap-x-10">
+            {also.map((w) => (
+              <li key={w.slug}>
+                <a
+                  href={w.preview ?? w.github ?? `/projects#${w.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-h-12 items-center justify-between gap-4 py-2"
+                >
+                  <span className="font-medium transition-colors group-hover:text-accent">{w.title}</span>
+                  <span className="flex items-center gap-2 font-mono text-xs text-subtle">
+                    {w.year} · {w.category}
+                    <ArrowUpRight aria-hidden className="size-4" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </section>
+
       {/* Proof in numbers, each with what changed */}
       <section aria-labelledby="metrics-title" className="container-page pb-24">
         <h2 id="metrics-title" className="sr-only">
           Track record
         </h2>
-        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="stat-strip">
           {metrics.map((m, i) => (
-            <Reveal as="li" key={m.label} delay={i * 0.06} className="surface p-5">
-              <p className="tabular text-3xl font-semibold tracking-tight text-accent">{m.value}</p>
+            <Reveal as="li" key={m.label} delay={i * 0.05}>
+              <p className="tabular font-mono text-2xl font-semibold">{m.value}</p>
               <p className="mt-2 text-sm leading-snug text-muted">{m.label}</p>
             </Reveal>
           ))}
@@ -88,30 +199,29 @@ function ClassicHome() {
       </section>
 
       {/* The three paths, each with proof */}
-      <section aria-labelledby="paths-title" className="container-page pb-28">
+      <section aria-labelledby="paths-title" className="container-page pb-24">
         <Reveal className="max-w-2xl">
-          <p className="font-mono text-sm text-subtle">Tech · Consulting · FMCG</p>
-          <h2 id="paths-title" className="mt-3 text-3xl font-semibold md:text-5xl">
+          <h2 id="paths-title" className="text-3xl md:text-4xl">
             What I&apos;ve done in each lane
           </h2>
-          <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
+          <p className="mt-3 max-w-[55ch] leading-relaxed text-muted">
             Find the one you&apos;re hiring for. Each lists what I did and what I shipped.
           </p>
         </Reveal>
 
-        <ul className="ruled-list mt-12">
+        <ul className="ruled-list mt-10">
           {paths.map((p, i) => (
             <Reveal
               as="li"
               key={p.id}
-              delay={i * 0.06}
-              className="grid gap-6 py-8 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12 lg:py-10"
+              delay={i * 0.05}
+              className="grid gap-6 py-8 md:grid-cols-2 md:gap-x-10 lg:grid-cols-12"
             >
-              <div className="md:col-span-2 lg:col-span-4">
-                <h3 className="text-4xl font-semibold tracking-tight lg:text-5xl">{p.title}</h3>
-                <p className="mt-2 font-mono text-sm text-subtle">{p.kicker}</p>
+              <div className="md:col-span-2 lg:col-span-3">
+                <h3 className="font-display text-3xl font-medium">{p.title}</h3>
+                <p className="mt-1 text-sm text-subtle">{p.kicker}</p>
               </div>
-              <div className="lg:col-span-4">
+              <div className="lg:col-span-5">
                 <p className="leading-relaxed text-muted">{p.body}</p>
                 <ul className="mt-4 grid gap-2">
                   {p.proof.map((line) => (
@@ -131,15 +241,12 @@ function ClassicHome() {
                         <a
                           href={w.preview ?? `/projects#${w.slug}`}
                           {...(w.preview ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className="group flex items-center justify-between gap-4 py-3"
+                          className="group flex min-h-12 items-center justify-between gap-4 py-2"
                         >
                           <span className="font-medium transition-colors group-hover:text-accent">{w.title}</span>
-                          <span className="flex items-center gap-2 font-mono text-sm text-subtle">
+                          <span className="flex items-center gap-2 font-mono text-xs text-subtle">
                             {w.year}
-                            <ArrowUpRight
-                              aria-hidden
-                              className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                            />
+                            <ArrowUpRight aria-hidden className="size-4" />
                           </span>
                         </a>
                       </li>
@@ -152,134 +259,50 @@ function ClassicHome() {
         </ul>
         <Link
           href="/services"
-          className="mt-8 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent link-underline"
+          className="mt-6 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent link-underline"
         >
           What I can do for your team <ArrowRight aria-hidden className="size-4" />
         </Link>
       </section>
 
-      {/* Selected work, the lead one on a little laptop */}
-      <section aria-labelledby="work-title" className="container-page pb-28">
-        <Reveal className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 id="work-title" className="text-3xl font-semibold md:text-5xl">
-              Selected work
-            </h2>
-            <p className="mt-4 max-w-[55ch] text-lg leading-relaxed text-muted">
-              Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also: a student
-              org&apos;s online store, a market-entry model, and two money apps.
-            </p>
-          </div>
-          <Link
-            href="/projects"
-            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 text-sm font-medium text-accent link-underline"
-          >
-            All {projects.length} projects <ArrowRight aria-hidden className="size-4" />
-          </Link>
-        </Reveal>
-
-        {lead && (
-          <Reveal>
-            <article className="surface grid overflow-hidden md:grid-cols-12">
-              <div className="mini-laptop md:col-span-5" aria-hidden="true">
-                <div className="mini-laptop-screen">
-                  <CategoryGlyph category={lead.project.category} className="size-24 md:size-32" />
-                  <span className="font-mono text-xs">{lead.project.title}</span>
-                </div>
-                <div className="mini-laptop-base" />
-              </div>
-              <div className="flex flex-col p-6 md:col-span-7 md:p-10">
-                <p className="font-mono text-sm text-subtle">
-                  {lead.project.year} · {lead.project.category}
-                </p>
-                <h3 className="mt-3 text-3xl font-semibold md:text-4xl">{lead.project.title}</h3>
-                <p className="mt-4 max-w-[55ch] leading-relaxed text-muted">{lead.project.description}</p>
-                {lead.impact && (
-                  <p className="mt-8 flex items-baseline gap-3 border-t border-line pt-6">
-                    <span className="tabular text-5xl font-semibold tracking-tight text-accent">{lead.impact}</span>
-                    <span className="text-muted">{lead.impactLabel}</span>
-                  </p>
-                )}
-                <div className="mt-auto pt-8">
-                  <ProjectLinks project={lead.project} />
-                </div>
-              </div>
-            </article>
-          </Reveal>
-        )}
-
-        <ul className="mt-5 grid gap-4 md:grid-cols-2 md:gap-5">
-          {others.map((c, i) => (
-            <Reveal as="li" key={c.slug} delay={i * 0.08}>
-              <article className="surface group flex h-full flex-col p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <p className="font-mono text-sm text-subtle">
-                    {c.project.year} · {c.project.category}
-                  </p>
-                  <CategoryGlyph
-                    category={c.project.category}
-                    className="size-12 shrink-0 text-subtle transition-colors group-hover:text-fg"
-                  />
-                </div>
-                <h3 className="mt-2 text-xl font-semibold">{c.project.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{c.project.description}</p>
-                {c.impact && (
-                  <p className="mt-6 flex items-baseline gap-2 border-t border-line pt-5">
-                    <span className="tabular text-3xl font-semibold tracking-tight">{c.impact}</span>
-                    <span className="text-sm text-muted">{c.impactLabel}</span>
-                  </p>
-                )}
-                <div className="mt-auto pt-5">
-                  <ProjectLinks project={c.project} />
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </ul>
-      </section>
-
-      {/* Social proof: a note taped up, and the trophy shelf */}
-      <section aria-labelledby="proof-title" className="container-page pb-28">
+      {/* Social proof: one recommendation and the top placements */}
+      <section aria-labelledby="proof-title" className="container-page pb-24">
         <h2 id="proof-title" className="sr-only">
           What others say
         </h2>
         <div className="grid gap-12 md:grid-cols-12 md:items-start">
           <Reveal className="md:col-span-7">
-            <figure className="paper-card">
-              <span className="paper-tape" aria-hidden="true" />
-              <blockquote className="text-2xl font-medium leading-snug tracking-tight md:text-3xl">
-                &ldquo;{quote.excerpt}&rdquo;
-              </blockquote>
-              <figcaption className="paper-muted mt-6">
-                <span className="font-semibold text-[#20222b]">{quote.name}</span>, {quote.title}.{" "}
-                {quote.relationship}.
+            <figure className="quote-block">
+              <blockquote>&ldquo;{quote.excerpt}&rdquo;</blockquote>
+              <figcaption className="mt-5 text-sm text-muted">
+                <span className="font-semibold text-fg">{quote.name}</span>, {quote.title}. {quote.relationship}.
               </figcaption>
-              <Link href="/testimonials" className="paper-link mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium">
+              <Link
+                href="/testimonials"
+                className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent link-underline"
+              >
                 Read recommendations <ArrowRight aria-hidden className="size-4" />
               </Link>
             </figure>
           </Reveal>
-          <Reveal delay={0.1} className="md:col-span-5">
-            <h3 className="text-sm font-medium text-subtle">On the trophy shelf</h3>
-            <ul className="trophy-shelf mt-4">
-              {topWins.map((w, i) => (
-                <li key={w.title} className="trophy-row">
-                  <svg viewBox="0 0 24 24" className="size-7 shrink-0" fill={cups[i]} aria-hidden="true">
-                    <path d="M7 3h10v3h3v2a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V6h3zm0 5V8H6a2 2 0 0 0 1 1.7zm10 0v1.7A2 2 0 0 0 18 8z" />
-                  </svg>
+          <Reveal delay={0.08} className="md:col-span-5">
+            <h3 className="text-sm font-medium text-subtle">Case competitions</h3>
+            <ul className="ruled-list mt-3">
+              {topWins.map((w) => (
+                <li key={w.title} className="flex items-baseline justify-between gap-4 py-3">
                   <span>
-                    <span className="block font-semibold text-accent">{w.placement}</span>
                     <span className="block font-medium">{w.title}</span>
-                    <time dateTime={w.dateTime} className="block font-mono text-sm text-subtle">
+                    <time dateTime={w.dateTime} className="block font-mono text-xs text-subtle">
                       {w.date}
                     </time>
                   </span>
+                  <span className="shrink-0 font-mono text-sm font-semibold">{w.placement}</span>
                 </li>
               ))}
             </ul>
             <Link
               href="/achievements"
-              className="mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium link-underline"
+              className="mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium link-underline"
             >
               All achievements <ArrowRight aria-hidden className="size-4" />
             </Link>
@@ -287,22 +310,25 @@ function ClassicHome() {
         </div>
       </section>
 
-      {/* Currently, as a notebook page */}
+      {/* Currently */}
       <section aria-labelledby="now-title" className="container-page pb-24">
         <Reveal>
-          <div className="notebook-page grid gap-6 md:grid-cols-12 md:items-center">
+          <div className="surface grid gap-6 p-6 md:grid-cols-12 md:items-center md:p-8">
             <div className="md:col-span-8">
-              <h2 id="now-title" className="paper-muted font-mono text-sm">
-                Currently
+              <h2 id="now-title" className="hero-eyebrow !font-sans !font-normal !tracking-normal">
+                <span className="hero-lamp" aria-hidden="true" /> Currently
               </h2>
-              <p className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+              <p className="mt-3 text-xl font-semibold md:text-2xl">
                 {now.role}, {now.company}
               </p>
-              <p className="mt-2 max-w-[60ch]">{now.focus}</p>
+              <p className="mt-2 max-w-[60ch] text-muted">{now.focus}</p>
             </div>
             <div className="md:col-span-4 md:text-right">
-              <p className="paper-muted font-mono text-sm">{now.period}</p>
-              <Link href="/experience" className="paper-link mt-3 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium">
+              <p className="font-mono text-xs text-subtle">{now.period}</p>
+              <Link
+                href="/experience"
+                className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-accent link-underline"
+              >
                 Full experience <ArrowRight aria-hidden className="size-4" />
               </Link>
             </div>
@@ -310,39 +336,19 @@ function ClassicHome() {
         </Reveal>
       </section>
 
-      {/* Stack marquee (the only one sitewide) */}
-      <section aria-labelledby="stack-title" className="pb-24">
-        <h2 id="stack-title" className="sr-only">
-          Tools and skills
-        </h2>
-        <div className="group relative overflow-hidden border-y border-line py-6 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <ul className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center motion-reduce:gap-y-3 motion-reduce:px-5 motion-reduce:animate-none">
-            {[...stack, ...stack].map((item, i) => (
-              <li
-                key={i}
-                aria-hidden={i >= stack.length || undefined}
-                className={`mx-6 whitespace-nowrap font-mono text-sm text-muted ${i >= stack.length ? "motion-reduce:hidden" : ""}`}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* Close */}
       <section
         aria-labelledby="cta-title"
-        className="container-page grid items-center gap-10 pb-28 pt-8 md:grid-cols-12"
+        className="container-page grid items-end gap-10 pb-24 md:grid-cols-12"
       >
-        <Reveal className="md:col-span-7">
-          <h2 id="cta-title" className="max-w-[18ch] text-4xl font-semibold leading-[1.05] md:text-6xl">
+        <Reveal className="md:col-span-8">
+          <h2 id="cta-title" className="max-w-[18ch] text-4xl leading-[1.05] md:text-6xl">
             Hiring an intern for tech, consulting, or FMCG?
           </h2>
           <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-muted">
             Email is the fastest way to reach me. If you&apos;d rather start with the résumé, it&apos;s one page.
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/contact" className="btn btn-primary">
               Get in touch
             </Link>
@@ -354,9 +360,9 @@ function ClassicHome() {
             </Link>
           </div>
         </Reveal>
-        <div className="mx-auto hidden w-full max-w-[16rem] md:col-span-5 md:block" aria-hidden="true">
+        <div className="mx-auto hidden w-full max-w-[12rem] md:col-span-4 md:block" aria-hidden="true">
           <Kobi2D variant="peek" className="w-full" />
-          <div className="cta-ledge" />
+          <div className="-mt-2 h-px bg-line" />
         </div>
       </section>
     </>

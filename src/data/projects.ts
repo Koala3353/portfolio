@@ -9,6 +9,8 @@ export interface Project {
   github?: string;
   preview?: string;
   featured?: boolean;
+  /** Screenshot in public/projects, shown on cards. */
+  image?: string;
 }
 
 export const categories: ProjectCategory[] = ["Web", "AI", "Bots", "Tools"];
@@ -48,6 +50,7 @@ export const eras: { year: string; label?: string; subtitle: string }[] = [
 export const projects: Project[] = [
   {
     "slug": "he-venue-explorer",
+    "image": "/projects/he-venue-explorer.jpg",
     "title": "HE Venue Explorer",
     "year": "2026",
     "category": "Tools",
@@ -58,6 +61,7 @@ export const projects: Project[] = [
   },
   {
     "slug": "celadon-website",
+    "image": "/projects/celadon-website.jpg",
     "title": "Celadon Website",
     "year": "2026",
     "category": "Web",
@@ -67,6 +71,24 @@ export const projects: Project[] = [
     "featured": true
   },
   {
+    "slug": "leads-applicant-portal",
+    "title": "LEADS Applicant Portal",
+    "year": "2026",
+    "category": "Web",
+    "description": "The first custom applicant portal for LEADS, the Ateneo Management Engineering Association's 3-day offsite leadership camp. Replaced Google Forms with one Google Sheet and an Apps Script web app that takes applicants from application to payment proof, requirements, and room booking. I proposed it and led the 5-person team that built it.",
+    "github": "https://github.com/Koala3353/leads-applicant-portal",
+    "preview": "https://koala3353.github.io/leads-applicant-portal/"
+  },
+  {
+    "slug": "celadon-pm-toolkit",
+    "title": "Celadon PM Toolkit",
+    "year": "2026",
+    "category": "Web",
+    "description": "Ateneo Celadon's Project Manager Toolkit for 2026 to 2027, moved from a Google Site to a searchable static site. Every page is a Markdown file, and it sits behind the same member sign-in as the main Celadon website.",
+    "github": "https://github.com/Koala3353/celadon-pm-toolkit",
+    "preview": "https://pm.ateneoceladon.com/"
+  },
+  {
     "slug": "celaville-wrapped",
     "title": "Celaville Wrapped",
     "year": "2026",
@@ -74,6 +96,15 @@ export const projects: Project[] = [
     "description": "The first CelaWrapped: a Spotify Wrapped-style recap of each member's Recruitment Week activity, with fun facts about Ateneo Celadon's members and their backgrounds.",
     "github": "https://github.com/Koala3353/celaville-wrapped",
     "preview": "https://wrapped.ateneoceladon.com/"
+  },
+  {
+    "slug": "celaville-ctw",
+    "title": "Celaville CTW",
+    "year": "2026",
+    "category": "Web",
+    "description": "A thank-you Wrapped for the core team behind Ateneo Celadon's Recruitment Week and Welcome Week, a companion to Celaville Wrapped.",
+    "github": "https://github.com/Koala3353/celaville-ctw",
+    "preview": "https://ctw.ateneoceladon.com/"
   },
   {
     "slug": "mahjong-leaderboard",
@@ -91,6 +122,7 @@ export const projects: Project[] = [
   },
   {
     "slug": "kandama-market-entry-model",
+    "image": "/projects/kandama-market-entry-model.jpg",
     "title": "Kandama Market Entry Model",
     "year": "2026",
     "category": "Tools",
@@ -98,6 +130,23 @@ export const projects: Project[] = [
     "github": "https://github.com/Koala3353/kandama-model",
     "preview": "https://koala3353.github.io/kandama-model/",
     "featured": true
+  },
+  {
+    "slug": "for-you-delivery-model",
+    "title": "For You Delivery Model",
+    "year": "2026",
+    "category": "Tools",
+    "description": "The model behind every number in our deck for the TikTok Shop SEA Regional Case Challenge 2026, on failed cash-on-delivery orders in the Philippines. Plain Python that sizes the problem by stage and segment, then runs 10,000 simulations for bear, realistic, and bull cases.",
+    "github": "https://github.com/Koala3353/for-you-delivery-model"
+  },
+  {
+    "slug": "enlistment-planner",
+    "title": "AISIS Enlistment Planner",
+    "year": "2026",
+    "category": "Tools",
+    "description": "Single-file web app for planning class enlistment at Ateneo. Paste your AISIS pre-enlistment page, block out personal time, and it ranks the schedule combinations that fit, scored by section priority, professor, and open slots.",
+    "github": "https://github.com/Koala3353/enlistment-planner",
+    "preview": "https://koala3353.github.io/enlistment-planner/"
   },
   {
     "slug": "scht",
@@ -109,7 +158,24 @@ export const projects: Project[] = [
     "preview": "https://scht-admu.vercel.app"
   },
   {
+    "slug": "tabiflow-japan",
+    "title": "TabiFlow Japan",
+    "year": "2026",
+    "category": "AI",
+    "description": "Installable Japan trip planner. Turns trip preferences into a sourced itinerary with route estimates, hotel-area travel times, budget guidance, and swap options, and keeps saved plans available offline.",
+    "github": "https://github.com/Koala3353/tabiflow-japan"
+  },
+  {
+    "slug": "lutong-bahay-share",
+    "title": "Lutong Bahay Share",
+    "year": "2026",
+    "category": "Web",
+    "description": "Class demo for STS 10: restaurants and bakeries post unsold food as discounted pickup bags near closing time. Phones in the room sync live through public Nostr relays, so it runs with no server of its own.",
+    "github": "https://github.com/Koala3353/lutong-bahay-share"
+  },
+  {
     "slug": "splurge",
+    "image": "/projects/splurge.jpg",
     "title": "Splurge",
     "year": "2026",
     "category": "Web",
@@ -122,7 +188,7 @@ export const projects: Project[] = [
     "title": "kbrigado.links",
     "year": "2026",
     "category": "Web",
-    "description": "A Linktree alternative built with Vite, React, and Tailwind CSS. Modern dark theme and a centralized resume sync pipeline.",
+    "description": "My own link page, built with Vite, React, and Tailwind CSS. The résumé link updates itself from the same GitHub repo this site pulls from.",
     "github": "https://github.com/Koala3353/kbrigado-links",
     "preview": "https://koala3353.github.io/kbrigado-links/"
   },
@@ -137,10 +203,11 @@ export const projects: Project[] = [
   },
   {
     "slug": "budge",
+    "image": "/projects/budge.jpg",
     "title": "Budge",
     "year": "2026",
     "category": "Web",
-    "description": "A personal budgeting web app built because existing finance apps had terrible UX. Clean interface for tracking expenses and income with real-time insights. No clutter, no subscriptions.",
+    "description": "Weekly budgeting web app I use myself. Tracks income and expenses week by week, with no sign-up beyond an account key and no subscription.",
     "github": "https://github.com/Koala3353/budge",
     "preview": "https://koala3353.github.io/budge/",
     "featured": true
@@ -150,7 +217,7 @@ export const projects: Project[] = [
     "title": "Poker Chips Tracker",
     "year": "2026",
     "category": "Web",
-    "description": "A sleek, real-time poker chip tracker for Texas Hold'em home games. Built mobile-first for landscape play: no scrolling, no distractions. Made because no existing app got the UX right.",
+    "description": "Real-time chip tracker for Texas Hold'em home games. Built for a phone held sideways, so the whole table fits on one screen with no scrolling.",
     "github": "https://github.com/Koala3353/poker-chips-tracker",
     "preview": "https://poker-chips-tracker.vercel.app"
   },
@@ -174,6 +241,7 @@ export const projects: Project[] = [
   },
   {
     "slug": "celadon-rose-sale-system",
+    "image": "/projects/celadon-rose-sale-system.jpg",
     "title": "Celadon Rose Sale System",
     "year": "2025",
     "category": "Web",
@@ -187,7 +255,7 @@ export const projects: Project[] = [
     "title": "Ripe FX",
     "year": "2025",
     "category": "Web",
-    "description": "Production-ready React widget providing stablecoin-to-fiat conversion transparency in Southeast Asia. Won 2 bounty prizes at Ship or Be Shipped.",
+    "description": "Embeddable React widget that shows stablecoin-to-fiat rates and fees next to what a bank would charge. Built solo in 24 hours and won 2 bounties at Ship or Be Shipped 2025.",
     "github": "https://github.com/Koala3353/Ripe-FX-Transparency-Widget",
     "featured": true
   },
@@ -322,7 +390,7 @@ export const projects: Project[] = [
     "year": "2024",
     "category": "Web",
     "description": "Business website/shop showcasing services, projects, and statistics for freelance development business.",
-    "github": "https://github.com/Koala3353/website-shop",
+    "github": "https://github.com/Koala3353/klickncode",
     "preview": "https://koala3353.github.io/klickncode/"
   },
   {
@@ -403,8 +471,7 @@ export const projects: Project[] = [
     "title": "Ignite Discord Bot",
     "year": "2021",
     "category": "Bots",
-    "description": "Multipurpose bot for a church (GCCP) managed Discord server with every feature imaginable.",
-    "github": "https://github.com/Koala3353/Ignite"
+    "description": "Multipurpose bot for a church (GCCP) managed Discord server with every feature imaginable."
   },
   {
     "slug": "elo-discord-bot",

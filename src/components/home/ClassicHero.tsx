@@ -1,34 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Cube } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
 import Kobi2D from "@/components/desk/Kobi2D";
-import { fredoka } from "@/components/desk/fonts";
+import CopyEmailButton from "@/components/contact/CopyEmailButton";
 import { useManilaClock } from "@/components/desk/hooks";
 import { setHomeView, useDeskCrashed, useWebGL } from "@/components/desk/homeMode";
-import { proofStrip } from "@/data/home";
+import { caseStudies, heroStack, ledger } from "@/data/home";
+import { projects } from "@/data/projects";
 import { lookingFor } from "@/data/services";
 import { site } from "@/lib/site";
 
-/** The top of the regular home: who Keene is, who trusted him with real work, and how to reach him. */
+const topWork = caseStudies.slice(0, 3).flatMap((c) => projects.filter((p) => p.slug === c.slug));
+
+/** The first screen: who Keene is, what he changed, what he builds with, and how to reach him. */
 export default function ClassicHero() {
   const clock = useManilaClock();
   const webgl = useWebGL();
   const crashed = useDeskCrashed();
 
   return (
-    <section aria-labelledby="home-title" className={`classic-hero ${fredoka.variable}`}>
-      <div className="container-page grid items-center gap-12 pb-16 pt-12 md:grid-cols-12 md:pb-24 md:pt-20">
-        <div className="md:col-span-7">
-          <p className="classic-clock font-mono">
-            <span className="classic-lamp" aria-hidden="true" /> Manila, Philippines{" "}
-            <time suppressHydrationWarning>{clock}</time>
+    <section aria-labelledby="home-title">
+      <div className="container-page grid items-center gap-12 pb-12 pt-10 md:pt-14 lg:grid-cols-12 lg:gap-10">
+        <div className="lg:col-span-7">
+          <p className="hero-eyebrow">
+            <span className="hero-lamp" aria-hidden="true" />
+            <span>{lookingFor.headline}</span>
+            <span className="font-mono text-xs">
+              Manila <time suppressHydrationWarning>{clock}</time>
+            </span>
           </p>
-          <h1 id="home-title" className="classic-title">
-            Keene Brigado
+          <h1 id="home-title" className="hero-title">
+            Keene Brigado builds the systems a business runs on
           </h1>
-          <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-muted md:text-xl">
-            Management Engineering at Ateneo. I diagnose how a business runs, then build the systems that fix it.
+          <p className="mt-5 max-w-[50ch] text-lg leading-relaxed text-muted">
+            Management Engineering at Ateneo. Business Systems Consultant at Ritual Matcha, a B2B matcha supplier
+            serving 500+ cafés.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/contact" className="btn btn-primary">
@@ -39,55 +46,103 @@ export default function ClassicHero() {
             </a>
           </div>
 
-          <div className="mt-10 max-w-[34rem]">
-            <p className="font-mono text-sm text-subtle">Recent work</p>
-            <ul className="classic-proof mt-3">
-              {proofStrip.map((p) => (
-                <li key={p.name}>
-                  <span className="font-semibold text-fg">{p.name}</span>
-                  <span className="text-muted">{p.detail}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {webgl && !crashed ? (
-            <button type="button" className="classic-desk-link group" onClick={() => setHomeView("desk")}>
-              <span className="classic-desk-icon" aria-hidden="true">
-                <Cube className="size-6" weight="duotone" />
-              </span>
-              <span className="min-w-0 flex-1 text-left">
-                <span className="block font-semibold text-fg">Explore the 3D desk</span>
-                <span className="block text-sm text-muted">An interactive version of this site, built with three.js</span>
-              </span>
-              <ArrowRight
-                aria-hidden
-                className="size-5 shrink-0 text-subtle transition-transform group-hover:translate-x-1 group-hover:text-accent"
-              />
-            </button>
-          ) : (
-            <p className="classic-note" role="note">
-              {crashed
-                ? "The 3D desk didn't load this time. Everything is on this page too."
-                : "This browser can't draw the 3D desk. Everything is on this page too."}
-            </p>
-          )}
+          <dl className="hero-spec max-w-[36rem]">
+            <div>
+              <dt>Work</dt>
+              <dd>
+                {topWork.map((w) => (
+                  <a
+                    key={w.slug}
+                    href={w.preview ?? w.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline"
+                  >
+                    {w.title}
+                  </a>
+                ))}
+              </dd>
+            </div>
+            <div>
+              <dt>Stack</dt>
+              <dd>
+                {heroStack.map((s) => (
+                  <span key={s}>{s}</span>
+                ))}
+              </dd>
+            </div>
+            <div>
+              <dt>Reach</dt>
+              <dd className="items-center">
+                <span className="inline-flex items-center gap-2">
+                  <a href={`mailto:${site.email}`} className="inline-flex min-h-11 items-center link-underline">
+                    {site.email}
+                  </a>
+                  <CopyEmailButton email={site.email} />
+                </span>
+                <a
+                  href={site.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-1.5 link-underline"
+                >
+                  <LinkedinLogo aria-hidden className="size-4" /> LinkedIn
+                </a>
+                <a
+                  href={site.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-1.5 link-underline"
+                >
+                  <GithubLogo aria-hidden className="size-4" /> GitHub
+                </a>
+              </dd>
+            </div>
+          </dl>
         </div>
 
-        <div className="classic-stage md:col-span-5" aria-hidden="true">
-          <Kobi2D variant="peek" className="classic-kobi" />
-          <div className="classic-card">
-            <p className="classic-card-head font-mono">Open to</p>
-            <ul>
-              {lookingFor.areas.map((a) => (
-                <li key={a}>{a}</li>
-              ))}
-            </ul>
-            <p className="classic-card-foot">Ateneo de Manila · BS Management Engineering</p>
+        <div className="lg:col-span-5">
+          <div className="ledger-stage">
+            <Kobi2D variant="peek" className="ledger-kobi" />
+            <div className="ledger">
+              <div className="ledger-head">
+                <h2>What I changed</h2>
+                <span>before → after</span>
+              </div>
+              <ul>
+                {ledger.map((row, i) => (
+                  <li key={row.what} className="ledger-row" style={{ "--i": i } as React.CSSProperties}>
+                    <span className="ledger-what">
+                      {row.what}
+                      <span className="ledger-where">{row.where}</span>
+                    </span>
+                    <span className="ledger-change">
+                      <span className="ledger-before">
+                        <span className="sr-only">from </span>
+                        {row.before}
+                      </span>
+                      <span className="ledger-after">
+                        <span className="sr-only">to </span>
+                        {row.after}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="mt-3 flex items-center justify-between gap-4">
+              <Link href="/experience" className="desk-link">
+                How each one happened <ArrowRight aria-hidden className="size-4" />
+              </Link>
+              {webgl && !crashed && (
+                <button type="button" className="desk-link" onClick={() => setHomeView("desk")}>
+                  See this as a 3D desk
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      <p className="sr-only">{lookingFor.headline}</p>
     </section>
   );
 }

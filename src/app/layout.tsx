@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Instrument_Sans, Newsreader } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,7 +7,8 @@ import { site } from "@/lib/site";
 import { fredoka } from "@/components/desk/fonts";
 import Boot, { BOOT_SCRIPT } from "@/components/brand/boot";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const ui = Instrument_Sans({ variable: "--font-ui", subsets: ["latin"] });
+const display = Newsreader({ variable: "--font-display-face", subsets: ["latin"], weight: ["400", "500"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -30,8 +31,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f4f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0b0d" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f1e6" },
+    { media: "(prefers-color-scheme: dark)", color: "#10132a" },
   ],
 };
 
@@ -52,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fredoka.variable}`}
+      className={`${ui.variable} ${display.variable} ${geistMono.variable} ${fredoka.variable}`}
       data-theme="dark"
       suppressHydrationWarning
     >
@@ -78,7 +79,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <Footer />
-        <div className="grain" aria-hidden="true" />
       </body>
     </html>
   );
