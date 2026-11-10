@@ -88,7 +88,7 @@ export default function TestimonialsPage() {
               Read additional recommendations and endorsements on my LinkedIn profile.
             </p>
           </div>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-secondary group self-start">
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-secondary group h-auto min-h-11 max-w-full self-start whitespace-normal py-2 text-left">
             View LinkedIn recommendations
             <ArrowUpRight className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
           </a>

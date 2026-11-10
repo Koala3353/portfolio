@@ -110,11 +110,11 @@ function ClassicHome() {
 
         {lead && (
           <Reveal>
-            <article className="surface shot-card grid overflow-hidden md:grid-cols-12">
-              <div className="md:col-span-7 md:border-r md:border-line [&_.shot]:h-full [&_.shot]:border-b-0 max-md:[&_.shot]:border-b">
+            <article className="surface shot-card grid overflow-hidden lg:grid-cols-12">
+              <div className="shot-lead min-w-0 lg:col-span-7">
                 <Shot project={lead.project} priority />
               </div>
-              <div className="flex flex-col p-6 md:col-span-5 md:p-8">
+              <div className="flex min-w-0 flex-col p-6 md:p-8 lg:col-span-5">
                 <p className="font-mono text-xs text-subtle">
                   {lead.project.year} · {lead.project.category}
                 </p>
