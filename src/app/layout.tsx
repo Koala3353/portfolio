@@ -8,7 +8,7 @@ import { fredoka } from "@/components/desk/fonts";
 import Boot, { BOOT_SCRIPT } from "@/components/brand/boot";
 
 const ui = Instrument_Sans({ variable: "--font-ui", subsets: ["latin"] });
-const display = Newsreader({ variable: "--font-display-face", subsets: ["latin"], weight: ["400", "500"] });
+const display = Newsreader({ variable: "--font-display-face", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
