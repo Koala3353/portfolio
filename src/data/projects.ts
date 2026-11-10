@@ -60,6 +60,13 @@ export const projects: Project[] = [
     "featured": true
   },
   {
+    "slug": "rmc-platform",
+    "title": "RMC Platform",
+    "year": "2026",
+    "category": "Web",
+    "description": "Ritual Matcha Co.'s internal platform, which moves the company's operations off Google Sheets and Apps Script onto Postgres and a web app, one system at a time. Built with Astro on Cloudflare Workers and Supabase Postgres, with Google sign-in and row-level security. Private company code, so there is no public link."
+  },
+  {
     "slug": "celadon-website",
     "image": "/projects/celadon-website.jpg",
     "title": "Celadon Website",
@@ -149,6 +156,21 @@ export const projects: Project[] = [
     "preview": "https://koala3353.github.io/enlistment-planner/"
   },
   {
+    "slug": "ceda-console",
+    "title": "CEDA Request Desk",
+    "year": "2026",
+    "category": "AI",
+    "description": "Working prototype of an intake and triage desk for data and AI requests, built with my team for BPI DATA Wave 2026. Requesters describe what they need, the desk checks the request is complete and suggests a type and team, and a named reviewer makes the decision. The AI only suggests and drafts. All data in the demo is made up."
+  },
+  {
+    "slug": "kolmi",
+    "title": "Kolmi",
+    "year": "2026",
+    "category": "Web",
+    "description": "NFC business cards for real estate professionals: one tap shares contact details, social links, and property listings, with no app needed. The same Next.js and Supabase app also runs a property-listing site for real estate companies, with an agent dashboard, inquiries, and Google Sheets sync.",
+    "preview": "https://kolmi.vercel.app"
+  },
+  {
     "slug": "scht",
     "title": "Scht",
     "year": "2026",
@@ -170,7 +192,7 @@ export const projects: Project[] = [
     "title": "Lutong Bahay Share",
     "year": "2026",
     "category": "Web",
-    "description": "Class demo for STS 10: restaurants and bakeries post unsold food as discounted pickup bags near closing time. Phones in the room sync live through public Nostr relays, so it runs with no server of its own.",
+    "description": "School project, built as the demo for my STS 10 class presentation. Restaurants and bakeries post unsold food as discounted pickup bags near closing time. Phones in the room sync live through public Nostr relays, so it runs with no server of its own.",
     "github": "https://github.com/Koala3353/lutong-bahay-share"
   },
   {
