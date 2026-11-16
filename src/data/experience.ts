@@ -104,6 +104,7 @@ const entries: ExperienceEntry[] = [
     start: "2026-09", end: null,
     bullets: [
       "Proposed and led a 5-person team to build MEA's first custom applicant portal, replacing Google Forms with an immersive, story-themed web app for LEADS, MEA's 3-day offsite leadership camp",
+      "Drew a record 142 applicants, up from about 85 the year before and past the previous all-time high of 110",
       "Built the Google Sheets backend for 100+ participants, automating participant tracking, email blasts, and grouping attendees into families across multiple factors, saving 8+ hours of manual work",
     ],
     tags: ["Event Logistics", "Google Apps Script", "Team Collaboration"],

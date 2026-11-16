@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Cube, GithubLogo, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
 import Kobi2D from "@/components/desk/Kobi2D";
 import CopyEmailButton from "@/components/contact/CopyEmailButton";
 import { useManilaClock } from "@/components/desk/hooks";
@@ -18,6 +18,7 @@ export default function ClassicHero() {
   const clock = useManilaClock();
   const webgl = useWebGL();
   const crashed = useDeskCrashed();
+  const desk3d = webgl && !crashed;
 
   return (
     <section aria-labelledby="home-title">
@@ -44,6 +45,12 @@ export default function ClassicHero() {
             <a href={site.resume} download className="btn btn-secondary">
               Download résumé
             </a>
+            {desk3d && (
+              <button type="button" className="btn btn-desk" onClick={() => setHomeView("desk")}>
+                <Cube aria-hidden weight="duotone" className="size-5" />
+                Explore in 3D
+              </button>
+            )}
           </div>
 
           <dl className="hero-spec max-w-[36rem]">
@@ -130,16 +137,23 @@ export default function ClassicHero() {
                 ))}
               </ul>
             </div>
-            <div className="mt-3 flex items-center justify-between gap-4">
+            <div className="mt-3">
               <Link href="/experience" className="desk-link">
                 How each one happened <ArrowRight aria-hidden className="size-4" />
               </Link>
-              {webgl && !crashed && (
-                <button type="button" className="desk-link" onClick={() => setHomeView("desk")}>
-                  See this as a 3D desk
-                </button>
-              )}
             </div>
+            {desk3d && (
+              <button type="button" className="desk-card group" onClick={() => setHomeView("desk")}>
+                <span className="desk-card-icon" aria-hidden="true">
+                  <Cube weight="duotone" className="size-6" />
+                </span>
+                <span className="min-w-0 flex-1 text-left">
+                  <span className="block font-semibold">Step into my 3D desk</span>
+                  <span className="block text-sm text-muted">This whole site as a room you can click around</span>
+                </span>
+                <ArrowRight aria-hidden className="size-5 shrink-0 transition-transform group-hover:translate-x-1" />
+              </button>
+            )}
           </div>
         </div>
       </div>

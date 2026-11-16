@@ -43,7 +43,7 @@ function Shot({ project, priority }: { project: Project; priority?: boolean }) {
         alt={`Screenshot of ${project.title}`}
         width={1600}
         height={900}
-        sizes="(min-width: 768px) 50vw, 100vw"
+        sizes="(min-width: 640px) 50vw, 100vw"
         priority={priority}
       />
     </div>
@@ -97,7 +97,7 @@ function ClassicHome() {
             </h2>
             <p className="mt-3 max-w-[58ch] leading-relaxed text-muted">
               Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also a student org&apos;s
-              online store, a market-entry model, and that org&apos;s first website.
+              first website, two money apps I use myself, and a bakery&apos;s online storefront.
             </p>
           </div>
           <Link
@@ -134,7 +134,7 @@ function ClassicHome() {
           </Reveal>
         )}
 
-        <ul className="mt-5 grid gap-5 md:grid-cols-3">
+        <ul className="mt-5 grid gap-5 sm:grid-cols-2">
           {others.map((c, i) => (
             <Reveal as="li" key={c.slug} delay={i * 0.06}>
               <article className="surface shot-card flex h-full flex-col overflow-hidden">

@@ -82,7 +82,7 @@ export const projects: Project[] = [
     "title": "LEADS Applicant Portal",
     "year": "2026",
     "category": "Web",
-    "description": "The first custom applicant portal for LEADS, the Ateneo Management Engineering Association's 3-day offsite leadership camp. Replaced Google Forms with one Google Sheet and an Apps Script web app that takes applicants from application to payment proof, requirements, and room booking. I proposed it and led the 5-person team that built it.",
+    "description": "The first custom applicant portal for LEADS, the Ateneo Management Engineering Association's 3-day offsite leadership camp. Replaced Google Forms with one Google Sheet and an Apps Script web app that takes applicants from application to payment proof, requirements, and room booking. I proposed it and led the 5-person team that built it. LEADS drew 142 applicants this year, a new record: the old high was 110, and last year had about 85.",
     "github": "https://github.com/Koala3353/leads-applicant-portal",
     "preview": "https://koala3353.github.io/leads-applicant-portal/"
   },
@@ -390,12 +390,14 @@ export const projects: Project[] = [
   },
   {
     "slug": "bakery-website",
-    "title": "Bakery Website",
+    "image": "/projects/bakery-website.jpg",
+    "title": "The Little Baker Kitchen",
     "year": "2024",
     "category": "Web",
-    "description": "Paid client website for a bakery displaying pastries and cakes, with products retrieved from a MongoDB database.",
+    "description": "Paid client storefront for The Little Baker Kitchen, a custom cake and pastry shop in Quezon City. Customers browse cakes and past designs pulled from a database, read the promo blog, and send catering inquiries through the contact form.",
     "github": "https://github.com/Koala3353/bakery-website",
-    "preview": "https://koala3353.github.io/bakery-website/"
+    "preview": "https://thelittlebakerkitchen.com/",
+    "featured": true
   },
   {
     "slug": "portfolio-website",

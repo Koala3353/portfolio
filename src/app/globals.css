@@ -614,6 +614,22 @@ p { text-wrap: pretty; }
 }
 .desk-link:hover { color: var(--fg); text-decoration-color: var(--accent); }
 
+/* The way into the 3D desk: a highlighter-coloured button and a card, so it is hard to miss. */
+@utility btn-desk {
+  background: color-mix(in srgb, var(--mark) 28%, transparent);
+  color: var(--fg);
+  border: 1.5px solid var(--mark);
+  &:hover { background: color-mix(in srgb, var(--mark) 55%, transparent); }
+}
+.desk-card {
+  margin-top: 0.75rem; display: flex; align-items: center; gap: 1rem; width: 100%; padding: 0.875rem 1rem; cursor: pointer;
+  border: 1.5px solid var(--mark); border-radius: 0.875rem; background: color-mix(in srgb, var(--mark) 16%, var(--surface));
+  transition: background-color 160ms, transform 160ms var(--ease-out-expo);
+}
+.desk-card:hover { background: color-mix(in srgb, var(--mark) 32%, var(--surface)); }
+.desk-card:active { transform: scale(0.99); }
+.desk-card-icon { display: grid; place-items: center; flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: 0.625rem; background: var(--mark); color: var(--mark-fg); }
+
 /* Screenshots: a plain window frame, the image does the talking. */
 .shot { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface-2); aspect-ratio: 16 / 9; }
 .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 500ms var(--ease-out-expo); }

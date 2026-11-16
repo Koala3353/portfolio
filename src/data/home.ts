@@ -23,6 +23,7 @@ export const ledger = [
   { what: "Monthly sales report", where: "Ritual Matcha Co.", before: "1+ day", after: "live" },
   { what: "Payroll data reporting", where: "Amada Corporation", before: "1 day", after: "< 20 min" },
   { what: "Finding a free room", where: "Ateneo de Manila", before: "152 calendars", after: "1 search" },
+  { what: "LEADS camp applicants", where: "Ateneo MEA", before: "~85", after: "142, a record" },
 ] as const;
 
 /** Derived from the newest work role in src/data/experience.ts. */
@@ -39,13 +40,14 @@ export const now = {
  */
 export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
   { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
-  { slug: "celadon-rose-sale-system", impact: "~850", impactLabel: "people used it" },
-  { slug: "kandama-market-entry-model" },
   { slug: "celadon-website" },
+  { slug: "budge" },
+  { slug: "splurge" },
+  { slug: "bakery-website", impact: "+25%", impactLabel: "catering inquiries from the contact form" },
 ];
 
 /** Smaller builds listed under the case studies, by slug. */
-export const alsoBuilt = ["budge", "splurge", "ripe-fx", "pop-portal"];
+export const alsoBuilt = ["leads-applicant-portal", "celadon-rose-sale-system", "kandama-market-entry-model", "ripe-fx"];
 
 /**
  * The three paths Keene is open to, each with proof from the résumé.
