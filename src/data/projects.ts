@@ -196,6 +196,14 @@ export const projects: Project[] = [
     "github": "https://github.com/Koala3353/lutong-bahay-share"
   },
   {
+    "slug": "bulok",
+    "title": "Bulok",
+    "year": "2026",
+    "category": "Tools",
+    "description": "An algorithmic ASCII art piece about the commodification of our food systems, written in Python. It was chosen as the top artwork of the class and displayed in an art exhibition.",
+    "github": "https://github.com/Koala3353/bulok"
+  },
+  {
     "slug": "splurge",
     "image": "/projects/splurge.jpg",
     "title": "Splurge",
@@ -362,14 +370,6 @@ export const projects: Project[] = [
     "category": "Bots",
     "description": "RPG Discord bot made for Hackclub's game jam with the theme of loopholes.",
     "github": "https://github.com/Koala3353/rpg-discord-bot"
-  },
-  {
-    "slug": "bulok",
-    "title": "Bulok",
-    "year": "2025",
-    "category": "Tools",
-    "description": "An algorithmic ASCII art piece exploring the commodification of our food systems.",
-    "github": "https://github.com/Koala3353/bulok"
   },
   {
     "slug": "fll-website",
