@@ -43,7 +43,7 @@ export const caseStudies: { slug: string; impact?: string; impactLabel?: string 
   { slug: "celadon-website" },
   { slug: "budge" },
   { slug: "splurge" },
-  { slug: "bakery-website", impact: "+25%", impactLabel: "catering inquiries from the contact form" },
+  { slug: "tuft", impact: "6", impactLabel: "kinds of weather, from snow to fireflies" },
 ];
 
 /** Smaller builds listed under the case studies, by slug. */

@@ -60,7 +60,7 @@ function ProjectLinks({ project }: { project: Project }) {
           rel="noopener noreferrer"
           className="inline-flex min-h-11 items-center gap-1.5 font-medium text-accent link-underline"
         >
-          Live demo <ArrowUpRight aria-hidden className="size-4" />
+          {project.previewLabel ?? "Live demo"} <ArrowUpRight aria-hidden className="size-4" />
         </a>
       )}
       {project.github && (
@@ -97,7 +97,7 @@ function ClassicHome() {
             </h2>
             <p className="mt-3 max-w-[58ch] leading-relaxed text-muted">
               Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also a student org&apos;s
-              first website, two money apps I use myself, and a bakery&apos;s online storefront.
+              first website, two money apps I use myself, and a Mac app that puts weather and a pet on your desktop.
             </p>
           </div>
           <Link

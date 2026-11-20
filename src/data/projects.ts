@@ -9,6 +9,8 @@ export interface Project {
   github?: string;
   preview?: string;
   featured?: boolean;
+  /** Label for the preview link when it is not a live demo, e.g. "Download". */
+  previewLabel?: string;
   /** Screenshot in public/projects, shown on cards. */
   image?: string;
 }
@@ -65,6 +67,18 @@ export const projects: Project[] = [
     "year": "2026",
     "category": "Web",
     "description": "Ritual Matcha Co.'s internal platform, which moves the company's operations off Google Sheets and Apps Script onto Postgres and a web app, one system at a time. Built with Astro on Cloudflare Workers and Supabase Postgres, with Google sign-in and row-level security. Private company code, so there is no public link."
+  },
+  {
+    "slug": "tuft",
+    "image": "/projects/tuft.jpg",
+    "title": "Tuft",
+    "year": "2026",
+    "category": "Tools",
+    "description": "A small menu bar app for macOS, written in Swift, that puts weather, painted wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, and a fox, cat, dog or egg lives beside the Dock and reacts to what you do. It needs no permissions and hides itself during calls.",
+    "github": "https://github.com/Koala3353/tuft",
+    "preview": "https://github.com/Koala3353/tuft/releases/latest",
+    "previewLabel": "Download for Mac",
+    "featured": true
   },
   {
     "slug": "celadon-website",

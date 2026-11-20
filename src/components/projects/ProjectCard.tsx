@@ -49,9 +49,9 @@ export default function ProjectCard({ project: p }: { project: Project }) {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-11 items-center gap-1.5 text-accent link-underline"
-            aria-label={`${p.title} live demo`}
+            aria-label={`${p.title}: ${p.previewLabel ?? "live demo"}`}
           >
-            Live demo <ArrowUpRight aria-hidden className="size-4" />
+            {p.previewLabel ?? "Live demo"} <ArrowUpRight aria-hidden className="size-4" />
           </a>
         )}
       </div>
