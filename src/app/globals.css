@@ -634,6 +634,8 @@ p { text-wrap: pretty; }
 .shot { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--surface-2); aspect-ratio: 16 / 9; }
 .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 500ms var(--ease-out-expo); }
 .shot-card:hover .shot img { transform: scale(1.03); }
+/* Recorded demos are 16:10 with the Dock at the bottom, so anchor them there when the card trims them to 16:9. */
+.shot img[src$=".gif"] { object-position: bottom; }
 /* Lead card: beside the text from 1024px, the screenshot fills its column's height instead of forcing 16:9 (which overflowed into the text). */
 @media (width >= 1024px) {
   .shot-lead { border-right: 1px solid var(--line); }

@@ -70,11 +70,11 @@ export const projects: Project[] = [
   },
   {
     "slug": "tuft",
-    "image": "/projects/tuft.jpg",
+    "image": "/projects/tuft.gif",
     "title": "Tuft",
     "year": "2026",
     "category": "Tools",
-    "description": "A small menu bar app for macOS, written in Swift, that puts weather, painted wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, and a fox, cat, dog or egg lives beside the Dock and reacts to what you do. It needs no permissions and hides itself during calls.",
+    "description": "A small menu bar app for macOS, written in Swift, that puts weather, painted wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, and a fox, cat, bunny, panda or one of four other pets lives beside the Dock and reacts to what you do. It needs no permissions and hides itself during calls.",
     "github": "https://github.com/Koala3353/tuft",
     "preview": "https://github.com/Koala3353/tuft/releases/latest",
     "previewLabel": "Download for Mac",
