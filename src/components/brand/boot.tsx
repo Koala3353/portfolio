@@ -10,11 +10,6 @@ export default function Boot() {
       <div className="boot-stage">
         <div className="boot-mark" dangerouslySetInnerHTML={{ __html: MARK_SVG }} />
         <p className="boot-name">Keene Brigado</p>
-        <p className="boot-line">
-          Tidying up the desk<span>.</span>
-          <span>.</span>
-          <span>.</span>
-        </p>
         <div className="boot-bar">
           <i />
         </div>

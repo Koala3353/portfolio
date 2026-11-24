@@ -40,14 +40,14 @@ export const now = {
  */
 export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
   { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
-  { slug: "celadon-website" },
+  { slug: "setstamp", impact: "1,383", impactLabel: "exercises, searchable with no signal" },
   { slug: "budge" },
   { slug: "splurge" },
   { slug: "tuft", impact: "6", impactLabel: "kinds of weather, from snow to fireflies" },
 ];
 
 /** Smaller builds listed under the case studies, by slug. */
-export const alsoBuilt = ["leads-applicant-portal", "celadon-rose-sale-system", "kandama-market-entry-model", "ripe-fx"];
+export const alsoBuilt = ["celadon-website", "leads-applicant-portal", "celadon-rose-sale-system", "kandama-market-entry-model", "ripe-fx"];
 
 /**
  * The three paths Keene is open to, each with proof from the résumé.

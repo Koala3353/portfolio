@@ -96,8 +96,9 @@ function ClassicHome() {
               Selected work
             </h2>
             <p className="mt-3 max-w-[58ch] leading-relaxed text-muted">
-              Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also a student org&apos;s
-              first website, two money apps I use myself, and a Mac app that puts weather and a pet on your desktop.
+              Booking a room at Ateneo meant checking 152 calendars, so I built one search. Also a lifting log
+              that works with no signal, two money apps I use myself, and a Mac app that puts weather and a pet on
+              your desktop.
             </p>
           </div>
           <Link

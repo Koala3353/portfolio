@@ -69,12 +69,23 @@ export const projects: Project[] = [
     "description": "Ritual Matcha Co.'s internal platform, which moves the company's operations off Google Sheets and Apps Script onto Postgres and a web app, one system at a time. Built with Astro on Cloudflare Workers and Supabase Postgres, with Google sign-in and row-level security. Private company code, so there is no public link."
   },
   {
+    "slug": "setstamp",
+    "image": "/projects/setstamp.jpg",
+    "title": "Setstamp",
+    "year": "2026",
+    "category": "Web",
+    "description": "A free lifting log that works with no signal. Sets save to the phone first and sync when you are back online. Weight and reps are prefilled from last time, and logging a set starts the rest timer. It has 1,383 exercises with search that handles typos, programs from templates, and progress with personal records and a body map of weekly sets per muscle. An installable web app built with React, Vite and Convex.",
+    "github": "https://github.com/Koala3353/setstamp",
+    "preview": "https://koala3353.github.io/setstamp/",
+    "featured": true
+  },
+  {
     "slug": "tuft",
     "image": "/projects/tuft.gif",
     "title": "Tuft",
     "year": "2026",
     "category": "Tools",
-    "description": "A small menu bar app for macOS, written in Swift, that puts weather, painted wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, and a fox, cat, bunny, panda or one of four other pets lives beside the Dock and reacts to what you do. It needs no permissions and hides itself during calls.",
+    "description": "A small menu bar app for macOS, written in Swift, that puts weather, painted wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, and a fox, cat, bunny, panda or one of four other pets lives beside the Dock, reacts to your typing and music, and can be picked up and thrown. It needs no permissions and hides itself during calls.",
     "github": "https://github.com/Koala3353/tuft",
     "preview": "https://github.com/Koala3353/tuft/releases/latest",
     "previewLabel": "Download for Mac",
@@ -86,7 +97,7 @@ export const projects: Project[] = [
     "title": "Celadon Website",
     "year": "2026",
     "category": "Web",
-    "description": "Celadon's first professional website, with an applicant portal and a project manager toolkit. Ateneo Celadon is the Filipino-Chinese student organization at Ateneo.",
+    "description": "Celadon's first professional website, with an applicant portal, a project manager toolkit and a workshops library for members. Ateneo Celadon is the Filipino-Chinese student organization at Ateneo.",
     "github": "https://github.com/Koala3353/celadon-website",
     "preview": "https://ateneoceladon.com/",
     "featured": true
@@ -251,7 +262,7 @@ export const projects: Project[] = [
     "title": "Budge",
     "year": "2026",
     "category": "Web",
-    "description": "Weekly budgeting web app I use myself. Tracks income and expenses week by week, with no sign-up beyond an account key and no subscription.",
+    "description": "Weekly budgeting web app I use myself. Tracks income and expenses week by week, with no sign-up beyond an account key and no subscription. It works offline and merges changes when you are back online, and comes in six colour themes.",
     "github": "https://github.com/Koala3353/budge",
     "preview": "https://koala3353.github.io/budge/",
     "featured": true
@@ -418,7 +429,7 @@ export const projects: Project[] = [
     "title": "Portfolio Website",
     "year": "2024",
     "category": "Web",
-    "description": "Personal portfolio showcasing projects and expertise (previous version).",
+    "description": "This site. First built in 2024 and rebuilt in 2026 with Next.js, with a résumé that updates itself from a separate GitHub repo and an optional 3D desk.",
     "github": "https://github.com/Koala3353/portfolio",
     "preview": "https://koala3353.github.io/portfolio/"
   },

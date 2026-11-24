@@ -9,7 +9,7 @@ import { useLocalHour, useManilaClock, useTypewriter } from "./hooks";
 import { reportDeskCrash, setHomeView } from "./homeMode";
 import LaptopScreen from "./LaptopScreen";
 import NotebookPages from "./NotebookPages";
-import BootLamp from "./BootLamp";
+import { MARK_SVG } from "@/components/brand/markSvg";
 import ObjectPanel, { type PanelId } from "./ObjectPanels";
 import {
   deskObjects,
@@ -174,12 +174,11 @@ export default function DeskHome() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <BootLamp />
-            <p className="desk-boot-text font-mono">
-              Turning on the desk lamp<span>.</span>
-              <span>.</span>
-              <span>.</span>
-            </p>
+            <div className="desk-boot-mark" aria-hidden="true" dangerouslySetInnerHTML={{ __html: MARK_SVG }} />
+            <p className="desk-boot-text">Loading the 3D desk</p>
+            <div className="desk-boot-bar" aria-hidden="true">
+              <i />
+            </div>
             {slow ? (
               <div className="desk-boot-slow">
                 <p>Taking a while? The regular version has everything too.</p>
