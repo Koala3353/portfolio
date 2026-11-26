@@ -234,7 +234,7 @@ export const projects: Project[] = [
     "title": "Splurge",
     "year": "2026",
     "category": "Web",
-    "description": "Mobile-first bill-splitting PWA for tracking outings with friends. Scans receipts with OCR, splits costs proportionally, and logs payments over time.",
+    "description": "Bill-splitting web app for group dinners where one person pays and everyone settles up later. Scan the receipt, assign each line to whoever had it, and send reminders through the phone's share sheet. Shares are worked out in whole centavos, so the parts always add up to the total. Everything stays on your device, with no account. I tested the receipt scanner on real receipt photos and raised the line items it recovers from 12.5% to about 57%.",
     "github": "https://github.com/Koala3353/splurge",
     "preview": "https://koala3353.github.io/splurge/"
   },

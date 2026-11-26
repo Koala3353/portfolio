@@ -42,7 +42,7 @@ export const caseStudies: { slug: string; impact?: string; impactLabel?: string 
   { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
   { slug: "setstamp", impact: "1,383", impactLabel: "exercises, searchable with no signal" },
   { slug: "budge" },
-  { slug: "splurge" },
+  { slug: "splurge", impact: "57%", impactLabel: "of receipt lines read by the scanner, up from 12.5%" },
   { slug: "tuft", impact: "6", impactLabel: "kinds of weather, from snow to fireflies" },
 ];
 
