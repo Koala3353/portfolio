@@ -36,14 +36,39 @@ export const now = {
 
 /**
  * Home case studies, in display order (first is the lead card).
- * `impact` is optional and must restate a fact already in the project data.
+ * `blurb` is the short home-page text (about 45 words, so the cards match); without one the card
+ * uses the project's full description. `impact` is optional and must restate a fact already in the project data.
  */
-export const caseStudies: { slug: string; impact?: string; impactLabel?: string }[] = [
+export const caseStudies: { slug: string; blurb?: string; impact?: string; impactLabel?: string }[] = [
   { slug: "he-venue-explorer", impact: "152", impactLabel: "venue calendars in one search" },
-  { slug: "setstamp", impact: "1,383", impactLabel: "exercises, searchable with no signal" },
-  { slug: "budge" },
-  { slug: "splurge", impact: "57%", impactLabel: "of receipt lines read by the scanner, up from 12.5%" },
-  { slug: "tuft", impact: "8", impactLabel: "pets, and six kinds of weather from snow to fireflies" },
+  {
+    slug: "setstamp",
+    blurb:
+      "A free lifting log that works with no signal. Sets save to the phone first and sync when you are back online. Weight and reps are prefilled from last time, and logging a set starts the rest timer. Built with React, Vite and Convex.",
+    impact: "1,383",
+    impactLabel: "exercises, searchable with no signal",
+  },
+  {
+    slug: "budge",
+    blurb:
+      "Weekly budgeting web app I use myself. Type an amount, tap a category and save, and it tracks income and spending week by week. It works offline and merges changes when you are back online. No sign-up beyond an account key, and no subscription.",
+    impact: "6",
+    impactLabel: "colour themes, and it works offline",
+  },
+  {
+    slug: "splurge",
+    blurb:
+      "Bill-splitting web app for group dinners where one person pays and everyone settles up later. Scan the receipt, assign each line to whoever had it, and send reminders from the share sheet. Shares are worked out in whole centavos, so the parts always add up.",
+    impact: "57%",
+    impactLabel: "of receipt lines read by the scanner, up from 12.5%",
+  },
+  {
+    slug: "tuft",
+    blurb:
+      "A small menu bar app for macOS, written in Swift, that puts weather, scene wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock. Pets can be picked up and thrown, and one can close social media tabs while you focus.",
+    impact: "8",
+    impactLabel: "pets, and six kinds of weather from snow to fireflies",
+  },
 ];
 
 /** Smaller builds listed under the case studies, by slug. */

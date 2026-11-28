@@ -120,7 +120,7 @@ function ClassicHome() {
                   {lead.project.year} · {lead.project.category}
                 </p>
                 <h3 className="mt-2 text-2xl font-semibold">{lead.project.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{lead.project.description}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">{lead.blurb ?? lead.project.description}</p>
                 {lead.impact && (
                   <p className="mt-6 flex items-baseline gap-3 border-t border-line pt-5">
                     <span className="mark tabular font-mono text-3xl font-semibold">{lead.impact}</span>
@@ -145,7 +145,7 @@ function ClassicHome() {
                     {c.project.year} · {c.project.category}
                   </p>
                   <h3 className="mt-2 text-lg font-semibold">{c.project.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.project.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{c.blurb ?? c.project.description}</p>
                   {c.impact && (
                     <p className="mt-4 flex items-baseline gap-2">
                       <span className="tabular font-mono text-xl font-semibold">{c.impact}</span>
