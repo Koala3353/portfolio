@@ -104,6 +104,7 @@ export const projects: Project[] = [
   },
   {
     "slug": "leads-applicant-portal",
+    "image": "/projects/leads-applicant-portal.jpg",
     "title": "LEADS Applicant Portal",
     "year": "2026",
     "category": "Web",
