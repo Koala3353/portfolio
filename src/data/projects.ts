@@ -85,7 +85,7 @@ export const projects: Project[] = [
     "title": "Tuft",
     "year": "2026",
     "category": "Tools",
-    "description": "A small menu bar app for macOS, written in Swift, that puts weather, painted wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, and a fox, cat, bunny, panda or one of four other pets lives beside the Dock, reacts to your typing and music, and can be picked up and thrown. It needs no permissions and hides itself during calls.",
+    "description": "A small menu bar app for macOS, written in Swift, that puts weather, scene wallpapers and a pet on your desktop. Snow piles up on your windows and the Dock and slides off when you drag them, rain leaves puddles, and autumn leaves gather in heaps. A fox, cat, bunny, panda or one of four other pets lives beside the Dock, can be picked up and thrown, and dances when music is on. Two pets play catch and build a snowman together, and can have babies. A focus timer puts the pets to sleep while you work, and if you open social media a pet can fly up and close the tab. It hides during calls and needs no permissions unless you turn on the social media feature.",
     "github": "https://github.com/Koala3353/tuft",
     "preview": "https://github.com/Koala3353/tuft/releases/latest",
     "previewLabel": "Download for Mac",

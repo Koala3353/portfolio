@@ -43,7 +43,7 @@ export const caseStudies: { slug: string; impact?: string; impactLabel?: string 
   { slug: "setstamp", impact: "1,383", impactLabel: "exercises, searchable with no signal" },
   { slug: "budge" },
   { slug: "splurge", impact: "57%", impactLabel: "of receipt lines read by the scanner, up from 12.5%" },
-  { slug: "tuft", impact: "6", impactLabel: "kinds of weather, from snow to fireflies" },
+  { slug: "tuft", impact: "8", impactLabel: "pets, and six kinds of weather from snow to fireflies" },
 ];
 
 /** Smaller builds listed under the case studies, by slug. */
